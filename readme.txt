@@ -2,7 +2,7 @@
 Contributors: DeannaS, kgraeme
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats 
 Requires at least: 2.7
-Tested up to: 2.8.5.2
+Tested up to: 2.9.1.1
 Stable tag: trunk
 
 
