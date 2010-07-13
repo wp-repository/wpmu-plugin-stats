@@ -9,7 +9,6 @@ Stable tag: trunk
 
 Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on. For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Commander</a> or <a href="http://wpmudev.org/project/wpmu-plugin-manager">Plugin Manager</a>, it also provides information on which plugins are auto activated, user controlled, or supporter-controlled (for Plugin Manager). 
 
-
 == Description ==
 Included files:
 
@@ -35,4 +34,6 @@ Data is regenerated on viewing the plugin stats page if the data is more than on
 2. Administrator view of list of plugins installed with Plugin Commander settings.
 3. Administrator view of list of plugins intalled with Plugin Manager settings. (View also shows regenerate button.)
 
+== Changelog ==
 
+1.1 - minor tweak to eliminate content shift

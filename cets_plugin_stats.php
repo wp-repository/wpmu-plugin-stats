@@ -8,7 +8,7 @@ Plugin URI:
 
 Description: WordPress plugin for letting site admins easily see what themes are actively used on their site
 
-Version: 1.0
+Version: 1.1
 
 Author: Kevin Graeme & Deanna Schneider
 
@@ -202,7 +202,7 @@ function plugin_stats_page(){
 					?>
 					<th class="nocase">Activated Sitewide</th>
 					<th class="num">Total Blogs</th>
-					<th>Blog Titles</th>
+					<th width="200px">Blog Titles</th>
 
 				</tr>
 			</thead>
