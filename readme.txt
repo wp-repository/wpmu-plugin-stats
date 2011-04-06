@@ -1,8 +1,8 @@
 === WPMU Plugin Stats ===
-Contributors: DeannaS, kgraeme
+Contributors: DeannaS, kgraeme, MadtownLems
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats 
-Requires at least: 2.7
-Tested up to: 3.0
+Requires at least: 3.0
+Tested up to: 3.1.1
 Stable tag: trunk
 
 
@@ -26,7 +26,8 @@ Data is regenerated on viewing the plugin stats page if the data is more than on
 == Installation ==
 
 1. Place the cets\_plugin\_info.php file and directory in the wp-content/mu-plugins folder.
-1. Go to site admin -> Plugin Stats to view information.
+1. In 3.0, go to site admin -> Plugin Stats to view information.
+1. In 3.1+, go to network admin -> Plugins -> Plugin Stats to view information.
 
 == Screenshots ==
 
@@ -36,4 +37,5 @@ Data is regenerated on viewing the plugin stats page if the data is more than on
 
 == Changelog ==
 
+1.2 - updated for new network admin menu in 3.1, eliminated use of plugin on less than WP 3.0
 1.1 - minor tweak to eliminate content shift

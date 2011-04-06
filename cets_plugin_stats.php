@@ -8,9 +8,9 @@ Plugin URI:
 
 Description: WordPress plugin for letting site admins easily see what themes are actively used on their site
 
-Version: 1.1
+Version: 1.2
 
-Author: Kevin Graeme & Deanna Schneider
+Author: Kevin Graeme & Deanna Schneider & Jason Lemahieu
 
 
 Copyright:
@@ -26,7 +26,22 @@ class cets_Plugin_Stats {
 
 
 function cets_plugin_stats() {
-	add_action('admin_menu', array(&$this, 'plugin_stats_add_page'));
+	global $wp_version;
+	//only run this code if we're at at least version 3.0
+	if ( version_compare( $wp_version, '3.0', '>=' ) ) {
+		
+		// Add the site admin config page
+		if (function_exists('is_network_admin')) {
+			add_action('network_admin_menu', array(&$this, 'plugin_stats_add_page'));
+		}
+		else{
+			add_action('admin_menu', array(&$this, 'plugin_stats_add_page'));
+		}	
+	}
+	else{
+		
+		return;
+	}
 }
 			
 
@@ -90,10 +105,20 @@ function generate_plugin_blog_list() {
 
 // Create a function to add a menu item for site admins
 function plugin_stats_add_page() {
-	// Add a submenu
 	if(is_site_admin()) {
-	$page=	add_submenu_page('wpmu-admin.php', 'Plugin Stats', 'Plugin Stats', 0, basename(__FILE__), array(&$this, 'plugin_stats_page'));
-	wp_enqueue_script('jquery');
+		if (function_exists('is_network_admin')){
+			//+3.1
+			$page=	add_submenu_page('plugins.php', 'Plugin Stats', 'Plugin Stats', 0, basename(__FILE__), array(&$this, 'plugin_stats_page'));
+			
+		}
+		else{
+			//-3.1
+			$page=	add_submenu_page('wpmu-admin.php', 'Plugin Stats', 'Plugin Stats', 0, basename(__FILE__), array(&$this, 'plugin_stats_page'));
+			
+		}
+		
+		wp_enqueue_script('jquery');
+		
 	
 	}
 
