@@ -2,15 +2,15 @@
 
 /******************************************************************************************************************
  
-Plugin Name: Theme Info
+Plugin Name: Plugin Stats
 
 Plugin URI:
 
-Description: WordPress plugin for letting site admins easily see what themes are actively used on their site
+Description: WordPress plugin for letting site admins easily see what plugins are actively used on their site
 
-Version: 1.2
+Version: 1.3.1
 
-Author: Kevin Graeme & Deanna Schneider & Jason Lemahieu
+Author: Kevin Graeme, Deanna Schneider & Jason Lemahieu
 
 
 Copyright:
@@ -54,6 +54,8 @@ function generate_plugin_blog_list() {
 		$processedplugins = array();
 		
 		$plugins = get_plugins();
+	
+		
 		if ($blogs) {
 		foreach ($blogs as $blog) {
 			
@@ -67,21 +69,34 @@ function generate_plugin_blog_list() {
 			$blog_info = array('name' => get_bloginfo('name'), 'url' => $blogurl);
 			
 			$active_plugins = get_option('active_plugins');
+						
+			
 			if (sizeOf($active_plugins) > 0) {
 				foreach($active_plugins as $plugin){
-					$this_plugin = $plugins[$plugin];
-					if (is_array($this_plugin['blogs'])){
-						array_push($this_plugin['blogs'], $blog_info);
+					
+					//jason adding check for plugin existing on system
+					if (isset($plugins[$plugin])) {
+					
+						$this_plugin = $plugins[$plugin];
+						if (isset($this_plugin['blogs']) && is_array($this_plugin['blogs'])){
+							array_push($this_plugin['blogs'], $blog_info);
+						} else {
+							$this_plugin['blogs'] = array();
+							array_push($this_plugin['blogs'], $blog_info);
+						}
+						unset($plugins[$plugin]);
+						$plugins[$plugin] =  $this_plugin;
+					
+					} else {
+						//this 'active' plugin is no longer on the system, so do nothing here?  (or could theoretically deactivate across all sites)
+						//unset($plugins[$plugin]);
+						//
 					}
-					else {
-						$this_plugin['blogs'] = array();
-						array_push($this_plugin['blogs'], $blog_info);
-					}
-					unset($plugins[$plugin]);
-					$plugins[$plugin] =  $this_plugin;
+					
+					
 					
 					}
-				}		
+				}		//foreach ($active_plugin as $plugin)
 			
 			
 			restore_current_blog();
@@ -90,30 +105,39 @@ function generate_plugin_blog_list() {
 			
 			
 		}
+	
 	// Set the site option to hold all this
-	add_site_option('cets_plugin_stats_data', $plugins);
+	/*
+	$old_stats = get_site_option('cets_plugin_stats_data', 'not-yet-set');
+	if ($old_stats == 'not-yet-set') {
+		add_site_option('cets_plugin_stats_data', $plugins);
+	} else {  */
+		update_site_option('cets_plugin_stats_data', $plugins);
+	//} 
 	
 	
-	add_site_option('cets_plugin_stats_data_freshness', time());
+	
+	
+	
+	update_site_option('cets_plugin_stats_data_freshness', time());
 	
 	
 }
-
 
 
 	
 
 // Create a function to add a menu item for site admins
 function plugin_stats_add_page() {
-	if(is_site_admin()) {
+	if(is_super_admin()) {
 		if (function_exists('is_network_admin')){
 			//+3.1
-			$page=	add_submenu_page('plugins.php', 'Plugin Stats', 'Plugin Stats', 0, basename(__FILE__), array(&$this, 'plugin_stats_page'));
+			$page=	add_submenu_page('plugins.php', 'Plugin Stats', 'Plugin Stats', 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
 			
 		}
 		else{
 			//-3.1
-			$page=	add_submenu_page('wpmu-admin.php', 'Plugin Stats', 'Plugin Stats', 0, basename(__FILE__), array(&$this, 'plugin_stats_page'));
+			$page=	add_submenu_page('wpmu-admin.php', 'Plugin Stats', 'Plugin Stats', 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
 			
 		}
 		
@@ -127,14 +151,14 @@ function plugin_stats_add_page() {
 
 
 
-// Create a function to actually display stuff on theme usage
+// Create a function to actually display stuff on plugin usage
 function plugin_stats_page(){
 	
-	// Get the time when the theme list was last generated
+	// Get the time when the plugin list was last generated
 	$gen_time = get_site_option('cets_plugin_stats_data_freshness');
 	
 	
-	if ((time() - $gen_time) > 3600 || $_POST['action'] == 'update')  {
+	if ((time() - $gen_time) > 3600 || (isset($_POST['action']) && $_POST['action'] == 'update'))  {
 		// if older than an hour, regenerate, just to be safe
 			$this->generate_plugin_blog_list();	
 	}
@@ -178,6 +202,9 @@ function plugin_stats_page(){
 		.pc_settings_right {
 			border-right: 3px solid black;
 		}
+		span.plugin-not-found {
+			color: red;
+		}	
 	</style>
 	
 	<div class="wrap">
@@ -185,7 +212,7 @@ function plugin_stats_page(){
 		<table class="widefat" id="cets_active_plugins">
 			
 			<thead>
-				<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1|| pm_supporter_control_status == 1 ) {
+				<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1 ) {
 				?>
 				<tr>
 					<th style="width: 25%;" >&nbsp;</th>
@@ -195,7 +222,7 @@ function plugin_stats_page(){
 					
 					<?php	
 					}
-					if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| pm_supporter_control_status == 1){
+					if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
 					?>
 					<th colspan="3" align="center" class="pc_settings_heading">Plugin Manager Settings</th>
 					<?php	
@@ -217,7 +244,7 @@ function plugin_stats_page(){
 					<th class="nocase pc_settings_right">User Controlled</th>
 					<?php	
 					}
-					if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| pm_supporter_control_status == 1){
+					if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
 					?>
 					<th class="nocase pc_settings_left">Auto Activate</th>
 					<th class="nocase">User Controlled</th>
@@ -236,12 +263,22 @@ function plugin_stats_page(){
 	$counter = 0;
 	foreach ($list as $file => $info){
 		$counter = $counter + 1;
+
 		
 		echo('<tr valign="top"><td>');
-		if (strlen($info['Name'])){
-			$thisName = $info['Name'];
+		
+		//jason checking for non-existant plugins
+		if (isset($info['Name'])) {
+			if (strlen($info['Name'])) {
+				$thisName = $info['Name'];
+			} else {
+				$thisName = $file;
+			}
+		} else {
+			$thisName = $file . " <span class='plugin-not-found'>(Plugin File Not Found!)</span>";
 		}
-		else $thisName = $file;
+		
+		
 		echo ($thisName . '</td>');
 		// plugin commander columns	
 		if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) {
@@ -273,14 +310,20 @@ function plugin_stats_page(){
 		if (is_array($active_sitewide_plugins) && array_key_exists($file, $active_sitewide_plugins)) { echo ("Yes");}
 		else {echo ("No");}
 		
-		echo ('</td><td align="center">' . sizeOf($info['blogs']) . '</td><td>');
+		if (isset($info['blogs'])) {
+			$numBlogs = sizeOf($info['blogs']);
+		} else {
+			$numBlogs = 0;
+		}
+		
+		echo ('</td><td align="center">' . $numBlogs . '</td><td>');
 		?>
 		<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);">Show/Hide Blogs</a>
 		
 		
 		<?php
 		echo ('<ul class="bloglist" id="bloglist_' . $counter  . '">');
-		if (is_array($info['blogs'])){
+		if (isset($info['blogs']) && is_array($info['blogs'])){
 			foreach($info['blogs'] as $blog){
 				echo ('<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>');
 				}
@@ -298,7 +341,7 @@ function plugin_stats_page(){
 			This data is not updated as blog users update their plugins.  It was last generated  <?php if (time()-$gen_time > 60) {
 			echo (round((time() - $gen_time)/60, 0) . " minutes");
 			}
-			else echo('less than 1 minute ') ?>  ago. <form name="themeinfoform" action="" method="post"><input type="submit" value="Regenerate"><input type="hidden" name="action" value="update" /></form>
+			else echo('less than 1 minute ') ?>  ago. <form name="plugininfoform" action="" method="post"><input type="submit" value="Regenerate"><input type="hidden" name="action" value="update" /></form>
 			
 		</p>
 	
