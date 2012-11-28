@@ -1,25 +1,15 @@
 <?php
 
 /******************************************************************************************************************
- 
-Plugin Name: Plugin Stats
-
+ Plugin Name: Plugin Stats
 Plugin URI:
-
-Description: WordPress plugin for letting site admins easily see what plugins are actively used on their site
-
-Version: 1.3.1
-
+Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
+Version: 1.3.2
 Author: Kevin Graeme, Deanna Schneider & Jason Lemahieu
-
-
 Copyright:
-
-    Copyright 2009 Board of Regents of the University of Wisconsin System
+    Copyright 2009-2012 Board of Regents of the University of Wisconsin System
 	Cooperative Extension Technology Services
-	University of Wisconsin-Extension
-
-            
+	University of Wisconsin-Extension           
 *******************************************************************************************************************/
 
 class cets_Plugin_Stats {
@@ -361,7 +351,3 @@ function plugin_stats_page(){
 
 
 add_action( 'plugins_loaded', create_function( '', 'global $cets_Plugin_Stats; $cets_Plugin_Stats = new cets_Plugin_Stats();' ) );
-
-
-
-?>

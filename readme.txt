@@ -2,7 +2,7 @@
 Contributors: DeannaS, kgraeme, MadtownLems
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats 
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.4.2
 Stable tag: trunk
 
 
@@ -15,19 +15,18 @@ Included files:
 * cets\_plugin\_stats.php
 * cets\_plugin\_stats folder - lib folder - tablesort.js
 
-Best practice for upgrading plugins has always been to first deactivate the plugin, upgrade, and then reactivate the plugin. For site admins of WPMU sites, this is a laborious process, partly because you'd need to go through each blog to determine whether or not the plugin has been activated. This plugin provides a snapshot view of which blogs are using any particular plugin. 
+This plugin provides a snapshot view of which blogs are using any particular plugin. 
 
 For sites that are using Plugin Commander to manage plugins, additional columns for the Plugin Commander settings of Auto Activate and User Controlled are included.
 
 For sites that are using Plugin Manager, additional columns for the Plugin Manager settings of Auto Activate, User Controlled and Supporter Controlled are included.
 
-Data is regenerated on viewing the plugin stats page if the data is more than one hour old. Data can be regenerated anytime via the "Regenerate" button.
+Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
 == Installation ==
 
 1. Place the cets\_plugin\_info.php file and directory in the wp-content/mu-plugins folder.
-1. In 3.0, go to site admin -> Plugin Stats to view information.
-1. In 3.1+, go to network admin -> Plugins -> Plugin Stats to view information.
+2. In 3.1+, go to network admin -> Plugins -> Plugin Stats to view information.
 
 == Screenshots ==
 
@@ -37,5 +36,6 @@ Data is regenerated on viewing the plugin stats page if the data is more than on
 
 == Changelog ==
 
+1.3.2 - minor cleanups, should work with 3.4.2, and we'll go from here with better support!
 1.2 - updated for new network admin menu in 3.1, eliminated use of plugin on less than WP 3.0
 1.1 - minor tweak to eliminate content shift
