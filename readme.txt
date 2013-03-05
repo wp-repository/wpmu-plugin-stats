@@ -23,6 +23,8 @@ For sites that are using Plugin Manager, additional columns for the Plugin Manag
 
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
+Contribute Translations at [https://translate.foe-services.de/projects/cets_plugin_stats](https://translate.foe-services.de/projects/cets_plugin_stats)
+
 == Installation ==
 
 1. Place the cets\_plugin\_info.php file and directory in the wp-content/mu-plugins folder.

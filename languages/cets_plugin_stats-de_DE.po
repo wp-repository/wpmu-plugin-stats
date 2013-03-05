@@ -1,0 +1,96 @@
+# Translation of WPMU Plugin Stats in German
+# This file is distributed under the same license as the WPMU Plugin Stats package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2012-12-17 22:38:50+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: WPMU Plugin Stats\n"
+
+#: cets_plugin_stats.php:340
+msgid "This data is not updated as blog users update their plugins. It was last generated %s ago."
+msgstr "Diese Daten werden nicht durch die Nutzung der Plugins aktualisiert. Sie wurden vor %s erfasst."
+
+#: cets_plugin_stats.php:341
+msgid "Regenerate"
+msgstr "Aktualisieren"
+
+#: cets_plugin_stats.php:217
+msgid "WordPress plugin for letting site admins easily see what plugins are actively used on which sites"
+msgstr "WordPress Plugin für Network Admins um die Nutzung der Plugins im Netzwerk zu überwachen"
+
+#: cets_plugin_stats.php:131 cets_plugin_stats.php:136
+#: cets_plugin_stats.php:207
+msgid "Plugin Stats"
+msgstr "Plugin-Statistiken"
+
+#: cets_plugin_stats.php:217
+msgid "Plugin Commander Settings"
+msgstr "Plugin Commander Einstellungen"
+
+#: cets_plugin_stats.php:223
+msgid "Plugin Manager Settings"
+msgstr "Plugin Manager Einstellungen"
+
+#: cets_plugin_stats.php:235
+msgid "Plugin"
+msgstr "Plugin"
+
+#: cets_plugin_stats.php:239 cets_plugin_stats.php:245
+msgid "Auto Activate"
+msgstr "Auto-Aktivierung"
+
+#: cets_plugin_stats.php:240 cets_plugin_stats.php:246
+msgid "User Controlled"
+msgstr "Nutzer-gesteuert"
+
+#: cets_plugin_stats.php:247
+msgid "Supporter Controlled"
+msgstr "Supporter-gesteuert"
+
+#: cets_plugin_stats.php:251
+msgid "Activated Sitewide"
+msgstr "Netzwerkweit aktiviert"
+
+#: cets_plugin_stats.php:252
+msgid "Total Blogs"
+msgstr "Anzahl Seiten"
+
+#: cets_plugin_stats.php:253
+msgid "Blog Titles"
+msgstr "Seiten"
+
+#: cets_plugin_stats.php:274
+msgid "Plugin File Not Found!"
+msgstr "Plugin-Datei nicht gefunden!"
+
+#: cets_plugin_stats.php:282 cets_plugin_stats.php:285
+#: cets_plugin_stats.php:293 cets_plugin_stats.php:296
+#: cets_plugin_stats.php:299 cets_plugin_stats.php:306
+msgid "Yes"
+msgstr "Ja"
+
+#: cets_plugin_stats.php:283 cets_plugin_stats.php:286
+#: cets_plugin_stats.php:294 cets_plugin_stats.php:297
+#: cets_plugin_stats.php:300 cets_plugin_stats.php:307
+msgid "No"
+msgstr "Nein"
+
+#: cets_plugin_stats.php:317
+msgid "Show/Hide Blogs"
+msgstr "Zeige/Verberge Seiten"
+
+#: cets_plugin_stats.php:328
+msgid "N/A"
+msgstr "N/A"
+
+#: cets_plugin_stats.php:338
+msgid "minutes"
+msgstr "Minuten"
+
+#: cets_plugin_stats.php:339
+msgid "less than 1 minute"
+msgstr "weniger als 1 Minute"
