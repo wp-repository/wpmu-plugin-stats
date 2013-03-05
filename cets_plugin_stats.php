@@ -117,7 +117,7 @@ class cets_Plugin_Stats {
                     $page = add_submenu_page('wpmu-admin.php', __('Plugin Stats', 'cets_plugin_stats'), __('Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
 
-                wp_enqueue_script('custom-script', plugins_url('js/tablesort.js', __FILE__), false, true);
+                wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
             }
         }
 
@@ -221,13 +221,13 @@ class cets_Plugin_Stats {
                                                 <?php	
                                                 }
                                                 ?>
-                                                <th class="num"><?php _e( 'Activated Sitewide', 'cets_plugin_stats'); ?></th>
+                                                <th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets_plugin_stats'); ?></th>
                                                 <th class="num"><?php _e( 'Total Blogs', 'cets_plugin_stats'); ?></th>
                                                 <th width="200px"><?php _e( 'Blog Titles', 'cets_plugin_stats'); ?></th>
 
                                         </tr>
                                 </thead>
-                                <tbody id="themes">
+                                <tbody id="plugins">
                                     <?php
                                     $counter = 0;
                                     foreach ($list as $file => $info){
