@@ -177,6 +177,7 @@ class cets_Plugin_Stats {
                 </style>
 
                 <div class="wrap">
+                        <?php screen_icon( 'plugins' ); ?>
                         <h2><?php _e( 'Plugin Stats', 'cets_plugin_stats'); ?></h2>
                         <table class="widefat" id="cets_active_plugins">
 
@@ -312,7 +313,7 @@ class cets_Plugin_Stats {
                             else { $lastregen = __('less than 1 minute', 'cets_plugin_stats'); }
                         printf( __('This data is not updated as blog users update their plugins. It was last generated %s ago.', 'cets_plugin_stats'), $lastregen ) ; ?> 
                         <form name="plugininfoform" action="" method="post">
-                            <input class="button-primary" type="submit" value="<?php _e( 'Regenerate', 'cets_plugin_stats'); ?>"><input type="hidden" name="action" value="update" />
+                            <input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'cets_plugin_stats'); ?>"><input type="hidden" name="action" value="update" />
                         </form>
 
                     </p>
