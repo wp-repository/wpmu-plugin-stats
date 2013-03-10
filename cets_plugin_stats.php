@@ -15,7 +15,6 @@ Copyright:
 	Cooperative Extension Technology Services
 	University of Wisconsin-Extension           
 */
-load_plugin_textdomain( 'cets_plugin_stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 class cets_Plugin_Stats {
 
@@ -36,6 +35,7 @@ class cets_Plugin_Stats {
 
                         return;
                 }
+                load_plugin_textdomain( 'cets_plugin_stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
         }	
 
 
