@@ -121,11 +121,10 @@ class cets_Plugin_Stats {
         }
 
         // Create a function to actually display stuff on plugin usage
-        function plugin_stats_page( $active_tab = '' ) {
+        function plugin_stats_page( $active_tab ) {
                 
-                if ( $active_tab = 'plugins' ) {
-                        wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
-                }
+                // todo limit loading to about tab
+                wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
                 
                 // Get the time when the plugin list was last generated
                 $gen_time = get_site_option('cets_plugin_stats_data_freshness');
