@@ -3,15 +3,15 @@
 Plugin Name:    Plugin Stats
 Plugin URI:     http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 Description:    WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version:        1.3.3
-Author:         <a href="#" target="_target">Kevin Graeme</a>, <a href="#" target="_target">Deanna Schneider</a> & <a href="#" target="_target">Jason Lemahieu</a>
+Version:        1.4
+Author:         Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
 License:        TBD
 License URI:    TBD
 Text Domain:    cets_plugin_stats
 Domain Path:    /languages/
 
 Copyright:
-    Copyright 2009-2012 Board of Regents of the University of Wisconsin System
+    Copyright 2009-2013 Board of Regents of the University of Wisconsin System
 	Cooperative Extension Technology Services
 	University of Wisconsin-Extension           
 */
@@ -111,19 +111,22 @@ class cets_Plugin_Stats {
             if (is_super_admin()) {
                 if (function_exists('is_network_admin')) {
                     //+3.1
-                    $page = add_submenu_page('plugins.php', __('Plugin Stats', 'cets_plugin_stats'), __('Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page('plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 } else {
                     //-3.1
-                    $page = add_submenu_page('wpmu-admin.php', __('Plugin Stats', 'cets_plugin_stats'), __('Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page('wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
-
-                wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
+              
             }
         }
 
         // Create a function to actually display stuff on plugin usage
-        function plugin_stats_page(){
-
+        function plugin_stats_page( $active_tab = '' ) {
+                
+                if ( $active_tab = 'plugins' ) {
+                        wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
+                }
+                
                 // Get the time when the plugin list was last generated
                 $gen_time = get_site_option('cets_plugin_stats_data_freshness');
 
@@ -153,171 +156,281 @@ class cets_Plugin_Stats {
                 ?>
                 <!-- Some extra CSS -->
                 <style type="text/css">
+                        .tab-body {
+                            padding: 10px;
+                            border-style: solid;
+                            border-width: 0 1px 1px 1px;
+                            border-color: #CCCCCC;
+                        }
                         .bloglist {
-                                display:none;
+                            display:none;
                         }
                         .pc_settings_heading {
-                                text-align: center; 
-                                border-right:  3px solid black;
-                                border-left: 3px solid black;
+                            text-align: center; 
+                            border-right: 3px solid black;
+                            border-left: 3px solid black;
 
                         }
                         .pc_settings_left {
-                                border-left: 3px solid black;
+                            border-left: 3px solid black;
                         }
                         .pc_settings_right {
-                                border-right: 3px solid black;
+                            border-right: 3px solid black;
                         }
                         span.plugin-not-found {
-                                color: red;
+                            color: red;
                         }
                         .widefat tbody tr:hover td, .table-hover tbody tr:hover th {
-                        background-color: #DDD;
+                            background-color: #DDD;
                         }
                 </style>
 
                 <div class="wrap">
                         <?php screen_icon( 'plugins' ); ?>
                         <h2><?php _e( 'Plugin Stats', 'cets_plugin_stats'); ?></h2>
-                        <table class="widefat" id="cets_active_plugins">
+                        
+                        <?php
+                        if (isset($_GET['tab'])) {
+                            $active_tab = $_GET['tab'];
+                        } else if ($active_tab == 'about') {
+                            $active_tab = 'about';
+                        } else {
+                            $active_tab = 'plugins';
+                        } // end if/else 
+                        ?>
+                        
+                        <h2 class="nav-tab-wrapper">
+                            <a href="?page=cets_plugin_stats.php&tab=plugins" class="nav-tab <?php echo $active_tab == 'plugins' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Plugins', 'cets_plugin_stats'); ?></a>
+                            <a href="?page=cets_plugin_stats.php&tab=about" class="nav-tab <?php echo $active_tab == 'about' ? 'nav-tab-active' : ''; ?>"><?php _e( 'About', 'cets_plugin_stats'); ?></a>
+                        </h2>
+                        
+                        <?php if ($active_tab == 'about') { ?>
+                            <div class="tab-body">
+                                
+                                <h1>WPMU Plugin Stats</h1>
+                                <p>
+                                    <a href="http://wordpress.org/extend/plugins/wpmu-plugin-stats/" target="_blank">WordPress.org</a> | 
+                                    <a href="https://github.com/Foe-Services-Labs/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
+                                    <a href="http://wordpress.org/support/plugin/wpmu-plugin-stats" target="_blank">Issue Tracker</a>
+                                </p>
+                                
+                                <h3><?php _e( 'Development', 'cets_plugin_stats'); ?></h3>
+                                <ul>
+                                    <li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
+                                    <li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
+                                    <li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
+                                </ul>
 
-                                <thead>
-                                        <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1 ) {
-                                        ?>
-                                        <tr>
-                                                <th style="width: 25%;" >&nbsp;</th>
-                                                <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
-                                                ?>
-                                                <th colspan="2" class="pc_settings_heading"><?php _e( 'Plugin Commander Settings', 'cets_plugin_stats'); ?></th>
+                                <h3>WordPress</h3>
+                                <ul>
+                                    <li><?php printf( __( 'Requires at least: %s', 'cets_plugin_stats'), '3.0'); ?></li>
+                                    <li><?php printf( __( 'Tested up to: %s', 'cets_plugin_stats'), '3.5.1'); ?></li>
+                                </ul>
+                                
+                                <h3><?php _e( 'Languages', 'cets_plugin_stats'); ?></h3>
+                                <ul>
+                                    <li><?php _e( 'English'); ?></li>
+                                    <li><?php _e( 'German'); ?></li>
+                                </ul>
+                                <p><?php printf( __( 'Help to translate at %s', 'cets_plugin_stats'), '<a href="https://translate.foe-services.de/projects/cets_plugin_stats" target="_blank">https://translate.foe-services.de/projects/cets_plugin_stats</a>'); ?></p>
 
-                                                <?php	
-                                                }
-                                                if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
-                                                ?>
-                                                <th colspan="3" align="center" class="pc_settings_heading"><?php _e( 'Plugin Manager Settings', 'cets_plugin_stats'); ?></th>
-                                                <?php	
-                                                }
-                                                ?>
-                                                <th>&nbsp;</th>
-                                                <th>&nbsp;</th>
-                                                <th  style="width: 20%;">&nbsp;</th>
-                                        </tr>
+                                <h3><?php _e( 'License', 'cets_plugin_stats'); ?></h3> 
+                                <p>Copyright 2009-2012 Board of Regents of the University of Wisconsin System<br />
+                                Cooperative Extension Technology Services<br />
+                                University of Wisconsin-Extension</p>
+
+                            </div>
+                        
+                        <?php } else { ?>
+                            
+                        <div class="tab-body">
+                            <table class="widefat" id="cets_active_plugins">
+
+                                    <thead>
+                                            <?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
+                                            ?>
+                                            <tr>
+                                                    <th style="width: 25%;" >&nbsp;</th>
+                                                    <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
+                                                    ?>
+                                                    <th colspan="2" class="pc_settings_heading"><?php _e( 'Plugin Commander Settings', 'cets_plugin_stats'); ?></th>
+
+                                                    <?php	
+                                                    }
+                                                    if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
+                                                    ?>
+                                                    <th colspan="3" align="center" class="pc_settings_heading"><?php _e( 'Plugin Manager Settings', 'cets_plugin_stats'); ?></th>
+                                                    <?php	
+                                                    }
+                                                    ?>
+                                                    <th>&nbsp;</th>
+                                                    <th>&nbsp;</th>
+                                                    <th  style="width: 20%;">&nbsp;</th>
+                                            </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                            <tr>
+                                                    <th class="nocase"><?php _e( 'Plugin', 'cets_plugin_stats'); ?></th>
+
+                                                    <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
+                                                    ?>
+                                                    <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
+                                                    <th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
+                                                    <?php	
+                                                    }
+                                                    if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
+                                                    ?>
+                                                    <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
+                                                    <th class="nocase"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
+                                                    <th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets_plugin_stats'); ?></th>
+                                                    <?php	
+                                                    }
+                                                    ?>
+                                                    <th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets_plugin_stats'); ?></th>
+                                                    <th class="num"><?php _e( 'Total Blogs', 'cets_plugin_stats'); ?></th>
+                                                    <th width="200px"><?php _e( 'Blog Titles', 'cets_plugin_stats'); ?></th>
+
+                                            </tr>
+                                    </thead>
+                                    <tbody id="plugins">
                                         <?php
+                                        $counter = 0;
+                                        foreach ($list as $file => $info){
+                                                $counter = $counter + 1;
+
+
+                                                echo('<tr valign="top"><td>');
+
+                                                //jason checking for non-existant plugins
+                                                if (isset($info['Name'])) {
+                                                        if (strlen($info['Name'])) {
+                                                                $thisName = $info['Name'];
+                                                        } else {
+                                                                $thisName = $file;
+                                                        }
+                                                } else {
+                                                        $thisName = $file . " <span class='plugin-not-found'>(" . __( 'Plugin File Not Found!', 'cets_plugin_stats') . ")</span>";
+                                                }
+
+
+                                                echo ($thisName . '</td>');
+                                                // plugin commander columns	
+                                                if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) {
+                                                        echo ('<td align="center" class="pc_settings_left">');
+                                                        if (in_array($file, $auto_activate)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        echo('</td><td align="center" class="pc_settings_right">');
+                                                        if (in_array($file, $user_control)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        echo("</td>");
+
+                                                }
+                                                // plugin manager columns
+                                                if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1) {
+                                                        echo ('<td align="center" class="pc_settings_left">');
+                                                        if (in_array($file, $pm_auto_activate)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        echo('</td><td align="center">');
+                                                        if (in_array($file, $pm_user_control)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        echo('</td><td align="center" class="pc_settings_right">');
+                                                if (in_array($file, $pm_supporter_control)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                echo("</td>");
+
+                                                }
+
+                                                echo ('<td align="center">');
+                                                if (is_array($active_sitewide_plugins) && array_key_exists($file, $active_sitewide_plugins)) {_e( 'Yes' );}
+                                                else {_e( 'No', 'cets_plugin_stats');}
+
+                                                if (isset($info['blogs'])) {
+                                                        $numBlogs = sizeOf($info['blogs']);
+                                                } else {
+                                                        $numBlogs = 0;
+                                                }
+
+                                                echo ('</td><td align="center">' . $numBlogs . '</td><td>');
+                                                ?>
+                                                <a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);"><?php _e( 'Show/Hide Blogs', 'cets_plugin_stats'); ?></a>
+
+
+                                                <?php
+                                                echo ('<ul class="bloglist" id="bloglist_' . $counter  . '">');
+                                                if (isset($info['blogs']) && is_array($info['blogs'])){
+                                                        foreach($info['blogs'] as $blog){
+                                                                echo ('<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>');
+                                                                }
+
+                                                        }
+                                                else echo ("<li>" . __( 'N/A', 'cets_plugin_stats') . "</li>");	
+                                                echo ('</ul></td>');
+
+
                                         }
                                         ?>
-                                        <tr>
-                                                <th class="nocase"><?php _e( 'Plugin', 'cets_plugin_stats'); ?></th>
-
-                                                <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
-                                                ?>
-                                                <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
-                                                <th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
-                                                <?php	
-                                                }
-                                                if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
-                                                ?>
-                                                <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
-                                                <th class="nocase"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
-                                                <th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets_plugin_stats'); ?></th>
-                                                <?php	
-                                                }
-                                                ?>
-                                                <th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets_plugin_stats'); ?></th>
-                                                <th class="num"><?php _e( 'Total Blogs', 'cets_plugin_stats'); ?></th>
-                                                <th width="200px"><?php _e( 'Blog Titles', 'cets_plugin_stats'); ?></th>
-
-                                        </tr>
-                                </thead>
-                                <tbody id="plugins">
-                                    <?php
-                                    $counter = 0;
-                                    foreach ($list as $file => $info){
-                                            $counter = $counter + 1;
-
-
-                                            echo('<tr valign="top"><td>');
-
-                                            //jason checking for non-existant plugins
-                                            if (isset($info['Name'])) {
-                                                    if (strlen($info['Name'])) {
-                                                            $thisName = $info['Name'];
-                                                    } else {
-                                                            $thisName = $file;
-                                                    }
-                                            } else {
-                                                    $thisName = $file . " <span class='plugin-not-found'>(" . __('Plugin File Not Found!', 'cets_plugin_stats') . ")</span>";
-                                            }
-
-
-                                            echo ($thisName . '</td>');
-                                            // plugin commander columns	
-                                            if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) {
-                                                    echo ('<td align="center" class="pc_settings_left">');
-                                                    if (in_array($file, $auto_activate)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-                                                    echo('</td><td align="center" class="pc_settings_right">');
-                                                    if (in_array($file, $user_control)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-                                                    echo("</td>");
-
-                                            }
-                                            // plugin manager columns
-                                            if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1) {
-                                                    echo ('<td align="center" class="pc_settings_left">');
-                                                    if (in_array($file, $pm_auto_activate)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-                                                    echo('</td><td align="center">');
-                                                    if (in_array($file, $pm_user_control)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-                                                    echo('</td><td align="center" class="pc_settings_right">');
-                                            if (in_array($file, $pm_supporter_control)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-                                            echo("</td>");
-
-                                            }
-
-                                            echo ('<td align="center">');
-                                            if (is_array($active_sitewide_plugins) && array_key_exists($file, $active_sitewide_plugins)) {_e( 'Yes' );}
-                                            else {_e( 'No', 'cets_plugin_stats');}
-
-                                            if (isset($info['blogs'])) {
-                                                    $numBlogs = sizeOf($info['blogs']);
-                                            } else {
-                                                    $numBlogs = 0;
-                                            }
-
-                                            echo ('</td><td align="center">' . $numBlogs . '</td><td>');
+                                </tbody>
+                                <tfoot>
+                                    <?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
+                                    ?>
+                                    <tr>
+                                            <th style="width: 25%;" >&nbsp;</th>
+                                            <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
                                             ?>
-                                            <a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);"><?php _e( 'Show/Hide Blogs', 'cets_plugin_stats'); ?></a>
+                                            <th colspan="2" class="pc_settings_heading"><?php _e( 'Plugin Commander Settings', 'cets_plugin_stats'); ?></th>
 
-
-                                            <?php
-                                            echo ('<ul class="bloglist" id="bloglist_' . $counter  . '">');
-                                            if (isset($info['blogs']) && is_array($info['blogs'])){
-                                                    foreach($info['blogs'] as $blog){
-                                                            echo ('<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>');
-                                                            }
-
-                                                    }
-                                            else echo ("<li>" . __('N/A', 'cets_plugin_stats') . "</li>");	
-                                            echo ('</ul></td>');
-
-
+                                            <?php	
+                                            }
+                                            if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
+                                            ?>
+                                            <th colspan="3" align="center" class="pc_settings_heading"><?php _e( 'Plugin Manager Settings', 'cets_plugin_stats'); ?></th>
+                                            <?php	
+                                            }
+                                            ?>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th  style="width: 20%;">&nbsp;</th>
+                                    </tr>
+                                    <?php
                                     }
                                     ?>
-                            </tbody>
-                    </table>
-                    <p>
-                        <?php 
-                            if (time()-$gen_time > 60) { $lastregen = (round((time() - $gen_time)/60, 0)) . " " . __('minutes', 'cets_plugin_stats'); } 
-                            else { $lastregen = __('less than 1 minute', 'cets_plugin_stats'); }
-                        printf( __('This data is not updated as blog users update their plugins. It was last generated %s ago.', 'cets_plugin_stats'), $lastregen ) ; ?> 
-                        <form name="plugininfoform" action="" method="post">
-                            <input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'cets_plugin_stats'); ?>"><input type="hidden" name="action" value="update" />
-                        </form>
+                                    <tr>
+                                            <th class="nocase"><?php _e( 'Plugin', 'cets_plugin_stats'); ?></th>
 
-                    </p>
-            <?php
+                                            <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
+                                            ?>
+                                            <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
+                                            <th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
+                                            <?php	
+                                            }
+                                            if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
+                                            ?>
+                                            <th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets_plugin_stats'); ?></th>
+                                            <th class="nocase"><?php _e( 'User Controlled', 'cets_plugin_stats'); ?></th>
+                                            <th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets_plugin_stats'); ?></th>
+                                            <?php	
+                                            }
+                                            ?>
+                                            <th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets_plugin_stats'); ?></th>
+                                            <th class="num"><?php _e( 'Total Blogs', 'cets_plugin_stats'); ?></th>
+                                            <th width="200px"><?php _e( 'Blog Titles', 'cets_plugin_stats'); ?></th>
+
+                                    </tr>
+                            </tfoot>
+                        </table>
+                        <p>
+                            <?php 
+                                if (time()-$gen_time > 60) { $lastregen = (round((time() - $gen_time)/60, 0)) . " " . __( 'minutes', 'cets_plugin_stats'); } 
+                                else { $lastregen = __( 'less than 1 minute', 'cets_plugin_stats'); }
+                            printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'cets_plugin_stats'), $lastregen ) ; ?> 
+                            <form name="plugininfoform" action="" method="post">
+                                <input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'cets_plugin_stats'); ?>"><input type="hidden" name="action" value="update" />
+                            </form>
+
+                        </p>
+                    </div>
+                <?php }
             }
 
 }// end class
