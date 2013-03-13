@@ -17,24 +17,29 @@ Copyright:
 */
 
 class cets_Plugin_Stats {
-
-        function cets_plugin_stats() {
+        
+        /**
+        * PHP 4 constructor
+        */
+        function cets_Plugin_Stats() {
+           cets_Plugin_Stats::__construct();
+        }
+        
+        function __construct() {
                 global $wp_version;
+                global $current_screen;
                 //only run this code if we're at at least version 3.0
                 if ( version_compare( $wp_version, '3.0', '>=' ) ) {
-
                         // Add the site admin config page
                         if (function_exists('is_network_admin')) {
                                 add_action('network_admin_menu', array(&$this, 'plugin_stats_add_page'));
-                        }
-                        else{
+                        } else {
                                 add_action('admin_menu', array(&$this, 'plugin_stats_add_page'));
                         }	
-                }
-                else{
-
+                } else {
                         return;
                 }
+                add_action( 'admin_enqueue_scripts', array( &$this, 'load_scripts'));
                 load_plugin_textdomain( 'cets_plugin_stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
         }	
 
@@ -111,10 +116,10 @@ class cets_Plugin_Stats {
             if (is_super_admin()) {
                 if (function_exists('is_network_admin')) {
                     //+3.1
-                    $page = add_submenu_page('plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 } else {
                     //-3.1
-                    $page = add_submenu_page('wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
               
             }
@@ -122,9 +127,6 @@ class cets_Plugin_Stats {
 
         // Create a function to actually display stuff on plugin usage
         function plugin_stats_page( $active_tab ) {
-                
-                // todo limit loading to about tab
-                wp_enqueue_script('custom-script', plugins_url('js/tablesort-2.4.min.js', __FILE__), false, true);
                 
                 // Get the time when the plugin list was last generated
                 $gen_time = get_site_option('cets_plugin_stats_data_freshness');
@@ -431,6 +433,15 @@ class cets_Plugin_Stats {
                     </div>
                 <?php }
             }
+            
+            function load_scripts() {
+                    global $current_screen;
+                    // todo limit loading to about tab
+                    if ( $current_screen->id == 'plugins_page_cets_plugin_stats-network' ) {
+                            wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
+                            wp_enqueue_script( 'tablesort' );
+                    }
+            }               
 
 }// end class
 
