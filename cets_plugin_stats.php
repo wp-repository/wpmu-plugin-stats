@@ -8,7 +8,7 @@ Author:         Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" ta
 License:        TBD
 License URI:    TBD
 Text Domain:    cets_plugin_stats
-Domain Path:    /languages/
+Domain Path:    /languages
 
 Copyright:
     Copyright 2009-2013 Board of Regents of the University of Wisconsin System
@@ -53,7 +53,6 @@ class cets_Plugin_Stats {
 
                         $plugins = get_plugins();
 
-
                         if ($blogs) {
                         foreach ($blogs as $blog) {
 
@@ -67,7 +66,6 @@ class cets_Plugin_Stats {
                                 $blog_info = array('name' => get_bloginfo('name'), 'url' => $blogurl);
 
                                 $active_plugins = get_option('active_plugins');
-
 
                                 if (sizeOf($active_plugins) > 0) {
                                         foreach ($active_plugins as $plugin) {
@@ -95,7 +93,6 @@ class cets_Plugin_Stats {
                                 restore_current_blog();
 
                                 }
-
                         }
 
                 // Set the site option to hold all this
@@ -113,24 +110,74 @@ class cets_Plugin_Stats {
 
         // Create a function to add a menu item for site admins
         function plugin_stats_add_page() {
+            global $cets_plugin_stats_page;
             if (is_super_admin()) {
                 if (function_exists('is_network_admin')) {
                     //+3.1
-                    $page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $cets_plugin_stats_page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 } else {
                     //-3.1
-                    $page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $cets_plugin_stats_page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
-              
             }
+            add_action("load-$cets_plugin_stats_page", array( &$this, 'help_tabs'));
+        }
+        
+        function help_tabs() {
+                global $cets_plugin_stats_page;
+                $screen = get_current_screen();
+//                if ($screen->id != $cets_plugin_stats_page) {
+//                        return;
+//                }
+                $screen->add_help_tab( array(
+                    'id'        => 'cets_plugin_stats_about',
+                    'title'     => __('About', 'cets_plugin_stats'),
+                    'callback'  => array( &$this, 'about_tab')
+                ));
+                
+                
+        }
+        
+        function about_tab() { ?>
+                <h1>WPMU Plugin Stats</h1>
+                <p>
+                    <a href="http://wordpress.org/extend/plugins/wpmu-plugin-stats/" target="_blank">WordPress.org</a> | 
+                    <a href="https://github.com/Foe-Services-Labs/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
+                    <a href="http://wordpress.org/support/plugin/wpmu-plugin-stats" target="_blank">Issue Tracker</a>
+                </p>
+
+                <h3><?php _e( 'Development', 'cets_plugin_stats'); ?></h3>
+                <ul>
+                    <li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
+                    <li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
+                    <li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
+                </ul>
+
+                <h3>WordPress</h3>
+                <ul>
+                    <li><?php printf( __( 'Requires at least: %s', 'cets_plugin_stats'), '3.0'); ?></li>
+                    <li><?php printf( __( 'Tested up to: %s', 'cets_plugin_stats'), '3.5.1'); ?></li>
+                </ul>
+
+                <h3><?php _e( 'Languages', 'cets_plugin_stats'); ?></h3>
+                <ul>
+                    <li><?php _e( 'English'); ?></li>
+                    <li><?php _e( 'German'); ?></li>
+                </ul>
+                <p><?php printf( __( 'Help to translate at %s', 'cets_plugin_stats'), '<a href="https://translate.foe-services.de/projects/cets_plugin_stats" target="_blank">https://translate.foe-services.de/projects/cets_plugin_stats</a>'); ?></p>
+
+                <h3><?php _e( 'License', 'cets_plugin_stats'); ?></h3> 
+                <p>Copyright 2009-2012 Board of Regents of the University of Wisconsin System<br />
+                Cooperative Extension Technology Services<br />
+                University of Wisconsin-Extension</p>
+        <?php 
         }
 
         // Create a function to actually display stuff on plugin usage
-        function plugin_stats_page( $active_tab ) {
+        function plugin_stats_page() {
                 
                 // Get the time when the plugin list was last generated
                 $gen_time = get_site_option('cets_plugin_stats_data_freshness');
-
 
                 if ((time() - $gen_time) > 3600 || (isset($_POST['action']) && $_POST['action'] == 'update'))  {
                         // if older than an hour, regenerate, just to be safe
@@ -157,11 +204,8 @@ class cets_Plugin_Stats {
                 ?>
                 <!-- Some extra CSS -->
                 <style type="text/css">
-                        .tab-body {
-                            padding: 10px;
-                            border-style: solid;
-                            border-width: 0 1px 1px 1px;
-                            border-color: #CCCCCC;
+                        table#cets_active_plugins {
+                            margin-top: 6px;
                         }
                         .bloglist {
                             display:none;
@@ -189,67 +233,9 @@ class cets_Plugin_Stats {
                 <div class="wrap">
                         <?php screen_icon( 'plugins' ); ?>
                         <h2><?php _e( 'Plugin Stats', 'cets_plugin_stats'); ?></h2>
-                        
-                        <?php
-                        if (isset($_GET['tab'])) {
-                            $active_tab = $_GET['tab'];
-                        } else if ($active_tab == 'about') {
-                            $active_tab = 'about';
-                        } else {
-                            $active_tab = 'plugins';
-                        } // end if/else 
-                        ?>
-                        
-                        <h2 class="nav-tab-wrapper">
-                            <a href="?page=cets_plugin_stats.php&tab=plugins" class="nav-tab <?php echo $active_tab == 'plugins' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Plugins', 'cets_plugin_stats'); ?></a>
-                            <a href="?page=cets_plugin_stats.php&tab=about" class="nav-tab <?php echo $active_tab == 'about' ? 'nav-tab-active' : ''; ?>"><?php _e( 'About', 'cets_plugin_stats'); ?></a>
-                        </h2>
-                        
-                        <?php if ($active_tab == 'about') { ?>
-                            <div class="tab-body">
-                                
-                                <h1>WPMU Plugin Stats</h1>
-                                <p>
-                                    <a href="http://wordpress.org/extend/plugins/wpmu-plugin-stats/" target="_blank">WordPress.org</a> | 
-                                    <a href="https://github.com/Foe-Services-Labs/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
-                                    <a href="http://wordpress.org/support/plugin/wpmu-plugin-stats" target="_blank">Issue Tracker</a>
-                                </p>
-                                
-                                <h3><?php _e( 'Development', 'cets_plugin_stats'); ?></h3>
-                                <ul>
-                                    <li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
-                                    <li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
-                                    <li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
-                                </ul>
-
-                                <h3>WordPress</h3>
-                                <ul>
-                                    <li><?php printf( __( 'Requires at least: %s', 'cets_plugin_stats'), '3.0'); ?></li>
-                                    <li><?php printf( __( 'Tested up to: %s', 'cets_plugin_stats'), '3.5.1'); ?></li>
-                                </ul>
-                                
-                                <h3><?php _e( 'Languages', 'cets_plugin_stats'); ?></h3>
-                                <ul>
-                                    <li><?php _e( 'English'); ?></li>
-                                    <li><?php _e( 'German'); ?></li>
-                                </ul>
-                                <p><?php printf( __( 'Help to translate at %s', 'cets_plugin_stats'), '<a href="https://translate.foe-services.de/projects/cets_plugin_stats" target="_blank">https://translate.foe-services.de/projects/cets_plugin_stats</a>'); ?></p>
-
-                                <h3><?php _e( 'License', 'cets_plugin_stats'); ?></h3> 
-                                <p>Copyright 2009-2012 Board of Regents of the University of Wisconsin System<br />
-                                Cooperative Extension Technology Services<br />
-                                University of Wisconsin-Extension</p>
-
-                            </div>
-                        
-                        <?php } else { ?>
-                            
-                        <div class="tab-body">
                             <table class="widefat" id="cets_active_plugins">
-
-                                    <thead>
-                                            <?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
-                                            ?>
+                                <thead>
+                                        <?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) { ?>
                                             <tr>
                                                     <th style="width: 25%;" >&nbsp;</th>
                                                     <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
@@ -268,9 +254,9 @@ class cets_Plugin_Stats {
                                                     <th>&nbsp;</th>
                                                     <th  style="width: 20%;">&nbsp;</th>
                                             </tr>
-                                            <?php
-                                            }
-                                            ?>
+                                            
+                                        <?php } ?>
+                                            
                                             <tr>
                                                     <th class="nocase"><?php _e( 'Plugin', 'cets_plugin_stats'); ?></th>
 
@@ -430,18 +416,17 @@ class cets_Plugin_Stats {
                             </form>
 
                         </p>
-                    </div>
-                <?php }
-            }
+            <?php
+        }
             
-            function load_scripts() {
-                    global $current_screen;
-                    // todo limit loading to about tab
-                    if ( $current_screen->id == 'plugins_page_cets_plugin_stats-network' ) {
-                            wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
-                            wp_enqueue_script( 'tablesort' );
-                    }
-            }               
+        function load_scripts() {
+                global $current_screen;
+                // todo limit loading to about tab
+                if ( $current_screen->id == 'plugins_page_cets_plugin_stats-network' ) {
+                        wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
+                        wp_enqueue_script( 'tablesort' );
+                }
+        }
 
 }// end class
 
