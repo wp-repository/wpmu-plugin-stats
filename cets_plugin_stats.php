@@ -110,21 +110,20 @@ class cets_Plugin_Stats {
 
         // Create a function to add a menu item for site admins
         function plugin_stats_add_page() {
-            global $cets_plugin_stats_page;
             if (is_super_admin()) {
                 if (function_exists('is_network_admin')) {
                     //+3.1
-                    $cets_plugin_stats_page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 } else {
                     //-3.1
-                    $cets_plugin_stats_page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
             }
-            add_action("load-$cets_plugin_stats_page", array( &$this, 'help_tabs'));
+            add_action("load-$page", array( &$this, 'help_tabs'));
         }
         
         function help_tabs() {
-                global $cets_plugin_stats_page;
+                // global $cets_plugin_stats_page;
                 $screen = get_current_screen();
 //                if ($screen->id != $cets_plugin_stats_page) {
 //                        return;
@@ -420,9 +419,11 @@ class cets_Plugin_Stats {
         }
             
         function load_scripts() {
-                global $current_screen;
+            global $page;
+                // global $current_screen;
+                $screen = get_current_screen();
                 // todo limit loading to about tab
-                if ( $current_screen->id == 'plugins_page_cets_plugin_stats-network' ) {
+                if ( $screen->id == $page ) {
                         wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
                         wp_enqueue_script( 'tablesort' );
                 }
@@ -430,4 +431,5 @@ class cets_Plugin_Stats {
 
 }// end class
 
-add_action( 'plugins_loaded', create_function( '', 'global $cets_Plugin_Stats; $cets_Plugin_Stats = new cets_Plugin_Stats();' ) );
+new cets_Plugin_Stats();
+?>
