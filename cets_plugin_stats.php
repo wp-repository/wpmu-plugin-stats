@@ -113,28 +113,22 @@ class cets_Plugin_Stats {
             if (is_super_admin()) {
                 if (function_exists('is_network_admin')) {
                     //+3.1
-                    $page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $this->page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 } else {
                     //-3.1
-                    $page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                    $this->page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
             }
-            add_action("load-$page", array( &$this, 'help_tabs'));
+            add_action("load-$this->page", array( &$this, 'help_tabs'));
         }
         
         function help_tabs() {
-                // global $cets_plugin_stats_page;
                 $screen = get_current_screen();
-//                if ($screen->id != $cets_plugin_stats_page) {
-//                        return;
-//                }
                 $screen->add_help_tab( array(
                     'id'        => 'cets_plugin_stats_about',
                     'title'     => __('About', 'cets_plugin_stats'),
                     'callback'  => array( &$this, 'about_tab')
-                ));
-                
-                
+                ));     
         }
         
         function about_tab() { ?>
@@ -158,11 +152,8 @@ class cets_Plugin_Stats {
                     <li><?php printf( __( 'Tested up to: %s', 'cets_plugin_stats'), '3.5.1'); ?></li>
                 </ul>
 
-                <h3><?php _e( 'Languages', 'cets_plugin_stats'); ?></h3>
-                <ul>
-                    <li><?php _e( 'English'); ?></li>
-                    <li><?php _e( 'German'); ?></li>
-                </ul>
+                <h3><?php _e( 'Languages', 'cets_plugin_stats'); ?>:</h3>
+                <p>English (development), German</p>
                 <p><?php printf( __( 'Help to translate at %s', 'cets_plugin_stats'), '<a href="https://translate.foe-services.de/projects/cets_plugin_stats" target="_blank">https://translate.foe-services.de/projects/cets_plugin_stats</a>'); ?></p>
 
                 <h3><?php _e( 'License', 'cets_plugin_stats'); ?></h3> 
@@ -239,13 +230,13 @@ class cets_Plugin_Stats {
                                                     <th style="width: 25%;" >&nbsp;</th>
                                                     <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
                                                     ?>
-                                                    <th colspan="2" class="pc_settings_heading"><?php _e( 'Plugin Commander Settings', 'cets_plugin_stats'); ?></th>
+                                                    <th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets_plugin_stats'), __( 'Settings')); ?></th>
 
                                                     <?php	
                                                     }
                                                     if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
                                                     ?>
-                                                    <th colspan="3" align="center" class="pc_settings_heading"><?php _e( 'Plugin Manager Settings', 'cets_plugin_stats'); ?></th>
+                                                    <th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'cets_plugin_stats'), __( 'Settings')); ?></th>
                                                     <?php	
                                                     }
                                                     ?>
@@ -304,32 +295,32 @@ class cets_Plugin_Stats {
                                                 // plugin commander columns	
                                                 if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) {
                                                         echo ('<td align="center" class="pc_settings_left">');
-                                                        if (in_array($file, $auto_activate)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        if (in_array($file, $auto_activate)) {_e( 'Yes');}
+                                                else {_e( 'No');}
                                                         echo('</td><td align="center" class="pc_settings_right">');
-                                                        if (in_array($file, $user_control)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        if (in_array($file, $user_control)) {_e( 'Yes');}
+                                                else {_e( 'No');}
                                                         echo("</td>");
 
                                                 }
                                                 // plugin manager columns
                                                 if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1) {
                                                         echo ('<td align="center" class="pc_settings_left">');
-                                                        if (in_array($file, $pm_auto_activate)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        if (in_array($file, $pm_auto_activate)) {_e( 'Yes');}
+                                                else {_e( 'No');}
                                                         echo('</td><td align="center">');
-                                                        if (in_array($file, $pm_user_control)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                        if (in_array($file, $pm_user_control)) {_e( 'Yes');}
+                                                else {_e( 'No');}
                                                         echo('</td><td align="center" class="pc_settings_right">');
-                                                if (in_array($file, $pm_supporter_control)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                if (in_array($file, $pm_supporter_control)) {_e( 'Yes');}
+                                                else {_e( 'No');}
                                                 echo("</td>");
 
                                                 }
 
                                                 echo ('<td align="center">');
-                                                if (is_array($active_sitewide_plugins) && array_key_exists($file, $active_sitewide_plugins)) {_e( 'Yes' );}
-                                                else {_e( 'No', 'cets_plugin_stats');}
+                                                if (is_array($active_sitewide_plugins) && array_key_exists($file, $active_sitewide_plugins)) {_e( 'Yes');}
+                                                else {_e( 'No');}
 
                                                 if (isset($info['blogs'])) {
                                                         $numBlogs = sizeOf($info['blogs']);
@@ -364,13 +355,13 @@ class cets_Plugin_Stats {
                                             <th style="width: 25%;" >&nbsp;</th>
                                             <?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
                                             ?>
-                                            <th colspan="2" class="pc_settings_heading"><?php _e( 'Plugin Commander Settings', 'cets_plugin_stats'); ?></th>
+                                            <th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets_plugin_stats'), __( 'Settings')); ?></th>
 
                                             <?php	
                                             }
                                             if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
                                             ?>
-                                            <th colspan="3" align="center" class="pc_settings_heading"><?php _e( 'Plugin Manager Settings', 'cets_plugin_stats'); ?></th>
+                                            <th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'cets_plugin_stats'), __( 'Settings')); ?></th>
                                             <?php	
                                             }
                                             ?>
@@ -419,11 +410,8 @@ class cets_Plugin_Stats {
         }
             
         function load_scripts() {
-            global $page;
-                // global $current_screen;
                 $screen = get_current_screen();
-                // todo limit loading to about tab
-                if ( $screen->id == $page ) {
+                if ( $screen->id == $this->page . '-network' ) {
                         wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
                         wp_enqueue_script( 'tablesort' );
                 }

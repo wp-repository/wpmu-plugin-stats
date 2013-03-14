@@ -1,100 +1,114 @@
-# Copyright (C) 2012 
+# Copyright (C) 2013 
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp\n"
-"POT-Creation-Date: 2012-12-17 15:14:03+00:00\n"
+"POT-Creation-Date: 2013-03-14 11:09:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: cets_plugin_stats.php:217
-msgid "WordPress plugin for letting site admins easily see what plugins are actively used on which sites"
-msgstr ""
-
-#: cets_plugin_stats.php:131 cets_plugin_stats.php:136
-#: cets_plugin_stats.php:207
+#: cets_plugin_stats.php:116 cets_plugin_stats.php:119
+#: cets_plugin_stats.php:225
 msgid "Plugin Stats"
 msgstr ""
 
-#: cets_plugin_stats.php:217
-msgid "Plugin Commander Settings"
+#: cets_plugin_stats.php:129
+msgid "About"
 msgstr ""
 
-#: cets_plugin_stats.php:223
-msgid "Plugin Manager Settings"
+#: cets_plugin_stats.php:142
+msgid "Development"
 msgstr ""
 
-#: cets_plugin_stats.php:235
+#: cets_plugin_stats.php:151
+msgid "Requires at least: %s"
+msgstr ""
+
+#: cets_plugin_stats.php:152
+msgid "Tested up to: %s"
+msgstr ""
+
+#: cets_plugin_stats.php:155
+msgid "Languages"
+msgstr ""
+
+#: cets_plugin_stats.php:157
+msgid "Help to translate at %s"
+msgstr ""
+
+#: cets_plugin_stats.php:159
+msgid "License"
+msgstr ""
+
+#: cets_plugin_stats.php:233 cets_plugin_stats.php:358
+msgid "Plugin Commander"
+msgstr ""
+
+#: cets_plugin_stats.php:239 cets_plugin_stats.php:364
+msgid "Plugin Manager"
+msgstr ""
+
+#: cets_plugin_stats.php:251 cets_plugin_stats.php:376
 msgid "Plugin"
 msgstr ""
 
-#: cets_plugin_stats.php:239 cets_plugin_stats.php:245
+#: cets_plugin_stats.php:255 cets_plugin_stats.php:261
+#: cets_plugin_stats.php:380 cets_plugin_stats.php:386
 msgid "Auto Activate"
 msgstr ""
 
-#: cets_plugin_stats.php:240 cets_plugin_stats.php:246
+#: cets_plugin_stats.php:256 cets_plugin_stats.php:262
+#: cets_plugin_stats.php:381 cets_plugin_stats.php:387
 msgid "User Controlled"
 msgstr ""
 
-#: cets_plugin_stats.php:247
+#: cets_plugin_stats.php:263 cets_plugin_stats.php:388
 msgid "Supporter Controlled"
 msgstr ""
 
-#: cets_plugin_stats.php:251
+#: cets_plugin_stats.php:267 cets_plugin_stats.php:392
 msgid "Activated Sitewide"
 msgstr ""
 
-#: cets_plugin_stats.php:252
+#: cets_plugin_stats.php:268 cets_plugin_stats.php:393
 msgid "Total Blogs"
 msgstr ""
 
-#: cets_plugin_stats.php:253
+#: cets_plugin_stats.php:269 cets_plugin_stats.php:394
 msgid "Blog Titles"
 msgstr ""
 
-#: cets_plugin_stats.php:274
+#: cets_plugin_stats.php:290
 msgid "Plugin File Not Found!"
 msgstr ""
 
-#: cets_plugin_stats.php:282 cets_plugin_stats.php:285
-#: cets_plugin_stats.php:293 cets_plugin_stats.php:296
-#: cets_plugin_stats.php:299 cets_plugin_stats.php:306
-msgid "Yes"
-msgstr ""
-
-#: cets_plugin_stats.php:283 cets_plugin_stats.php:286
-#: cets_plugin_stats.php:294 cets_plugin_stats.php:297
-#: cets_plugin_stats.php:300 cets_plugin_stats.php:307
-msgid "No"
-msgstr ""
-
-#: cets_plugin_stats.php:317
+#: cets_plugin_stats.php:333
 msgid "Show/Hide Blogs"
 msgstr ""
 
-#: cets_plugin_stats.php:328
+#: cets_plugin_stats.php:344
 msgid "N/A"
 msgstr ""
 
-#: cets_plugin_stats.php:338
+#: cets_plugin_stats.php:401
 msgid "minutes"
 msgstr ""
 
-#: cets_plugin_stats.php:339
+#: cets_plugin_stats.php:402
 msgid "less than 1 minute"
 msgstr ""
 
-#: cets_plugin_stats.php:340
+#: cets_plugin_stats.php:403
 msgid ""
 "This data is not updated as blog users update their plugins. It was last "
 "generated %s ago."
 msgstr ""
 
-#: cets_plugin_stats.php:341
+#: cets_plugin_stats.php:405
 msgid "Regenerate"
 msgstr ""
