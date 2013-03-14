@@ -27,15 +27,10 @@ class cets_Plugin_Stats {
         
         function __construct() {
                 global $wp_version;
-                global $current_screen;
-                //only run this code if we're at at least version 3.0
-                if ( version_compare( $wp_version, '3.0', '>=' ) ) {
+                // only run this code if we're at least at version 3.1
+                if ( version_compare( $wp_version, '3.1', '>=' ) ) {
                         // Add the site admin config page
-                        if (function_exists('is_network_admin')) {
-                                add_action('network_admin_menu', array(&$this, 'plugin_stats_add_page'));
-                        } else {
-                                add_action('admin_menu', array(&$this, 'plugin_stats_add_page'));
-                        }	
+                        add_action('network_admin_menu', array(&$this, 'plugin_stats_add_page'));
                 } else {
                         return;
                 }
@@ -110,16 +105,10 @@ class cets_Plugin_Stats {
 
         // Create a function to add a menu item for site admins
         function plugin_stats_add_page() {
-            if (is_super_admin()) {
-                if (function_exists('is_network_admin')) {
-                    //+3.1
-                    $this->page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
-                } else {
-                    //-3.1
-                    $this->page = add_submenu_page( 'wpmu-admin.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+                if (is_super_admin()) {
+                        $this->page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets_plugin_stats'), __( 'Plugin Stats', 'cets_plugin_stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
                 }
-            }
-            add_action("load-$this->page", array( &$this, 'help_tabs'));
+                add_action("load-$this->page", array( &$this, 'help_tabs'));
         }
         
         function help_tabs() {
