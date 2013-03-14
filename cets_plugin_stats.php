@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name:    Plugin Stats
-Plugin URI:     http://wordpress.org/extend/plugins/wpmu-plugin-stats/
-Description:    WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version:        1.4
-Author:         Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
-License:        TBD
-License URI:    TBD
-Text Domain:    cets-plugin-stats
-Domain Path:    /languages
+Plugin Name: Plugin Stats
+Plugin URI: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
+Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
+Version: 1.4
+Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
+License: TBD
+License URI: TBD
+Text Domain: cets-plugin-stats
+Domain Path: /languages
 
 Copyright:
     Copyright 2009-2013 Board of Regents of the University of Wisconsin System
