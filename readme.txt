@@ -21,7 +21,7 @@ For sites that are using Plugin Manager, additional columns for the Plugin Manag
 
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
-Contribute Translations at [https://translate.foe-services.de/projects/cets_plugin_stats](https://translate.foe-services.de/projects/cets_plugin_stats)
+Contribute Translations at [https://translate.foe-services.de/projects/cets-plugin-stats](https://translate.foe-services.de/projects/cets-plugin-stats)
 
 == Installation ==
 
