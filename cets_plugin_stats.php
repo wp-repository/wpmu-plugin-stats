@@ -119,34 +119,40 @@ class cets_Plugin_Stats {
 	}
 
 	function about_tab() { ?>
+		<style>.tab-about li { list-style: none; }</style>
 		<h1>WPMU Plugin Stats</h1>
 		<p>
 			<a href="http://wordpress.org/extend/plugins/wpmu-plugin-stats/" target="_blank">WordPress.org</a> | 
 			<a href="https://github.com/Foe-Services-Labs/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
 			<a href="http://wordpress.org/support/plugin/wpmu-plugin-stats" target="_blank">Issue Tracker</a>
 		</p>
-
-		<h3><?php _e( 'Development', 'cets-plugin-stats'); ?></h3>
-		<ul>
-			<li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
-			<li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
-			<li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
+		<ul class="tab-about">
+			<li><b><?php _e( 'Development', 'cets-plugin-stats'); ?>:</b>
+				<ul>
+					<li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
+					<li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
+					<li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
+				</ul>
+			</li>
+			<li><b>WordPress:</b>
+				<ul>
+					<li><?php printf( __( 'Requires at least: %s', 'cets-plugin-stats'), '3.0'); ?></li>
+					<li><?php printf( __( 'Tested up to: %s', 'cets-plugin-stats'), '3.5.1'); ?></li>
+				</ul>
+			</li>
+			<li><b><?php _e( 'Languages', 'cets-plugin-stats'); ?>:</b>
+				<ul>
+					<li>English (development), German</li>
+					<li><?php printf( __( 'Help to translate at %s', 'cets-plugin-stats'), '<a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">Translate > WPMU Plugin Stats</a>'); ?></li>
+				</ul>
+			</li>
+			<li><b><?php _e( 'License', 'cets-plugin-stats'); ?>:</b></li>
+			<li>
+				<p>Copyright 2009-2013 Board of Regents of the University of Wisconsin System<br />
+				Cooperative Extension Technology Services<br />
+				University of Wisconsin-Extension</p>
+			</li>
 		</ul>
-
-		<h3>WordPress</h3>
-		<ul>
-			<li><?php printf( __( 'Requires at least: %s', 'cets-plugin-stats'), '3.0'); ?></li>
-			<li><?php printf( __( 'Tested up to: %s', 'cets-plugin-stats'), '3.5.1'); ?></li>
-		</ul>
-
-		<h3><?php _e( 'Languages', 'cets-plugin-stats'); ?>:</h3>
-		<p>English (development), German</p>
-		<p><?php printf( __( 'Help to translate at %s', 'cets-plugin-stats'), '<a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">https://translate.foe-services.de/projects/cets-plugin-stats</a>'); ?></p>
-
-		<h3><?php _e( 'License', 'cets-plugin-stats'); ?></h3> 
-		<p>Copyright 2009-2012 Board of Regents of the University of Wisconsin System<br />
-		Cooperative Extension Technology Services<br />
-		University of Wisconsin-Extension</p>
 	<?php 
 	}
 
