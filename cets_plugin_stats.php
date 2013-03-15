@@ -184,7 +184,6 @@ class cets_Plugin_Stats {
 		// this is the built-in sitewide activation
 		$active_sitewide_plugins = maybe_unserialize( get_site_option( 'active_sitewide_plugins') );
 		?>
-		<!-- Some extra CSS -->
 		<style type="text/css">
 			table#cets_active_plugins {
 				margin-top: 6px;
@@ -207,7 +206,7 @@ class cets_Plugin_Stats {
 			span.plugin-not-found {
 				color: red;
 			}
-			.widefat tbody tr:hover td, .table-hover tbody tr:hover th {
+            .widefat tr:hover td {
 				background-color: #DDD;
 			}
 		</style>
