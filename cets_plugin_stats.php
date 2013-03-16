@@ -104,7 +104,14 @@ class cets_Plugin_Stats {
 	// Create a function to add a menu item for site admins
 	function plugin_stats_add_page() {
 		if ( is_network_admin() )
-			$this->page = add_submenu_page( 'plugins.php', __( 'Plugin Stats', 'cets-plugin-stats'), __( 'Plugin Stats', 'cets-plugin-stats'), 'manage_network', basename(__FILE__), array(&$this, 'plugin_stats_page'));
+			$this->page = add_submenu_page(
+				'plugins.php',
+				__( 'Plugin Stats', 'cets-plugin-stats'),
+				__( 'Plugin Stats', 'cets-plugin-stats'),
+				'manage_network',
+				basename(__FILE__),
+				array(&$this, 'plugin_stats_page')
+			);
 		
 		add_action("load-$this->page", array( &$this, 'help_tabs'));
 	}
@@ -112,7 +119,7 @@ class cets_Plugin_Stats {
 	function help_tabs() {
 		$screen = get_current_screen();
 		$screen->add_help_tab( array(
-			'id'        => 'cets_plugin_stats_about',
+			'id'        => 'cets_plugin_stats_tab_about',
 			'title'     => __('About', 'cets-plugin-stats'),
 			'callback'  => array( &$this, 'about_tab')
 		));     
