@@ -17,14 +17,7 @@ Copyright:
 */
 
 class cets_Plugin_Stats {
-        
-	/**
-	* PHP 4 constructor
-	*/
-	function cets_Plugin_Stats() {
-		cets_Plugin_Stats::__construct();
-	}
-
+    
 	function __construct() {
 		global $wp_version;
 		// only run this code if we're at least at version 3.1
@@ -39,7 +32,13 @@ class cets_Plugin_Stats {
 
 		load_plugin_textdomain( 'cets-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}	
-
+	
+	/**
+	* PHP 4 constructor
+	*/
+	function cets_Plugin_Stats() {
+		cets_Plugin_Stats::__construct();
+	}
 
 	function generate_plugin_blog_list() {
 		global $wpdb, $current_site;
