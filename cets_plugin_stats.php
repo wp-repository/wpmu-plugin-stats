@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Plugin Stats
+Plugin Name: WPMU Plugin Stats
 Plugin URI: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version: 1.4
+Version: 1.5
 Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
 License: TBD
 License URI: TBD
@@ -18,18 +18,25 @@ Copyright:
 if ( !class_exists('cets_Plugin_Stats') ) {
 
 	class cets_Plugin_Stats {
+		
+		const ID		= 'cets-plugin-stats'; // change to wpmu-plugin-stats
+		const VERSION	= '1.5';
 
 		function __construct() {
+			
 			global $wp_version;
+			
 			// only run this code if we're at least at version 3.1
 			if ( version_compare( $wp_version, '3.1', '>=' ) ) {
 				// Add the site admin config page
-				add_action('network_admin_menu', array(&$this, 'plugin_stats_add_page'));
+				add_action('network_admin_menu', array( &$this, 'plugin_stats_add_page'));
 			} else {
 				return;
 			}
-			if ( is_network_admin() )
+			if ( is_network_admin() ) {
 				add_action( 'admin_enqueue_scripts', array( &$this, 'load_scripts'));
+				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2 );
+			}
 
 			load_plugin_textdomain( 'cets-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}	
@@ -409,11 +416,25 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 		}
 
 		function load_scripts() {
+			
 			$screen = get_current_screen();
+			
 			if ( $screen->id == $this->page . '-network' ) {
 				wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
 				wp_enqueue_script( 'tablesort' );
 			} 
+		}
+		
+		function set_plugin_meta( $links, $file ) {
+			
+			if ( $file == plugin_basename( __FILE__ ) ) {
+				return array_merge(
+					$links,
+					array( '<a href="https://github.com/wp-repository/wpmu-plugin-stats" target="_blank">GitHub</a>' )
+				);
+			}
+			
+			return $links;
 		}
 
 	} // END class cets_Plugin_Stats
