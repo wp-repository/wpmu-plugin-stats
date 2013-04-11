@@ -6,7 +6,7 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 
 | WordPress					| Version			| *		| Development				|					|
 | ----:						| :----				| :---: | :----						| :----				|
-| Requires at least:		| __3.4__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
+| Requires at least:		| __3.1__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
 | Tested up to:				| __3.5.1__			| *		| [Issue-Tracker][1.4]		|					|
 | Current stable release:	| __[1.5][1.5]__	| *		| [WordPress.org-SVN][1.6]	|					|
 
