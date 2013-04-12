@@ -116,7 +116,7 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 					__( 'Plugin Stats', 'cets-plugin-stats'),
 					__( 'Plugin Stats', 'cets-plugin-stats'),
 					'manage_network',
-					basename(__FILE__),
+					'wpmu-plugin-stats',
 					array(&$this, 'plugin_stats_page')
 				);
 
@@ -137,8 +137,8 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 			<h1>WPMU Plugin Stats</h1>
 			<p>
 				<a href="http://wordpress.org/extend/plugins/wpmu-plugin-stats/" target="_blank">WordPress.org</a> | 
-				<a href="https://github.com/Foe-Services-Labs/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
-				<a href="http://wordpress.org/support/plugin/wpmu-plugin-stats" target="_blank">Issue Tracker</a>
+				<a href="https://github.com/wp-repository/wpmu-plugin-stats" target="_blank">GitHub Repository</a> | 
+				<a href="https://github.com/wp-repository/wpmu-plugin-stats/issues" target="_blank">Issue Tracker</a>
 			</p>
 			<ul class="tab-about">
 				<li><b><?php _e( 'Development', 'cets-plugin-stats'); ?>:</b>
@@ -150,7 +150,7 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 				</li>
 				<li><b>WordPress:</b>
 					<ul>
-						<li><?php printf( __( 'Requires at least: %s', 'cets-plugin-stats'), '3.0'); ?></li>
+						<li><?php printf( __( 'Requires at least: %s', 'cets-plugin-stats'), '3.1'); ?></li>
 						<li><?php printf( __( 'Tested up to: %s', 'cets-plugin-stats'), '3.5.1'); ?></li>
 					</ul>
 				</li>
