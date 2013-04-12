@@ -14,7 +14,7 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 [1.2]: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 [1.3]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
-[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.5.zip
+[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.3.2.zip
 [1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
 [1.7]: https://translate.foe-services.de/projects/cets_plugin_stats
 
@@ -50,9 +50,17 @@ TBD
 
 
 ## Changelog
+* __1.5__ _[future plans/roadmap][4.1]_
+* __1.4__ (coming soon)
+	* moved development to GitHub
+	* full translation support
+	* German language support
+	* UI polished with tabs and functioning table-sorting
 * __1.3.2__
 	* minor cleanups, should work with 3.4.2, and we'll go from here with better support!
 * __1.2__
 	* updated for new network admin menu in 3.1, eliminated use of plugin on less than WP 3.0
 * __1.1__
 	* minor tweak to eliminate content shift
+
+[4.1]: https://github.com/wp-repository/wpmu-plugin-stats/issues?milestone=1
