@@ -5,15 +5,29 @@ Plugin URI: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
 Version: 1.4
 Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
-License: TBD
-License URI: TBD
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: cets-plugin-stats
 Domain Path: /languages
+      
+	WPMU Plugin Stats
 
-Copyright:
-    Copyright 2009-2013 Board of Regents of the University of Wisconsin System
+	Copyright (C) 2009 - 2013 Board of Regents of the University of Wisconsin System
 	Cooperative Extension Technology Services
-	University of Wisconsin-Extension           
+	University of Wisconsin-Extension
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.        
 */
 if ( !class_exists('cets_Plugin_Stats') ) {
 
