@@ -3,7 +3,7 @@ Contributors: DeannaS, kgraeme, MadtownLems
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
 Requires at least: 3.1
 Tested up to: 3.5.1
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,9 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 3. Administrator view of list of plugins intalled with Plugin Manager settings. (View also shows regenerate button.)
 
 == Changelog ==
+
+= 1.6 =
+*
 
 = 1.5 =
 * translation support

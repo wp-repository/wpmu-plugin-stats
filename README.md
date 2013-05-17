@@ -8,13 +8,13 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 | ----:						| :----				| :---: | :----						| :----				|
 | Requires at least:		| __3.1__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
 | Tested up to:				| __3.5.1__			| *		| [Issue-Tracker][1.4]		|					|
-| Current stable release:	| __[1.5][1.5]__	| *		| [WordPress.org-SVN][1.6]	|					|
+| Current stable release:	| __[1.6][1.5]__	| *		| [WordPress.org-SVN][1.6]	|					|
 
 [1.1]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.2]: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 [1.3]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
-[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.5.zip
+[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.6.zip
 [1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
 [1.7]: https://translate.foe-services.de/projects/cets-plugin-stats
 
@@ -46,12 +46,32 @@ Because the time to generate stats can be quite large, network plugin useage is 
 
 
 ## License
-TBD
+__[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
+
+	WPMU Plugin Stats
+
+	Copyright (C) 2009 - 2013 Board of Regents of the University of Wisconsin System
+	Cooperative Extension Technology Services
+	University of Wisconsin-Extension
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
 
 ## Changelog
-* __1.5__ _[future plans/roadmap][4.1]_
-* __1.4__ (coming soon)
+* __1.6__ _[future plans/roadmap][4.1]_
+	* 
+* __1.5__
 	* moved development to GitHub
 	* full translation support
 	* German language support
@@ -63,4 +83,4 @@ TBD
 * __1.1__
 	* minor tweak to eliminate content shift
 
-[4.1]: https://github.com/wp-repository/wpmu-plugin-stats/issues?milestone=1
+[4.1]: https://github.com/wp-repository/wpmu-plugin-stats/issues
