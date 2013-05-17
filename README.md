@@ -14,9 +14,9 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 [1.2]: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
 [1.3]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
-[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.3.2.zip
+[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.5.zip
 [1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
-[1.7]: https://translate.foe-services.de/projects/cets_plugin_stats
+[1.7]: https://translate.foe-services.de/projects/cets-plugin-stats
 
 ### Description
 This plugin provides a snapshot view of which blogs are using any particular plugin. 
