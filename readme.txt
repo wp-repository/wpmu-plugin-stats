@@ -23,7 +23,7 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 
 = Development =
 
-* Repository: [wp-repository](https://github.com/wp-repository) / [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
+* GitHub Repository: [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
 * Issue-Tracker: [WPMU Plugin Stats Issues](https://github.com/wp-repository/wpmu-theme-usage-info/issues) **Please use the Issue-Tracker at GitHub!!**
 * Translation: [Translate > WPMU Plugin Stats](https://translate.foe-services.de/projects/cets-plugin-stats)
 
