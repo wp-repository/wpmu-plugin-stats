@@ -1,4 +1,4 @@
-# WPMU Plugin Stats
+# WPMU Plugin Stats [![Build Status](https://travis-ci.org/wp-repository/wpmu-plugin-stats.png?branch=master)](https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 __Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.__
 
 ## Details
@@ -70,7 +70,9 @@ __[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
 
 ## Changelog
 * __1.6__ _[future plans/roadmap][4.1]_
-	* 
+	* added build testing via travis-ci.org
+	* added custom unit tests @TODO
+	* TBD
 * __1.5__
 	* moved development to GitHub
 	* full translation support

@@ -1,5 +1,5 @@
 === WPMU Plugin Stats ===
-Contributors: DeannaS, kgraeme, MadtownLems
+Contributors: DeannaS, kgraeme, MadtownLems, wp-repository
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
 Requires at least: 3.1
 Tested up to: 3.5.1
