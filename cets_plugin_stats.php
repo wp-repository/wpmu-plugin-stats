@@ -162,24 +162,8 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 						<li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
 					</ul>
 				</li>
-				<li><b>WordPress:</b>
-					<ul>
-						<li><?php printf( __( 'Requires at least: %s', 'cets-plugin-stats'), '3.1'); ?></li>
-						<li><?php printf( __( 'Tested up to: %s', 'cets-plugin-stats'), '3.5.1'); ?></li>
-					</ul>
-				</li>
-				<li><b><?php _e( 'Languages', 'cets-plugin-stats'); ?>:</b>
-					<ul>
-						<li>English (development), German</li>
-						<li><?php printf( __( 'Help to translate at %s', 'cets-plugin-stats'), '<a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">Translate > WPMU Plugin Stats</a>'); ?></li>
-					</ul>
-				</li>
-				<li><b><?php _e( 'License', 'cets-plugin-stats'); ?>:</b></li>
-				<li>
-					<p>Copyright 2009-2013 Board of Regents of the University of Wisconsin System<br />
-					Cooperative Extension Technology Services<br />
-					University of Wisconsin-Extension</p>
-				</li>
+				<li><b><?php _e( 'Languages', 'cets-plugin-stats'); ?>:</b> English (development), German, Spanish, <a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">more...</a></li> 
+				<li><b><?php _e( 'License', 'cets-plugin-stats'); ?>:</b> <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPLv2 or later</a></li>
 			</ul>
 		<?php 
 		}

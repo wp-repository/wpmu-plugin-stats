@@ -41,7 +41,10 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 == Changelog ==
 
 = 1.6 =
-*
+* added build testing via travis-ci.org
+* added custom unit tests @TODO
+* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
+* TBD
 
 = 1.5 =
 * translation support
