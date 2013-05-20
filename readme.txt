@@ -3,7 +3,7 @@ Contributors: DeannaS, kgraeme, MadtownLems, wp-repository
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
 Requires at least: 3.1
 Tested up to: 3.5.1
-Stable tag: 1.6
+Stable tag: 1.6-dev
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 
 == Changelog ==
 
-= 1.6 =
+= 1.6-dev =
 * added build testing via travis-ci.org
 * added custom unit tests @TODO
 * added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
