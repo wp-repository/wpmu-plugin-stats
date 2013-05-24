@@ -1,7 +1,6 @@
 # WPMU Plugin Stats [![Build Status](https://travis-ci.org/wp-repository/wpmu-plugin-stats.png?branch=master)](https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 __Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.__
 
-## Details
 [Homepage][1.1] | [WordPress.org][1.2]
 
 | WordPress					| Version			| *		| Development				|					|
@@ -29,8 +28,7 @@ For sites that are using Plugin Manager, additional columns for the Plugin Manag
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
 
-## Development
-### Developers
+## Developers
 | Name					| GitHub				| WordPress.org			| Web									| Status				|
 | :----					| :----					| :----					| :----									| ----:					|
 | Kevin Graeme			| -						| [kgraeme][2.1.2]		| -										| Inactive				|
@@ -87,4 +85,4 @@ __[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
 * __1.1__
 	* minor tweak to eliminate content shift
 
-[4.1]: https://github.com/wp-repository/wpmu-plugin-stats/issues
+[4.1]: ../../issues
