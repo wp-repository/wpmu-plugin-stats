@@ -29,12 +29,27 @@ Domain Path: /languages
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.        
 */
-if ( !class_exists('cets_Plugin_Stats') ) {
+
+//avoid direct calls to this file
+if ( ! function_exists( 'add_filter' ) ) {
+	header('Status: 403 Forbidden');
+	header('HTTP/1.1 403 Forbidden');
+	exit();
+}
+
+if ( ! class_exists('cets_Plugin_Stats') ) {
+	
+	add_action(
+		'plugins_loaded', 
+		array ( 'cets_Plugin_Stats', 'get_instance' )
+	);
 
 	class cets_Plugin_Stats {
-		
-		const ID		= 'cets-plugin-stats'; // change to wpmu-plugin-stats
+
 		const VERSION	= '1.6-dev';
+		
+		// Plugin instance
+		protected static $instance = NULL;
 
 		function __construct() {
 			
@@ -60,6 +75,14 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 		*/
 		function cets_Plugin_Stats() {
 			cets_Plugin_Stats::__construct();
+		}
+		
+		// Access this plugin’s working instance
+		public static function get_instance() {	
+			if ( NULL === self::$instance )
+				self::$instance = new self;
+
+			return self::$instance;
 		}
 
 		function generate_plugin_blog_list() {
@@ -231,10 +254,10 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 						<?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) { ?>
 						<tr>
 							<th style="width: 25%;" >&nbsp;</th>
-							<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){ ?>
-								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets-plugin-stats'), __( 'Settings')); ?></th>
+							<?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 ) { ?>
+								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets-plugin-stats'), __( 'Settings') ); ?></th>
 							<?php }
-							if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1) { ?>
+							if ( $pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1 ) { ?>
 								<th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'cets-plugin-stats'), __( 'Settings')); ?></th>
 							<?php } ?>
 							<th>&nbsp;</th>
@@ -243,26 +266,33 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 						</tr>
 						<?php } ?>
 						<tr>
-								<th class="nocase"><?php _e( 'Plugin', 'cets-plugin-stats'); ?></th>
-
-								<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1){
-								?>
-								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets-plugin-stats'); ?></th>
-								<th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'cets-plugin-stats'); ?></th>
+							<th class="nocase"><?php _e( 'Plugin', 'cets-plugin-stats'); ?></th>
+							<?php 
+							if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 ) { ?>
+								<th class="nocase pc_settings_left">
+									<?php _e( 'Auto Activate', 'cets-plugin-stats'); ?>
+								</th>
+								<th class="nocase pc_settings_right">
+									<?php _e( 'User Controlled', 'cets-plugin-stats'); ?>
+								</th>
 								<?php	
-								}
-								if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1){
+							}
+							if ( $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
 								?>
 								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets-plugin-stats'); ?></th>
 								<th class="nocase"><?php _e( 'User Controlled', 'cets-plugin-stats'); ?></th>
 								<th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets-plugin-stats'); ?></th>
 								<?php	
-								}
-								?>
-								<th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets-plugin-stats'); ?></th>
-								<th class="num"><?php _e( 'Total Blogs', 'cets-plugin-stats'); ?></th>
-								<th width="200px"><?php _e( 'Blog Titles', 'cets-plugin-stats'); ?></th>
-
+							} ?>
+							<th class="case" style="text-align: center !important">
+								<?php _e( 'Activated Sitewide', 'cets-plugin-stats'); ?>
+							</th>
+							<th class="num">
+								<?php _e( 'Total Blogs', 'cets-plugin-stats'); ?>
+							</th>
+							<th width="200px">
+								<?php _e( 'Blog Titles', 'cets-plugin-stats'); ?>
+							</th>
 						</tr>
 					</thead>
 					<tbody id="plugins">
@@ -286,7 +316,7 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 
 							echo ($thisName . '</td>');
 							// plugin commander columns	
-							if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) {
+							if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 ) {
 								echo ('<td align="center" class="pc_settings_left">');
 								if (in_array($file, $auto_activate)) { 
 									_e( 'Yes');
@@ -294,7 +324,7 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 								else {
 									_e( 'No');
 								}
-								echo('</td><td align="center" class="pc_settings_right">');
+								echo( '</td><td align="center" class="pc_settings_right">');
 								if (in_array($file, $user_control)) {
 									_e( 'Yes');
 								}
@@ -304,8 +334,8 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 								echo("</td>");
 							}
 							// plugin manager columns
-							if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1) {
-								echo ('<td align="center" class="pc_settings_left">');
+							if ( $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
+								echo ( '<td align="center" class="pc_settings_left">');
 								if (in_array($file, $pm_auto_activate)) {
 									_e( 'Yes');
 								}
@@ -319,7 +349,7 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 								else {
 									_e( 'No');
 								}
-								echo('</td><td align="center" class="pc_settings_right">');
+								echo( '</td><td align="center" class="pc_settings_right">');
 								if (in_array($file, $pm_supporter_control)) {
 									_e( 'Yes');
 								}
@@ -436,7 +466,5 @@ if ( !class_exists('cets_Plugin_Stats') ) {
 		}
 
 	} // END class cets_Plugin_Stats
-	
-	$GLOBALS['cets_Plugin_Stats'] = new cets_Plugin_Stats();
 
 }// END if class_exists
