@@ -7,7 +7,7 @@ Version: 1.6-dev
 Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: cets-plugin-stats
+Text Domain: wpmu-plugin-stats
 Domain Path: /languages
       
 	WPMU Plugin Stats
@@ -67,7 +67,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2 );
 			}
 
-			load_plugin_textdomain( 'cets-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}	
 
 		/**
@@ -150,8 +150,8 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 			if ( is_network_admin() )
 				$this->page = add_submenu_page(
 					'plugins.php',
-					__( 'Plugin Stats', 'cets-plugin-stats'),
-					__( 'Plugin Stats', 'cets-plugin-stats'),
+					__( 'Plugin Stats', 'wpmu-plugin-stats'),
+					__( 'Plugin Stats', 'wpmu-plugin-stats'),
 					'manage_network',
 					'wpmu-plugin-stats',
 					array(&$this, 'plugin_stats_page')
@@ -164,7 +164,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 			$screen = get_current_screen();
 			$screen->add_help_tab( array(
 				'id'        => 'cets_plugin_stats_tab_about',
-				'title'     => __('About', 'cets-plugin-stats'),
+				'title'     => __('About', 'wpmu-plugin-stats'),
 				'callback'  => array( &$this, 'about_tab')
 			));     
 		}
@@ -178,15 +178,15 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 				<a href="https://github.com/wp-repository/wpmu-plugin-stats/issues" target="_blank">Issue Tracker</a>
 			</p>
 			<ul class="tab-about">
-				<li><b><?php _e( 'Development', 'cets-plugin-stats'); ?>:</b>
+				<li><b><?php _e( 'Development', 'wpmu-plugin-stats'); ?>:</b>
 					<ul>
 						<li>Kevin Graeme | <a href="http://profiles.wordpress.org/kgraeme/" target="_blank">kgraeme@WP.org</a></li>
 						<li><a href="http://deannaschneider.wordpress.com/" target="_blank">Deanna Schneider</a> | <a href="http://profiles.wordpress.org/deannas/" target="_blank">deannas@WP.org</a></li>
 						<li><a href="http://www.jasonlemahieu.com/" target="_blank">Jason Lemahieu</a> | <a href="http://profiles.wordpress.org/MadtownLems/" target="_blank">MadtownLems@WP.org</a></li>
 					</ul>
 				</li>
-				<li><b><?php _e( 'Languages', 'cets-plugin-stats'); ?>:</b> English (development), German, Spanish, <a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">more...</a></li> 
-				<li><b><?php _e( 'License', 'cets-plugin-stats'); ?>:</b> <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPLv2 or later</a></li>
+				<li><b><?php _e( 'Languages', 'wpmu-plugin-stats'); ?>:</b> English (development), German, Spanish, <a href="https://translate.foe-services.de/projects/cets-plugin-stats" target="_blank">more...</a></li> 
+				<li><b><?php _e( 'License', 'wpmu-plugin-stats'); ?>:</b> <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPLv2 or later</a></li>
 			</ul>
 		<?php 
 		}
@@ -248,17 +248,17 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 
 			<div class="wrap">
 				<?php screen_icon( 'plugins' ); ?>
-				<h2><?php _e( 'Plugin Stats', 'cets-plugin-stats'); ?></h2>
+				<h2><?php _e( 'Plugin Stats', 'wpmu-plugin-stats'); ?></h2>
 				<table class="widefat" id="cets_active_plugins">
 					<thead>
 						<?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 || $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) { ?>
 						<tr>
 							<th style="width: 25%;" >&nbsp;</th>
 							<?php if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 ) { ?>
-								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets-plugin-stats'), __( 'Settings') ); ?></th>
+								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'wpmu-plugin-stats'), __( 'Settings') ); ?></th>
 							<?php }
 							if ( $pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1 ) { ?>
-								<th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'cets-plugin-stats'), __( 'Settings')); ?></th>
+								<th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'wpmu-plugin-stats'), __( 'Settings')); ?></th>
 							<?php } ?>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -266,32 +266,32 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 						</tr>
 						<?php } ?>
 						<tr>
-							<th class="nocase"><?php _e( 'Plugin', 'cets-plugin-stats'); ?></th>
+							<th class="nocase"><?php _e( 'Plugin', 'wpmu-plugin-stats'); ?></th>
 							<?php 
 							if ( sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1 ) { ?>
 								<th class="nocase pc_settings_left">
-									<?php _e( 'Auto Activate', 'cets-plugin-stats'); ?>
+									<?php _e( 'Auto Activate', 'wpmu-plugin-stats'); ?>
 								</th>
 								<th class="nocase pc_settings_right">
-									<?php _e( 'User Controlled', 'cets-plugin-stats'); ?>
+									<?php _e( 'User Controlled', 'wpmu-plugin-stats'); ?>
 								</th>
 								<?php	
 							}
 							if ( $pm_auto_activate_status == 1 || $pm_user_control_status == 1 || $pm_supporter_control_status == 1 ) {
 								?>
-								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets-plugin-stats'); ?></th>
-								<th class="nocase"><?php _e( 'User Controlled', 'cets-plugin-stats'); ?></th>
-								<th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'wpmu-plugin-stats'); ?></th>
+								<th class="nocase"><?php _e( 'User Controlled', 'wpmu-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'wpmu-plugin-stats'); ?></th>
 								<?php	
 							} ?>
 							<th class="case" style="text-align: center !important">
-								<?php _e( 'Activated Sitewide', 'cets-plugin-stats'); ?>
+								<?php _e( 'Activated Sitewide', 'wpmu-plugin-stats'); ?>
 							</th>
 							<th class="num">
-								<?php _e( 'Total Blogs', 'cets-plugin-stats'); ?>
+								<?php _e( 'Total Blogs', 'wpmu-plugin-stats'); ?>
 							</th>
 							<th width="200px">
-								<?php _e( 'Blog Titles', 'cets-plugin-stats'); ?>
+								<?php _e( 'Blog Titles', 'wpmu-plugin-stats'); ?>
 							</th>
 						</tr>
 					</thead>
@@ -311,7 +311,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 									$thisName = $file;
 								}
 							} else {
-								$thisName = $file . " <span class='plugin-not-found'>(" . __( 'Plugin File Not Found!', 'cets-plugin-stats') . ")</span>";
+								$thisName = $file . " <span class='plugin-not-found'>(" . __( 'Plugin File Not Found!', 'wpmu-plugin-stats') . ")</span>";
 							}
 
 							echo ($thisName . '</td>');
@@ -375,7 +375,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 
 							echo ('</td><td align="center">' . $numBlogs . '</td><td>');
 							?>
-							<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);"><?php _e( 'Show/Hide Blogs', 'cets-plugin-stats'); ?></a>
+							<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);"><?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats'); ?></a>
 
 							<?php
 							echo ('<ul class="bloglist" id="bloglist_' . $counter  . '">');
@@ -385,7 +385,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 								}
 							}
 							else
-								echo ("<li>" . __( 'N/A', 'cets-plugin-stats') . "</li>");	
+								echo ("<li>" . __( 'N/A', 'wpmu-plugin-stats') . "</li>");	
 							echo ('</ul></td>');
 						} ?>
 					</tbody>
@@ -394,11 +394,11 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 						<tr>
 							<th style="width: 25%;" >&nbsp;</th>
 							<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) { ?>
-								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'cets-plugin-stats'), __( 'Settings')); ?></th>
+								<th colspan="2" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Commander', 'wpmu-plugin-stats'), __( 'Settings')); ?></th>
 							<?php	
 							}
 							if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1) { ?>
-								<th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'cets-plugin-stats'), __( 'Settings')); ?></th>
+								<th colspan="3" align="center" class="pc_settings_heading"><?php printf( '%s %s', __( 'Plugin Manager', 'wpmu-plugin-stats'), __( 'Settings')); ?></th>
 							<?php	
 							}
 							?>
@@ -408,36 +408,36 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 						</tr>
 						<?php }	?>
 						<tr>
-							<th class="nocase"><?php _e( 'Plugin', 'cets-plugin-stats'); ?></th>
+							<th class="nocase"><?php _e( 'Plugin', 'wpmu-plugin-stats'); ?></th>
 							<?php if (sizeOf($auto_activate) > 1 || sizeOf($user_control) > 1) { ?>
-								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets-plugin-stats'); ?></th>
-								<th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'cets-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'wpmu-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_right"><?php _e( 'User Controlled', 'wpmu-plugin-stats'); ?></th>
 							<?php	
 							}
 							if ($pm_auto_activate_status == 1 || $pm_user_control_status == 1|| $pm_supporter_control_status == 1) { ?>
-								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'cets-plugin-stats'); ?></th>
-								<th class="nocase"><?php _e( 'User Controlled', 'cets-plugin-stats'); ?></th>
-								<th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'cets-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_left"><?php _e( 'Auto Activate', 'wpmu-plugin-stats'); ?></th>
+								<th class="nocase"><?php _e( 'User Controlled', 'wpmu-plugin-stats'); ?></th>
+								<th class="nocase pc_settings_right"><?php _e( 'Supporter Controlled', 'wpmu-plugin-stats'); ?></th>
 							<?php	
 							}
 							?>
-							<th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'cets-plugin-stats'); ?></th>
-							<th class="num"><?php _e( 'Total Blogs', 'cets-plugin-stats'); ?></th>
-							<th width="200px"><?php _e( 'Blog Titles', 'cets-plugin-stats'); ?></th>
+							<th class="case" style="text-align: center !important"><?php _e( 'Activated Sitewide', 'wpmu-plugin-stats'); ?></th>
+							<th class="num"><?php _e( 'Total Blogs', 'wpmu-plugin-stats'); ?></th>
+							<th width="200px"><?php _e( 'Blog Titles', 'wpmu-plugin-stats'); ?></th>
 						</tr>
 					</tfoot>
 				</table>
 					<p>
 						<?php 
 							if (time()-$gen_time > 60) { 
-								$lastregen = (round((time() - $gen_time)/60, 0)) . " " . __( 'minutes', 'cets-plugin-stats');
+								$lastregen = (round((time() - $gen_time)/60, 0)) . " " . __( 'minutes', 'wpmu-plugin-stats');
 							} 
 							else { 
-								$lastregen = __( 'less than 1 minute', 'cets-plugin-stats'); 
+								$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats'); 
 							}
-							printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'cets-plugin-stats'), $lastregen ) ; ?> 
+							printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'wpmu-plugin-stats'), $lastregen ) ; ?> 
 							<form name="plugininfoform" action="" method="post">
-								<input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'cets-plugin-stats'); ?>"><input type="hidden" name="action" value="update" />
+								<input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'wpmu-plugin-stats'); ?>"><input type="hidden" name="action" value="update" />
 							</form>
 					</p>
 		<?php
