@@ -60,6 +60,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2);
 			}
 			
+			register_deactivation_hook( __FILE__, array( 'cets_Plugin_Stats', 'deactivate_plugin') );
 		}	
 		
 		// Access this plugin’s working instance
@@ -446,6 +447,11 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 			}
 			
 			return $links;
+		}
+		
+		function deactivate_plugin() {
+			delete_site_option( 'cets_plugin_stats_data' );
+			delete_site_option( 'cets_plugin_stats_data_freshness' );
 		}
 
 	} // END class cets_Plugin_Stats
