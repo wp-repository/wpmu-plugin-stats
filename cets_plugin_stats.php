@@ -53,22 +53,13 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 		protected static $instance = NULL;
 
 		function __construct() {
-			
-			global $wp_version;
-			
-			// only run this code if we're at least at version 3.1
-			if ( version_compare( $wp_version, '3.1', '>=' ) ) {
-				// Add the site admin config page
-				add_action('network_admin_menu', array( &$this, 'plugin_stats_add_page'));
-			} else {
-				return;
-			}
+			add_action( 'network_admin_menu', array( &$this, 'add_page'));
+
 			if ( is_network_admin() ) {
 				add_action( 'admin_enqueue_scripts', array( &$this, 'load_scripts'));
-				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2 );
+				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2);
 			}
-
-			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			
 		}	
 		
 		// Access this plugin’s working instance
@@ -78,7 +69,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 
 			return self::$instance;
 		}
-
+		
 		function generate_plugin_blog_list() {
 			global $wpdb, $current_site;
 
@@ -140,16 +131,15 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 		}
 
 		// Create a function to add a menu item for site admins
-		function plugin_stats_add_page() {
-			if ( is_network_admin() )
-				$this->page = add_submenu_page(
-					'plugins.php',
-					__( 'Plugin Stats', 'wpmu-plugin-stats'),
-					__( 'Plugin Stats', 'wpmu-plugin-stats'),
-					'manage_network',
-					'wpmu-plugin-stats',
-					array(&$this, 'plugin_stats_page')
-				);
+		function add_page() {
+			$this->page = add_submenu_page(
+				'plugins.php',
+				__( 'Plugin Stats', 'wpmu-plugin-stats'),
+				__( 'Plugin Stats', 'wpmu-plugin-stats'),
+				'manage_network',
+				'wpmu-plugin-stats',
+				array(&$this, 'plugin_stats_page')
+			);
 
 			add_action("load-$this->page", array( &$this, 'help_tabs'));
 		}
@@ -160,7 +150,9 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 				'id'        => 'cets_plugin_stats_tab_about',
 				'title'     => __('About', 'wpmu-plugin-stats'),
 				'callback'  => array( &$this, 'about_tab')
-			));     
+			));
+			
+			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 		}
 
 		function about_tab() { ?>
