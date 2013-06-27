@@ -70,13 +70,6 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 
 			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}	
-
-		/**
-		* PHP 4 constructor
-		*/
-		function cets_Plugin_Stats() {
-			cets_Plugin_Stats::__construct();
-		}
 		
 		// Access this plugin’s working instance
 		public static function get_instance() {	
