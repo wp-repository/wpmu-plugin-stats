@@ -29,8 +29,8 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 
 == Installation ==
 
-1. Place the cets\_plugin\_info.php file and directory in the wp-content/mu-plugins folder.
-2. In 3.1+, go to network admin -> Plugins -> Plugin Stats to view information.
+1. Install by searching "WPMU Plugin Stats" on Plugins > Add New > Search
+2. Activate by clicking "Network Activate"
 
 == Screenshots ==
 
@@ -41,8 +41,6 @@ For users of <a href="http://firestats.cc/wiki/WPMUPluginCommander">Plugin Comma
 == Changelog ==
 
 = 1.6-dev =
-* added build testing via travis-ci.org
-* added custom unit tests @TODO
 * added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
 * TBD
 
