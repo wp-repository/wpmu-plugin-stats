@@ -1,5 +1,7 @@
-# WPMU Plugin Stats [![Build Status](https://travis-ci.org/wp-repository/wpmu-plugin-stats.png?branch=master)](https://travis-ci.org/wp-repository/wpmu-plugin-stats)
+# WPMU Plugin Stats
 __Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.__
+
+Master: [![Build Status](https://travis-ci.org/wp-repository/wpmu-plugin-stats.png?branch=master)](https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 
 [Homepage][1.1] | [WordPress.org][1.2]
 
@@ -69,9 +71,9 @@ __[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
 
 ## Changelog
 * __TODO__ _[future plans/roadmap][4.1]_
-	* build testing via travis-ci.org
 	* custom unit tests
-* __1.6-dev__ _[future plans/roadmap][4.1]_	
+* __1.6-dev__ _[future plans/roadmap][4.1]_
+	* added build testing via travis-ci.org (https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 	* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
 	* added uninstall function to remove settings on deactivation
 	* dropped PHP4 support + no testing on PHP version < 5.3
