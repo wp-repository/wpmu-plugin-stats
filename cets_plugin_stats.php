@@ -56,7 +56,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 			add_action( 'network_admin_menu', array( &$this, 'add_page'));
 
 			if ( is_network_admin() ) {
-				add_action( 'admin_enqueue_scripts', array( &$this, 'load_scripts'));
+				add_action( 'current_screen', array( &$this, 'load_scripts'));
 				add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2);
 			}
 			
@@ -430,7 +430,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 		<?php
 		}
 
-		function load_scripts() {
+		function load_scripts( $screen ) {
 			if ( 'plugins_page_wpmu-plugin-stats-network' == $screen->id ) {
 				wp_register_script( 'tablesort', plugins_url('js/tablesort-2.4.min.js', __FILE__), array(), '2.4', true);
 				wp_enqueue_script( 'tablesort' );
