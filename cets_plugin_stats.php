@@ -53,6 +53,7 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 		protected static $instance = NULL;
 
 		function __construct() {
+			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 			add_action( 'network_admin_menu', array( &$this, 'add_page'));
 
 			if ( is_network_admin() ) {
@@ -152,8 +153,6 @@ if ( ! class_exists('cets_Plugin_Stats') ) {
 				'title'     => __('About', 'wpmu-plugin-stats'),
 				'callback'  => array( &$this, 'about_tab')
 			));
-			
-			load_plugin_textdomain( 'wpmu-plugin-stats', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 		}
 
 		function about_tab() { ?>
