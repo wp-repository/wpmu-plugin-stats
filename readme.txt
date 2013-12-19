@@ -31,6 +31,12 @@ Because the time to generate stats can be quite large, network plugin useage is 
 2. Administrator view of list of plugins installed with Plugin Commander settings.
 3. Administrator view of list of plugins intalled with Plugin Manager settings. (View also shows regenerate button.)
 
+== Upgrade Notice ==
+
+**ATTENTION:**
+When you update to version 2.1 the plugin gets deactivated automatically.
+You need to reactivate by clicking "Network Activate". No data is lost.
+
 == Changelog ==
 = 2.1 =
  * TBD
