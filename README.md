@@ -20,11 +20,6 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 
 ### Description
 This plugin provides a snapshot view of which blogs are using any particular plugin. 
-
-For sites that are using Plugin Commander to manage plugins, additional columns for the Plugin Commander settings of Auto Activate and User Controlled are included.
-
-For sites that are using Plugin Manager, additional columns for the Plugin Manager settings of Auto Activate, User Controlled and Supporter Controlled are included.
-
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
 

@@ -3,7 +3,7 @@ Contributors: DeannaS, kgraeme, MadtownLems, wp-repository
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
 Requires at least: 3.8.0
 Tested up to: 3.9-alpha
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,8 +12,6 @@ Provides info to site admins as to which plugins are activated sitewide, and whi
 == Description ==
 
 This plugin provides a snapshot view of which blogs are using any particular plugin. 
-For sites that are using Plugin Commander to manage plugins, additional columns for the Plugin Commander settings of Auto Activate and User Controlled are included.
-For sites that are using Plugin Manager, additional columns for the Plugin Manager settings of Auto Activate, User Controlled and Supporter Controlled are included.
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
 = Development =
@@ -34,6 +32,8 @@ Because the time to generate stats can be quite large, network plugin useage is 
 3. Administrator view of list of plugins intalled with Plugin Manager settings. (View also shows regenerate button.)
 
 == Changelog ==
+= 2.1 =
+ * TBD
 
 = 2.0 =
  * added some hooks

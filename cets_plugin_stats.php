@@ -207,6 +207,7 @@ class WPMU_Plugin_Stats {
 			}
 			.plugins .active td.plugin-title {
 				border-left: 4px solid #2EA2CC;
+				font-weight: 700;
 			}
 		</style>
 		<div class="wrap">
