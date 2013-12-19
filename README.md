@@ -1,23 +1,21 @@
 # WPMU Plugin Stats
 __Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.__
 
-Master: [![Build Status](https://travis-ci.org/wp-repository/wpmu-plugin-stats.png?branch=master)](https://travis-ci.org/wp-repository/wpmu-plugin-stats)
-
 [Homepage][1.1] | [WordPress.org][1.2]
 
 | WordPress					| Version			| *		| Development				|					|
 | ----:						| :----				| :---: | :----						| :----				|
 | Requires at least:		| __3.1__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
 | Tested up to:				| __3.5.1__			| *		| [Issue-Tracker][1.4]		| [WordPress.org-SVN][1.6] |
-| Current stable release:	| __[1.5][1.5]__	| *		| Current dev version:		| [1.6-dev][1.8]	|
+| Current stable release:	| __[2.0][1.5]__	| *		| Current dev version:		| [2.1][1.8]	|
 
 [1.1]: https://github.com/wp-repository/wpmu-plugin-stats
-[1.2]: http://wordpress.org/extend/plugins/wpmu-plugin-stats/
+[1.2]: http://wordpress.org/plugins/wpmu-plugin-stats/
 [1.3]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
-[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/1.5.zip
+[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/2.0.zip
 [1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
-[1.7]: https://translate.foe-services.de/projects/cets-plugin-stats
+[1.7]: http://wp-translate.org/projects/cets-plugin-stats
 [1.8]: https://github.com/wp-repository/wpmu-plugin-stats/archive/master.zip
 
 ### Description
@@ -70,9 +68,13 @@ __[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
 
 
 ## Changelog
-* __TODO__ _[future plans/roadmap][4.1]_
-	* custom unit tests
-* __1.6-dev__ _[future plans/roadmap][4.1]_
+* __2.1-beta__ _[future plans/roadmap][4.1]_
+	* TBD
+* __2.0__
+	* added some hooks
+	* testing for WP 3.8+
+	* removal of build tests for now
+* __1.6__
 	* added build testing via travis-ci.org (https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 	* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
 	* added uninstall function to remove settings on deactivation
