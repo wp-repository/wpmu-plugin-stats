@@ -178,25 +178,22 @@ class WPMU_Plugin_Stats {
 
 		if ( ( time() - $gen_time ) > 3600 || ( isset( $_POST['action'] ) && $_POST['action'] == 'update' ) )  {
 			// if older than an hour, regenerate, just to be safe
-			$this->generate_plugin_blog_list();	
+			$this->generate_plugin_blog_list();
 		}
+		
 		$list = get_site_option( 'cets_plugin_stats_data' );
 		ksort( $list );
 
-		// if you're using plugin commander, these two values will be populated
-//		$auto_activate = explode( ',', get_site_option( 'pc_auto_activate_list' ) );
-//		$user_control = explode( ',', get_site_option( 'pc_user_control_list' ) );
-
-		// if you're using plugin manager, these values will be populated
-//		$pm_auto_activate				= explode( ',', get_site_option( 'mp_pm_auto_activate_list' ) );
-//		$pm_user_control				= explode( ',', get_site_option( 'mp_pm_user_control_list' ) );
-//		$pm_supporter_control			= explode(',',get_site_option('mp_pm_supporter_control_list'));
-//		$pm_auto_activate_status		= ( $pm_auto_activate[0] == '' || $pm_auto_active[0] == 'EMPTY' ? 0 : 1 );
-//		$pm_user_control_status			= ( $pm_user_control[0] == '' || $pm_user_control == 'EMPTY' ? 0 : 1);
-//		$pm_supporter_control_status	= ( $pm_supporter_control[0] == '' || $pm_supporter_control == 'EMPTY' ? 0 : 1 );
-
 		// this is the built-in sitewide activation
 		$active_sitewide_plugins = maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
+		
+		
+		
+		if ( time() - $gen_time > 60 ) { 
+			$lastregen = ( round( ( time() - $gen_time ) / 60, 0 ) ) . ' ' . __( 'minutes', 'wpmu-plugin-stats' );
+		} else { 
+			$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats' ); 
+		}
 		?>
 		<style type="text/css">
 			table#cets_active_plugins {
@@ -208,13 +205,13 @@ class WPMU_Plugin_Stats {
 			span.plugin-not-found {
 				color: red;
 			}
-			.widefat tr:hover td {
-				background-color: #DDD;
+			.plugins .active td.plugin-title {
+				border-left: 4px solid #2EA2CC;
 			}
 		</style>
 		<div class="wrap">
 			<h2><?php _e( 'Plugin Stats', 'wpmu-plugin-stats' ); ?></h2>
-			<table class="widefat" id="cets_active_plugins">
+			<table class="wp-list-table widefat plugins" id="cets_active_plugins">
 				<thead>
 					<tr>
 						<th class="nocase">
@@ -252,10 +249,9 @@ class WPMU_Plugin_Stats {
 					$counter = 0;
 					foreach ( $list as $file => $info ) {
 						$counter = $counter + 1;
-
-						echo '<tr valign="top"><td>';
-
-						//jason checking for non-existant plugins
+						$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
+						
+						// checking for non-existant plugins
 						if ( isset( $info['Name'] ) ) {
 							if ( strlen( $info['Name'] ) ) {
 								$thisName = $info['Name'];
@@ -265,58 +261,61 @@ class WPMU_Plugin_Stats {
 						} else {
 							$thisName = $file . ' <span class="plugin-not-found">(' . __( 'Plugin File Not Found!', 'wpmu-plugin-stats' ) . ')</span>';
 						}
-
-						echo ( $thisName . '</td>' );
-
-						echo '<td align="center">';
-						
-						if ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) {
-							_e( 'Yes' );
-						} else {
-							_e( 'No' );
-						}
-
-						if ( isset( $info['blogs'] ) ) {
-							$numBlogs = sizeOf( $info['blogs'] );
-						} else {
-							$numBlogs = 0;
-						}
-
-						echo '</td><td align="center">' . $numBlogs . '</td><td>';
 						?>
-						<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);">
-							<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
-						</a>
-						<ul class="bloglist" id="bloglist_<?php echo $counter; ?>">
-						<?php
-						if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-							foreach( $info['blogs'] as $blog ) {
-								echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>';
-							}
-						} else {
-							echo '<li>' . __( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
-						}
-						
-						echo '</ul></td>';
-					} ?>
+						<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
+							<td class="plugin-title">
+								<?php echo $thisName; ?>
+							</td>
+							<td align="center">
+								<?php
+								if ( $is_activated_sitewide ) {
+									_e( 'Yes' );
+								} else {
+									_e( 'No' );
+								}
+
+								if ( isset( $info['blogs'] ) ) {
+									$numBlogs = sizeOf( $info['blogs'] );
+								} else {
+									$numBlogs = 0;
+								}
+								?>
+							</td>
+							<td align="center">
+								<?php echo $numBlogs; ?>
+							</td>
+							<td>
+								<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);">
+									<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
+								</a>
+								<ul class="bloglist" id="bloglist_<?php echo $counter; ?>">
+									<?php
+									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
+										foreach( $info['blogs'] as $blog ) {
+											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>';
+										}
+									} else {
+										echo '<li>' . __( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
+									}
+									?>
+								</ul>
+							</td>
+					<?php } ?>
 				</tbody>
 			</table>
 				
-			<?php
-			// @TODO nonce?
-			if ( time() - $gen_time > 60 ) { 
-				$lastregen = ( round( ( time() - $gen_time ) / 60, 0 ) ) . ' ' . __( 'minutes', 'wpmu-plugin-stats' );
-			} else { 
-				$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats' ); 
-			}
-			printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'wpmu-plugin-stats' ), $lastregen );
-			?>
-			<div>
-				<form name="plugininfoform" action="" method="post">
-					<input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'wpmu-plugin-stats' ); ?>">
-					<input type="hidden" name="action" value="update" />
-				</form>
+			<?php // @TODO nonce? ?>
+			<div class="tablenav bottom">
+				<div class="alignleft actions bulkactions">
+					<form name="plugininfoform" action="" method="post">
+						<input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'wpmu-plugin-stats' ); ?>">
+						<input type="hidden" name="action" value="update" />
+					</form>
+				</div>
 			</div>
+			<p>
+				<?php printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'wpmu-plugin-stats' ), $lastregen ); ?>
+			</p>
 		</div><!-- .wrap -->
 		
 	<?php
