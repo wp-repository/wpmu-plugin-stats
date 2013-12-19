@@ -15,7 +15,7 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 [1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
 [1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/2.0.zip
 [1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
-[1.7]: http://wp-translate.org/projects/cets-plugin-stats
+[1.7]: http://wp-translate.org/projects/wpmu-plugin-stats
 [1.8]: https://github.com/wp-repository/wpmu-plugin-stats/archive/master.zip
 
 ### Description
@@ -74,6 +74,7 @@ __[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
 	* added some hooks
 	* testing for WP 3.8+
 	* removal of build tests for now
+	* added cleanup of settings on removal (via uninstall.php)
 * __1.6__
 	* added build testing via travis-ci.org (https://travis-ci.org/wp-repository/wpmu-plugin-stats)
 	* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
