@@ -3,7 +3,7 @@
 Plugin Name: WPMU Plugin Stats
 Plugin URI: http://wordpress.org/plugins/wpmu-plugin-stats/
 Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version: 2.0
+Version: 2.1-beta
 Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -56,7 +56,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @var string
 	 */
-	public $version = '2.0';
+	public $version = '2.1-beta';
 
 	function __construct() {
 		

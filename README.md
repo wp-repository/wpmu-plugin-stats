@@ -7,7 +7,7 @@ __Provides info to site admins as to which plugins are activated sitewide, and w
 | ----:						| :----				| :---: | :----						| :----				|
 | Requires at least:		| __3.1__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
 | Tested up to:				| __3.5.1__			| *		| [Issue-Tracker][1.4]		| [WordPress.org-SVN][1.6] |
-| Current stable release:	| __[2.0][1.5]__	| *		| Current dev version:		| [2.1][1.8]	|
+| Current stable release:	| __[2.0][1.5]__	| *		| Current dev version:		| [2.1-beta][1.8]	|
 
 [1.1]: https://github.com/wp-repository/wpmu-plugin-stats
 [1.2]: http://wordpress.org/plugins/wpmu-plugin-stats/
