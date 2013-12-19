@@ -57,7 +57,12 @@ class WPMU_Plugin_Stats {
 	 * @var string
 	 */
 	public $version = '2.1-beta';
-
+	
+	/**
+	 * Constructor. Hooks all interactions to initialize the class.
+	 *
+	 * @since 1.0
+	 */
 	function __construct() {
 		
 		add_action( 'network_admin_menu', array( $this, 'network_admin_menu'));
@@ -186,9 +191,7 @@ class WPMU_Plugin_Stats {
 
 		// this is the built-in sitewide activation
 		$active_sitewide_plugins = maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
-		
-		
-		
+
 		if ( time() - $gen_time > 60 ) { 
 			$lastregen = ( round( ( time() - $gen_time ) / 60, 0 ) ) . ' ' . __( 'minutes', 'wpmu-plugin-stats' );
 		} else { 
@@ -196,7 +199,7 @@ class WPMU_Plugin_Stats {
 		}
 		?>
 		<style type="text/css">
-			table#cets_active_plugins {
+			table#wpmu-active-plugins {
 				margin-top: 6px;
 			}
 			.bloglist {
@@ -212,7 +215,7 @@ class WPMU_Plugin_Stats {
 		</style>
 		<div class="wrap">
 			<h2><?php _e( 'Plugin Stats', 'wpmu-plugin-stats' ); ?></h2>
-			<table class="wp-list-table widefat plugins" id="cets_active_plugins">
+			<table class="wp-list-table widefat plugins" id="wpmu-active-plugins">
 				<thead>
 					<tr>
 						<th class="nocase">
