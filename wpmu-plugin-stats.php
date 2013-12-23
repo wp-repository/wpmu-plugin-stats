@@ -106,7 +106,7 @@ class WPMU_Plugin_Stats {
 	} // END get_instance()
 	
 	/**
-	 * Fetch sites and the active plugins every single site
+	 * Fetch sites and the active plugins for every single site
 	 * 
 	 * @since	1.0.0
 	 * @access	private
@@ -374,7 +374,7 @@ class WPMU_Plugin_Stats {
 	} // END plugin_stats_page()
 	
 	/**
-	 * Add the menu item
+	 * Load assets on the page
 	 * 
 	 * @since	1.0.0
 	 * @access	public
