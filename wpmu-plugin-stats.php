@@ -4,7 +4,7 @@ Plugin Name: WPMU Plugin Stats
 Plugin URI: http://wordpress.org/plugins/wpmu-plugin-stats/
 Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
 Version: 2.1-beta
-Author: Kevin Graeme, <a href="http://deannaschneider.wordpress.com/" target="_target">Deanna Schneider</a> & <a href="http://www.jasonlemahieu.com/" target="_target">Jason Lemahieu</a>
+Author: Kevin Graeme, Deanna Schneider & Jason Lemahieu
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wpmu-plugin-stats
@@ -30,6 +30,11 @@ Network: true
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.        
 */
+/**
+ * @license		http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @package		WP-Repository\WPMU_Plugin_Stats
+ * @version		2.1-beta
+ */
 
 //avoid direct calls to this file
 if ( ! function_exists( 'add_filter' ) ) {
@@ -38,45 +43,61 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit();
 }
 
+/**
+ * Main class to run the plugin
+ * 
+ * @since	1.0.0
+ */
 class WPMU_Plugin_Stats {
 	
 	/**
 	 * Holds a copy of the object for easy reference.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var object
+	 * 
+	 * @since	1.0.0
+	 * @static
+	 * @access	private
+	 * @var		object	$instance
 	 */
 	private static $instance;
 	
 	/**
 	 * Current version of the plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * @var		string	$version
 	 */
 	public $version = '2.1-beta';
 	
 	/**
 	 * Constructor. Hooks all interactions to initialize the class.
-	 *
-	 * @since 1.0
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see	add_action()
+	 * @see	add_filter()
+	 * 
+	 * @return	void
 	 */
-	function __construct() {
+	public function __construct() {
 		
 		add_action( 'network_admin_menu', array( $this, 'network_admin_menu'));
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'load-plugins_page_wpmu-plugin-stats', array( $this, 'load_admin_assets' ) );
 		
-		add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 		
 	} // END __construct()
 
 	/**
 	 * Getter method for retrieving the object instance.
-	 *
-	 * @since 1.0.0
+	 * 
+	 * @since	1.0.0
+	 * @static
+	 * @access	public
+	 * 
+	 * @return	object	WPMU_Plugin_Stats::$instance
 	 */
 	public static function get_instance() {
 
@@ -85,11 +106,24 @@ class WPMU_Plugin_Stats {
 	} // END get_instance()
 	
 	/**
-	 * Load the plugin's textdomain hooked to 'plugins_loaded'.
-	 *
-	 * @since 2.0.0
+	 * Fetch sites and the active plugins every single site
+	 * 
+	 * @since	1.0.0
+	 * @access	private
+	 * 
+	 * @see		get_plugins()
+	 * @see		switch_to_blog()
+	 * @see		trailingslashit()
+	 * @see		get_bloginfo()
+	 * @see		get_option()
+	 * @see		restore_current_blog()
+	 * @see		update_site_option()
+	 * 
+	 * @global	object	$wpdb
+	 * @global	array	$current_site
+	 * @return	void
 	 */
-	function generate_plugin_blog_list() {
+	private function generate_plugin_blog_list() {
 		global $wpdb, $current_site;
 
 		$blogs  = $wpdb->get_results( "SELECT blog_id, domain, path FROM " . $wpdb->blogs . " WHERE site_id = {$current_site->id} ORDER BY domain ASC" );
@@ -154,11 +188,18 @@ class WPMU_Plugin_Stats {
 	} // END generate_plugin_blog_list()
 	
 	/**
-	 * Create a function to add a menu item for site admins
-	 *
-	 * @since 2.0.0
+	 * Add the menu item
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see		add_submenu_page()
+	 * @action	network_admin_menu
+	 * @hook	filter	wpmu_plugin_stats_cap	Defaults 'manage_network'
+	 * 
+	 * @return	void
 	 */
-	function network_admin_menu() {
+	public function network_admin_menu() {
 		
 		add_submenu_page(
 			'plugins.php',
@@ -173,10 +214,17 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Create a function to actually display stuff on plugin usage
-	 *
-	 * @since 1.0.0
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see		get_site_option()
+	 * @see		maybe_unserialize()
+	 * @uses	generate_plugin_blog_list()
+	 * 
+	 * @return	void
 	 */
-	function plugin_stats_page() {
+	public function plugin_stats_page() {
 		
 		// Get the time when the plugin list was last generated
 		$gen_time = get_site_option( 'cets_plugin_stats_data_freshness' );
@@ -326,11 +374,19 @@ class WPMU_Plugin_Stats {
 	} // END plugin_stats_page()
 	
 	/**
-	 * @todo
-	 *
-	 * @since 2.0.0
+	 * Add the menu item
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see		wp_enqueue_script()
+	 * @see		plugins_url()
+	 * @action	load-plugins_page_wpmu-plugin-stats
+	 * @hook	filter	wpmu_plugin_stats_debug	Defaults {@see WP_DEBUG}
+	 * 
+	 * @return	void
 	 */
-	function load_admin_assets() {
+	public function load_admin_assets() {
 		
 		$dev = apply_filters( 'wpmu_plugin_stats_debug', WP_DEBUG ) ? '' : '.min';
 
@@ -340,10 +396,17 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Load the plugin's textdomain hooked to 'plugins_loaded'.
-	 *
-	 * @since 2.0.0
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see		load_plugin_textdomain()
+	 * @see		plugin_basename()
+	 * @action	plugins_loaded
+	 * 
+	 * @return	void
 	 */
-	function load_plugin_textdomain() {
+	public function load_plugin_textdomain() {
 		
 		load_plugin_textdomain(
 			'wpmu-plugin-stats',
@@ -354,11 +417,18 @@ class WPMU_Plugin_Stats {
 	} // END load_plugin_textdomain()
 	
 	/**
-	 * @todo
-	 *
-	 * @since 2.0.0
+	 * Add link to the GitHub repo to the plugin listing
+	 * 
+	 * @since	1.0.0
+	 * @access	public
+	 * 
+	 * @see		plugin_basename()
+	 * 
+	 * @param	array	$links
+	 * @param	string	$file
+	 * @return	array	$links
 	 */
-	function set_plugin_meta( $links, $file ) {
+	public function plugin_row_meta( $links, $file ) {
 
 		if ( $file == plugin_basename( __FILE__ ) ) {
 			return array_merge(
@@ -369,8 +439,16 @@ class WPMU_Plugin_Stats {
 
 		return $links;
 		
-	} // END set_plugin_meta()
+	} // END plugin_row_meta()
 
 } // END class WPMU_Plugin_Stats
 
+/**
+ * Instantiate the main class
+ * 
+ * @since	1.0.0
+ * @access	public
+ * 
+ * @var	object	$wpmu_plugin_stats holds the instantiated class {@uses WPMU_Plugin_Stats}
+ */
 $wpmu_plugin_stats = new WPMU_Plugin_Stats;
