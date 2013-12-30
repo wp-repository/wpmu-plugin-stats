@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wpmu-plugin-stats
 Domain Path: /languages
 Network: true
-      
+
 	WPMU Plugin Stats
 
 	Copyright (C) 2009 - 2013 Board of Regents of the University of Wisconsin System
@@ -28,7 +28,7 @@ Network: true
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.        
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
  * @license		http://www.gnu.org/licenses/gpl-2.0.html GPLv2
@@ -45,14 +45,14 @@ if ( ! function_exists( 'add_filter' ) ) {
 
 /**
  * Main class to run the plugin
- * 
+ *
  * @since	1.0.0
  */
 class WPMU_Plugin_Stats {
 	
 	/**
 	 * Holds a copy of the object for easy reference.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @static
 	 * @access	private
@@ -62,7 +62,7 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Current version of the plugin.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
 	 * @var		string	$version
@@ -71,13 +71,13 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Constructor. Hooks all interactions to initialize the class.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see	add_action()
 	 * @see	add_filter()
-	 * 
+	 *
 	 * @return	void
 	 */
 	public function __construct() {
@@ -92,11 +92,11 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Getter method for retrieving the object instance.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @static
 	 * @access	public
-	 * 
+	 *
 	 * @return	object	WPMU_Plugin_Stats::$instance
 	 */
 	public static function get_instance() {
@@ -107,10 +107,10 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Fetch sites and the active plugins for every single site
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	private
-	 * 
+	 *
 	 * @see		get_plugins()
 	 * @see		switch_to_blog()
 	 * @see		trailingslashit()
@@ -118,7 +118,7 @@ class WPMU_Plugin_Stats {
 	 * @see		get_option()
 	 * @see		restore_current_blog()
 	 * @see		update_site_option()
-	 * 
+	 *
 	 * @global	object	$wpdb
 	 * @global	array	$current_site
 	 * @return	void
@@ -181,7 +181,7 @@ class WPMU_Plugin_Stats {
 				add_site_option('cets_plugin_stats_data', $plugins);
 		} else {  */
 		update_site_option( 'cets_plugin_stats_data', $plugins );
-		//} 
+		//}
 
 		update_site_option( 'cets_plugin_stats_data_freshness', time() );
 
@@ -189,14 +189,14 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Add the menu item
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see		add_submenu_page()
 	 * @action	network_admin_menu
 	 * @hook	filter	wpmu_plugin_stats_cap	Defaults 'manage_network'
-	 * 
+	 *
 	 * @return	void
 	 */
 	public function network_admin_menu() {
@@ -214,14 +214,14 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Create a function to actually display stuff on plugin usage
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see		get_site_option()
 	 * @see		maybe_unserialize()
 	 * @uses	generate_plugin_blog_list()
-	 * 
+	 *
 	 * @return	void
 	 */
 	public function plugin_stats_page() {
@@ -240,10 +240,10 @@ class WPMU_Plugin_Stats {
 		// this is the built-in sitewide activation
 		$active_sitewide_plugins = maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
 
-		if ( time() - $gen_time > 60 ) { 
+		if ( time() - $gen_time > 60 ) {
 			$lastregen = ( round( ( time() - $gen_time ) / 60, 0 ) ) . ' ' . __( 'minutes', 'wpmu-plugin-stats' );
-		} else { 
-			$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats' ); 
+		} else {
+			$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats' );
 		}
 		?>
 		<style type="text/css">
@@ -375,15 +375,15 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Load assets on the page
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see		wp_enqueue_script()
 	 * @see		plugins_url()
 	 * @action	load-plugins_page_wpmu-plugin-stats
 	 * @hook	filter	wpmu_plugin_stats_debug	Defaults {@see WP_DEBUG}
-	 * 
+	 *
 	 * @return	void
 	 */
 	public function load_admin_assets() {
@@ -396,14 +396,14 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Load the plugin's textdomain hooked to 'plugins_loaded'.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see		load_plugin_textdomain()
 	 * @see		plugin_basename()
 	 * @action	plugins_loaded
-	 * 
+	 *
 	 * @return	void
 	 */
 	public function load_plugin_textdomain() {
@@ -418,12 +418,12 @@ class WPMU_Plugin_Stats {
 	
 	/**
 	 * Add link to the GitHub repo to the plugin listing
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * 
+	 *
 	 * @see		plugin_basename()
-	 * 
+	 *
 	 * @param	array	$links
 	 * @param	string	$file
 	 * @return	array	$links
@@ -445,10 +445,10 @@ class WPMU_Plugin_Stats {
 
 /**
  * Instantiate the main class
- * 
+ *
  * @since	1.0.0
  * @access	public
- * 
+ *
  * @var	object	$wpmu_plugin_stats holds the instantiated class {@uses WPMU_Plugin_Stats}
  */
 $wpmu_plugin_stats = new WPMU_Plugin_Stats;
