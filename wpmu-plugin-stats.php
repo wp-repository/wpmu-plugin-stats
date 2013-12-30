@@ -127,8 +127,8 @@ class WPMU_Plugin_Stats {
 		global $wpdb, $current_site;
 
 		$blogs  = $wpdb->get_results( "SELECT blog_id, domain, path FROM " . $wpdb->blogs . " WHERE site_id = {$current_site->id} ORDER BY domain ASC" );
-		$blogplugins = array();
-		$processedplugins = array();
+//		$blogplugins = array();
+//		$processedplugins = array();
 		$plugins = get_plugins();
 
 		if ( $blogs ) {
@@ -203,8 +203,8 @@ class WPMU_Plugin_Stats {
 		
 		add_submenu_page(
 			'plugins.php',
-			__( 'Plugin Stats', 'wpmu-plugin-stats' ),
-			__( 'Plugin Stats', 'wpmu-plugin-stats' ),
+			__( 'Plugin Statistics', 'wpmu-plugin-stats' ),
+			__( 'Statistics', 'wpmu-plugin-stats' ),
 			apply_filters( 'wpmu_plugin_stats_cap', 'manage_network' ),
 			'wpmu-plugin-stats',
 			array( $this, 'plugin_stats_page' )
@@ -262,7 +262,7 @@ class WPMU_Plugin_Stats {
 			}
 		</style>
 		<div class="wrap">
-			<h2><?php _e( 'Plugin Stats', 'wpmu-plugin-stats' ); ?></h2>
+			<h2><?php _e( 'Plugin Statistics', 'wpmu-plugin-stats' ); ?></h2>
 			<table class="wp-list-table widefat plugins" id="wpmu-active-plugins">
 				<thead>
 					<tr>

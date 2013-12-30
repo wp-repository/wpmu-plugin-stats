@@ -1,7 +1,7 @@
 === WPMU Plugin Stats ===
 Contributors: DeannaS, kgraeme, MadtownLems, wp-repository
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
-Requires at least: 3.8.0
+Requires at least: 2.8.0
 Tested up to: 3.9-alpha
 Stable tag: 2.1
 License: GPLv2 or later
@@ -16,7 +16,7 @@ Because the time to generate stats can be quite large, network plugin useage is 
 
 = Development =
 
-* GitHub Repository: [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
+* GitHub Repository: [wp-repository](https://github.com/wp-repository) / [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
 * Issue-Tracker: [WPMU Plugin Stats Issues](https://github.com/wp-repository/wpmu-theme-usage-info/issues) **Please use the Issue-Tracker at GitHub!!**
 * Translation: [Translate > WPMU Plugin Stats](http://wp-translate.org/projects/wpmu-plugin-stats)
 
