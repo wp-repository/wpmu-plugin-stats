@@ -3,7 +3,7 @@ Contributors: DeannaS, kgraeme, MadtownLems, wp-repository
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
 Requires at least: 2.8.0
 Tested up to: 3.9-alpha
-Stable tag: 2.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,8 +38,8 @@ When you update to version 2.1 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 == Changelog ==
-= 2.1 =
- * TBD
+= 2.0.1 =
+ * fix for sites with empty title
 
 = 2.0 =
  * added some hooks
