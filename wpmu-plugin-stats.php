@@ -3,7 +3,7 @@
 Plugin Name: WPMU Plugin Stats
 Plugin URI: http://wordpress.org/plugins/wpmu-plugin-stats/
 Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version: 2.1-beta
+Version: 2.0.1
 Author: Kevin Graeme, Deanna Schneider & Jason Lemahieu
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,9 +37,9 @@ Network: true
  */
 
 //avoid direct calls to this file
-if ( ! function_exists( 'add_filter' ) ) {
-	header('Status: 403 Forbidden');
-	header('HTTP/1.1 403 Forbidden');
+if ( !defined( 'ABSPATH' ) ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
@@ -67,7 +67,7 @@ class WPMU_Plugin_Stats {
 	 * @access	public
 	 * @var		string	$version
 	 */
-	public $version = '2.1-beta';
+	public $version = '2.0.1';
 	
 	/**
 	 * Constructor. Hooks all interactions to initialize the class.
@@ -344,7 +344,8 @@ class WPMU_Plugin_Stats {
 									<?php
 									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
 										foreach( $info['blogs'] as $blog ) {
-											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $blog['name'] . '</a></li>';
+											$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
+											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
 										}
 									} else {
 										echo '<li>' . __( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
