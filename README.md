@@ -28,7 +28,7 @@ Because the time to generate stats can be quite large, network plugin useage is 
 ## Screenshots ##
 
 ### 1. Adminstrator view of list of plugins installed. ###
-![Adminstrator view of list of plugins installed.](http://s.wordpress.org/extend/plugins/wpmu-plugin-stats/screenshot-1.png)
+![Adminstrator view of list of plugins installed.](https://raw.githubusercontent.com/wp-repository/wpmu-plugin-stats/develop/.assets/screenshot-1.png)
 
 
 ## Upgrade Notice ##

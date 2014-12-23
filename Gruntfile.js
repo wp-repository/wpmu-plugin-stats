@@ -185,11 +185,10 @@ module.exports = function( grunt ) {
 			readme: {
 				files: {
 					'README.md': 'readme.txt'
+				},
+				options: {
+					screenshot_url: 'https://raw.githubusercontent.com/wp-repository/{plugin}/develop/.assets/{screenshot}.png'
 				}
-//				,
-//				options: {
-//					screenshot_url: 'https://raw.githubusercontent.com/black-studio/{plugin}/develop/assets/{screenshot}.png'
-//				}
 			}
 		},
 
