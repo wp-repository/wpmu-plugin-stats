@@ -36,9 +36,10 @@ When you update to version 2.1 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 == Changelog ==
-= 2.1 =
+= 2.1 (2014-12-23) =
  * Updated tablesort.js (to 2.5)
- * 
+ * Moved from storing data in option to transient
+ * Changed main filename resulting in a deactivation after update
 
 = 2.0.1 =
  * fix for sites with empty title

@@ -183,7 +183,7 @@ class WPMU_Plugin_Stats {
 				add_site_option('cets_plugin_stats_data', $plugins);
 		} else {  */
 		ksort( $plugins );
-		set_site_transient( 'plugin_stats_data', $plugins, HOUR_IN_SECONDS );
+		set_site_transient( 'plugin_stats_data', $plugins, 24 * HOUR_IN_SECONDS );
 
 		return $plugins;
 		//}
@@ -224,16 +224,11 @@ class WPMU_Plugin_Stats {
 	public function plugin_stats_page() {
 
 		// Get the time when the plugin list was last generated
-		$plugin_stats = get_site_transient( 'plugin_stats_data' );
+		$plugin_stats_data = get_site_transient( 'plugin_stats_data' );
 
-		if ( ! $plugin_stats || ( isset( $_POST['action'] ) && $_POST['action'] === 'update' ) )  {
-			$plugin_stats = $this->generate_plugin_blog_list();
+		if ( ! $plugin_stats_data || ( isset( $_POST['action'] ) && $_POST['action'] === 'update' ) )  {
+			$plugin_stats_data = $this->generate_plugin_blog_list();
 		}
-
-//		ksort( $plugin_stats );
-
-		// this is the built-in sitewide activation
-		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins' );
 		?>
 		<style type="text/css">
 			table#wpmu-active-plugins { margin-top: 6px; }
@@ -277,63 +272,7 @@ class WPMU_Plugin_Stats {
 					</tr>
 				</tfoot>
 				<tbody id="plugins">
-					<?php
-					$counter = 0;
-					foreach ( $plugin_stats as $file => $info ) {
-						$counter = $counter + 1;
-						$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
-
-						// checking for non-existant plugins
-						if ( isset( $info['Name'] ) ) {
-							if ( strlen( $info['Name'] ) ) {
-								$thisName = $info['Name'];
-							} else {
-								$thisName = $file;
-							}
-						} else {
-							$thisName = $file . ' <span class="plugin-not-found">(' . __( 'Plugin File Not Found!', 'wpmu-plugin-stats' ) . ')</span>';
-						}
-						?>
-						<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
-							<td class="plugin-title">
-								<?php echo esc_html( $thisName ); ?>
-							</td>
-							<td align="center">
-								<?php
-								if ( $is_activated_sitewide ) {
-									_e( 'Yes' );
-								} else {
-									_e( 'No' );
-								}
-
-								if ( isset( $info['blogs'] ) ) {
-									$numBlogs = sizeOf( $info['blogs'] );
-								} else {
-									$numBlogs = 0;
-								}
-								?>
-							</td>
-							<td align="center">
-								<?php echo $numBlogs; ?>
-							</td>
-							<td>
-								<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
-									<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
-								</a>
-								<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
-									<?php
-									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-										foreach ( $info['blogs'] as $blog ) {
-											$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
-											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
-										}
-									} else {
-										echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
-									}
-									?>
-								</ul>
-							</td>
-					<?php } ?>
+					<?php $this->data_table( $plugin_stats_data ); ?>
 				</tbody>
 			</table>
 			<div class="tablenav bottom">
@@ -347,6 +286,101 @@ class WPMU_Plugin_Stats {
 		</div><!-- .wrap -->
 	<?php
 	} // END plugin_stats_page()
+
+	/**
+	 * Generate the plugin table body
+	 * 
+	 * @since 2.1.0
+	 * 
+	 * @param  array $plugin_stats_data
+	 * @return string
+	 */
+	private function data_table( $plugin_stats_data ) {
+
+		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins' );
+		$counter                 = 0;
+
+		foreach ( $plugin_stats_data as $file => $info ) {
+			$counter               = $counter + 1;
+			$active_count          = isset( $info['blogs'] ) ? sizeOf( $info['blogs'] ) : 0;
+			$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
+			?>
+			<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
+				<td class="plugin-title">
+					<?php echo $this->plugin_title( $file, $info ); ?>
+				</td>
+				<td align="center">
+					<?php
+					if ( $is_activated_sitewide ) {
+						_e( 'Yes' );
+					} else {
+						_e( 'No' );
+					}
+					?>
+				</td>
+				<td align="center">
+					<?php echo $active_count; ?>
+				</td>
+				<td width="200px">
+					<?php $this->active_blogs_list( $counter, $info ); ?>
+				</td>
+		<?php }
+	} // END data_table()
+
+	/**
+	 * Generate proper plugin title
+	 * 
+	 * @since 2.1.0
+	 * 
+	 * @param  string $file
+	 * @param  array $info
+	 * @return string
+	 */
+	private function plugin_title( $file, $info ) {
+
+		if ( isset( $info['Name'] ) ) {
+			if ( strlen( $info['Name'] ) ) {
+				$plugin_title = $info['Name'];
+			} else {
+				$plugin_title = $file;
+			}
+		} else {
+			$plugin_title = $file . ' <span class="plugin-not-found">(' . __( 'Plugin File Not Found!', 'wpmu-plugin-stats' ) . ')</span>';
+		}
+
+		return esc_html( $plugin_title );
+
+	} // END plugin_title()
+
+	/**
+	 * List all sites the plugin is active on
+	 * 
+	 * @since 2.1.0
+	 * 
+	 * @param  int $counter
+	 * @param  array $info
+	 * @return string
+	 */
+	private function active_blogs_list( $counter, $info ) {
+		?>
+		<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
+			<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
+		</a>
+		<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
+			<?php
+			if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
+				foreach ( $info['blogs'] as $blog ) {
+					$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
+					echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
+				}
+			} else {
+				echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
+			}
+			?>
+		</ul>
+	<?php
+
+	} // END active_blogs_list()
 
 	/**
 	 * Load assets on the page
