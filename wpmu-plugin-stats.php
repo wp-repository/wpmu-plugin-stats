@@ -410,7 +410,7 @@ class WPMU_Plugin_Stats {
 	/**
 	 * Add link to the GitHub repo to the plugin listing
 	 *
-	 * @since	1.0.0
+	 * @since 1.0.0
 	 *
 	 * @see plugin_basename()
 	 *
