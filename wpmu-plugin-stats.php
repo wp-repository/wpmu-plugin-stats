@@ -112,23 +112,19 @@ class WPMU_Plugin_Stats {
 	/**
 	 * Fetch sites and the active plugins for every single site
 	 *
-	 * @since	1.0.0
-	 *
-	 * @see get_plugins()
-	 * @see switch_to_blog()
-	 * @see trailingslashit()
-	 * @see get_bloginfo()
-	 * @see get_option()
-	 * @see restore_current_blog()
+	 * @todo If wp_is_large_network() this function could time out
+	 * @since 1.0.0
 	 *
 	 * @global object $wpdb
-	 * @global array  $current_site
+	 * @global array $current_site
+	 * @return array
 	 */
 	private function generate_plugin_blog_list() {
 
 		global $wpdb, $current_site;
 
-		$blogs   = $wpdb->get_results( "SELECT blog_id, domain, path FROM " . $wpdb->blogs . " WHERE site_id = {$current_site->id} ORDER BY domain ASC" );
+		$select  = $wpdb->prepare( "SELECT blog_id, domain, path FROM $wpdb->blogs WHERE site_id = %d ORDER BY domain ASC", $current_site->id );
+		$blogs   = $wpdb->get_results( $select );
 		$plugins = get_plugins();
 
 		if ( $blogs ) {
@@ -148,7 +144,7 @@ class WPMU_Plugin_Stats {
 				);
 				$active_plugins = get_option( 'active_plugins' );
 
-				if ( sizeOf( $active_plugins ) > 0) {
+				if ( sizeOf( $active_plugins ) > 0 ) {
 					foreach ( $active_plugins as $plugin ) {
 
 						//jason adding check for plugin existing on system
@@ -161,7 +157,7 @@ class WPMU_Plugin_Stats {
 								$this_plugin['blogs'] = array();
 								array_push( $this_plugin['blogs'], $blog_info );
 							}
-							unset( $plugins[ $plugin] );
+							unset( $plugins[ $plugin ] );
 							$plugins[ $plugin ] = $this_plugin;
 						} else {
 							//this 'active' plugin is no longer on the system, so do nothing here?  (or could theoretically deactivate across all sites)
@@ -176,12 +172,6 @@ class WPMU_Plugin_Stats {
 
 		}
 
-		// Set the site option to hold all this
-		/*
-		$old_stats = get_site_option('cets_plugin_stats_data', 'not-yet-set');
-		if ($old_stats == 'not-yet-set') {
-				add_site_option('cets_plugin_stats_data', $plugins);
-		} else {  */
 		ksort( $plugins );
 		set_site_transient( 'plugin_stats_data', $plugins, 24 * HOUR_IN_SECONDS );
 
@@ -310,19 +300,18 @@ class WPMU_Plugin_Stats {
 					<?php echo $this->plugin_title( $file, $info ); ?>
 				</td>
 				<td align="center">
-					<?php
-					if ( $is_activated_sitewide ) {
-						_e( 'Yes' );
-					} else {
-						_e( 'No' );
-					}
-					?>
+					<?php $is_activated_sitewide ? _e( 'Yes' ) : _e( 'No' ); ?>
 				</td>
 				<td align="center">
-					<?php echo $active_count; ?>
+					<?php echo esc_html( $active_count ); ?>
 				</td>
 				<td width="200px">
-					<?php $this->active_blogs_list( $counter, $info ); ?>
+					<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
+						<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
+					</a>
+					<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
+						<?php $this->active_blogs_list( $info ); ?>
+					</ul>
 				</td>
 		<?php }
 	} // END data_table()
@@ -361,24 +350,16 @@ class WPMU_Plugin_Stats {
 	 * @param  array $info
 	 * @return string
 	 */
-	private function active_blogs_list( $counter, $info ) {
-		?>
-		<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
-			<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
-		</a>
-		<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
-			<?php
-			if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-				foreach ( $info['blogs'] as $blog ) {
-					$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
-					echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
-				}
-			} else {
-				echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
+	private function active_blogs_list( $info ) {
+
+		if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
+			foreach ( $info['blogs'] as $blog ) {
+				$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
+				echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
 			}
-			?>
-		</ul>
-	<?php
+		} else {
+			echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
+		}
 
 	} // END active_blogs_list()
 
