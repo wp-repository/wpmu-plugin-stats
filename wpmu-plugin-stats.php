@@ -120,7 +120,6 @@ class WPMU_Plugin_Stats {
 	 * @see get_bloginfo()
 	 * @see get_option()
 	 * @see restore_current_blog()
-	 * @see update_site_option()
 	 *
 	 * @global object $wpdb
 	 * @global array  $current_site
@@ -129,9 +128,7 @@ class WPMU_Plugin_Stats {
 
 		global $wpdb, $current_site;
 
-		$blogs  = $wpdb->get_results( "SELECT blog_id, domain, path FROM " . $wpdb->blogs . " WHERE site_id = {$current_site->id} ORDER BY domain ASC" );
-//		$blogplugins = array();
-//		$processedplugins = array();
+		$blogs   = $wpdb->get_results( "SELECT blog_id, domain, path FROM " . $wpdb->blogs . " WHERE site_id = {$current_site->id} ORDER BY domain ASC" );
 		$plugins = get_plugins();
 
 		if ( $blogs ) {
@@ -185,10 +182,11 @@ class WPMU_Plugin_Stats {
 		if ($old_stats == 'not-yet-set') {
 				add_site_option('cets_plugin_stats_data', $plugins);
 		} else {  */
-		update_site_option( 'cets_plugin_stats_data', $plugins );
-		//}
+		ksort( $plugins );
+		set_site_transient( 'plugin_stats_data', $plugins, HOUR_IN_SECONDS );
 
-		update_site_option( 'cets_plugin_stats_data_freshness', time() );
+		return $plugins;
+		//}
 
 	} // END generate_plugin_blog_list()
 
@@ -226,24 +224,16 @@ class WPMU_Plugin_Stats {
 	public function plugin_stats_page() {
 
 		// Get the time when the plugin list was last generated
-		$gen_time = get_site_option( 'cets_plugin_stats_data_freshness' );
+		$plugin_stats = get_site_transient( 'plugin_stats_data' );
 
-		if ( ( time() - $gen_time ) > 3600 || ( isset( $_POST['action'] ) && $_POST['action'] == 'update' ) )  {
-			// if older than an hour, regenerate, just to be safe
-			$this->generate_plugin_blog_list();
+		if ( ! $plugin_stats || ( isset( $_POST['action'] ) && $_POST['action'] === 'update' ) )  {
+			$plugin_stats = $this->generate_plugin_blog_list();
 		}
 
-		$list = get_site_option( 'cets_plugin_stats_data' );
-		ksort( $list );
+//		ksort( $plugin_stats );
 
 		// this is the built-in sitewide activation
-		$active_sitewide_plugins = maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
-
-		if ( time() - $gen_time > 60 ) {
-			$lastregen = ( round( ( time() - $gen_time ) / 60, 0 ) ) . ' ' . __( 'minutes', 'wpmu-plugin-stats' );
-		} else {
-			$lastregen = __( 'less than 1 minute', 'wpmu-plugin-stats' );
-		}
+		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins' );
 		?>
 		<style type="text/css">
 			table#wpmu-active-plugins { margin-top: 6px; }
@@ -289,7 +279,7 @@ class WPMU_Plugin_Stats {
 				<tbody id="plugins">
 					<?php
 					$counter = 0;
-					foreach ( $list as $file => $info ) {
+					foreach ( $plugin_stats as $file => $info ) {
 						$counter = $counter + 1;
 						$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
 
@@ -349,16 +339,12 @@ class WPMU_Plugin_Stats {
 			<div class="tablenav bottom">
 				<div class="alignleft actions bulkactions">
 					<form name="plugininfoform" action="" method="post">
-						<?php submit_button( __( 'Regenerate', 'wpmu-plugin-stats' ), 'primary', 'update', false ); ?>
+						<?php submit_button( __( 'Regenerate', 'wpmu-plugin-stats' ) ); ?>
 						<input type="hidden" name="action" value="update" />
 					</form>
 				</div>
 			</div>
-			<p>
-				<?php printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'wpmu-plugin-stats' ), $lastregen ); ?>
-			</p>
 		</div><!-- .wrap -->
-
 	<?php
 	} // END plugin_stats_page()
 
