@@ -1,13 +1,13 @@
 === WPMU Plugin Stats ===
-Contributors: DeannaS, kgraeme, MadtownLems, cfoellmann
+Contributors: cfoellmann, MadtownLems, DeannaS, kgraeme
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
-Requires at least: 2.8.0
-Tested up to: 2.1
-Stable tag: 2.1
+Requires at least: 3.1
+Tested up to: 4.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.
+Gives network admins an easy way to see what plugins are actively used the sites of a multisite installation
 
 == Description ==
 
@@ -17,8 +17,8 @@ Because the time to generate stats can be quite large, network plugin useage is 
 = Development =
 
 * GitHub Repository: [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
-* Issue-Tracker: [WPMU Plugin Stats Issues](https://github.com/wp-repository/wpmu-theme-usage-info/issues) **Please use the Issue-Tracker at GitHub!!**
-* Translation: [Translate > WPMU Plugin Stats](http://wp-translate.org/projects/wpmu-plugin-stats)
+* Issue-Tracker: [GitHub Issue Tracker](https://github.com/wp-repository/wpmu-theme-usage-info/issues) **Please use the Issue-Tracker at GitHub!!**
+* Translation: [https://www.transifex.com/projects/p/wpmu-plugin-stats/](https://www.transifex.com/projects/p/wpmu-plugin-stats/)
 
 == Installation ==
 

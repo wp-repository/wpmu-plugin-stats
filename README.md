@@ -1,92 +1,70 @@
-# WPMU Plugin Stats
-__Provides info to site admins as to which plugins are activated sitewide, and which blogs plugins are activated on.__
+# WPMU Plugin Stats #
+**Contributors:** cfoellmann, MadtownLems, DeannaS, kgraeme  
+**Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network  
+**Requires at least:** 3.1  
+**Tested up to:** 4.1  
+**Stable tag:** 2.1.0  
+**License:** GPLv2 or later  
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-[Homepage][1.1] | [WordPress.org][1.2]
+Gives network admins an easy way to see what plugins are actively used the sites of a multisite installation
 
-| WordPress					| Version			| *		| Development				|					|
-| ----:						| :----				| :---: | :----						| :----				|
-| Requires at least:		| __3.1__			| *		| [GitHub-Repository][1.3]	| [Translate][1.7]	|
-| Tested up to:				| __3.5.1__			| *		| [Issue-Tracker][1.4]		| [WordPress.org-SVN][1.6] |
-| Current stable release:	| __[2.0.1][1.5]__	| *		| Current dev version:		| [2.1-beta][1.8]	|
+## Description ##
 
-[1.1]: https://github.com/wp-repository/wpmu-plugin-stats
-[1.2]: http://wordpress.org/plugins/wpmu-plugin-stats/
-[1.3]: https://github.com/wp-repository/wpmu-plugin-stats
-[1.4]: https://github.com/wp-repository/wpmu-plugin-stats/issues
-[1.5]: https://github.com/wp-repository/wpmu-plugin-stats/archive/2.0.1.zip
-[1.6]: http://plugins.trac.wordpress.org/browser/wpmu-plugin-stats/
-[1.7]: http://wp-translate.org/projects/wpmu-plugin-stats
-[1.8]: https://github.com/wp-repository/wpmu-plugin-stats/archive/master.zip
-
-### Description
 This plugin provides a snapshot view of which blogs are using any particular plugin. 
 Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
 
+### Development ###
 
-## Developers
-| Name					| GitHub				| WordPress.org			| Web									| Status				|
-| :----					| :----					| :----					| :----									| ----:					|
-| Kevin Graeme			| -						| [kgraeme][2.1.2]		| -										| Inactive				|
-| Deanna Schneider		| -						| [deannas][2.2.2]		| http://deannaschneider.wordpress.com/ | Inactive				|
-| Jason Lemahieu		| [MadtownLems][2.3.1]	| [MadtownLems][2.3.2]	| http://www.jasonlemahieu.com/			| Inactive				|
-| Christian Foellmann	| [cfoellmann][2.4.1]	| [cfoellmann][2.4.2]	| http://www.foe-services.de			| Current maintainer	|
+* GitHub Repository: [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
+* Issue-Tracker: [GitHub Issue Tracker](https://github.com/wp-repository/wpmu-theme-usage-info/issues) **Please use the Issue-Tracker at GitHub!!**
+* Translation: [https://www.transifex.com/projects/p/wpmu-plugin-stats/](https://www.transifex.com/projects/p/wpmu-plugin-stats/)
 
-[2.1.2]: http://profiles.wordpress.org/kgraeme/
-[2.2.2]: http://profiles.wordpress.org/DeannaS/
-[2.3.1]: https://github.com/MadtownLems
-[2.3.2]: http://profiles.wordpress.org/MadtownLems/
-[2.4.1]: https://github.com/cfoellmann
-[2.4.2]: http://profiles.wordpress.org/cfoellmann
+## Installation ##
 
+1. Install by searching "WPMU Plugin Stats" on Plugins > Add New > Search
+2. Activate by clicking "Network Activate"
 
-## License
-__[GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)__
+## Screenshots ##
 
-	WPMU Plugin Stats
-
-	Copyright (C) 2009 - 2013 Board of Regents of the University of Wisconsin System
-	Cooperative Extension Technology Services
-	University of Wisconsin-Extension
-
-	This program is free software; you can redistribute it and/or
-	modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 2
-	of the License, or (at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+### 1. Adminstrator view of list of plugins installed. ###
+![Adminstrator view of list of plugins installed.](http://s.wordpress.org/extend/plugins/wpmu-plugin-stats/screenshot-1.png)
 
 
-## Changelog
-* __2.1-beta__ _[future plans/roadmap][4.1]_
-	* @todo use Transients API to cache usage data
-* __2.0.1__
-	* fix for sites with empty title
-* __2.0__
-	* added some hooks
-	* testing for WP 3.8+
-	* removal of build tests for now
-	* added cleanup of settings on removal (via uninstall.php)
-* __1.6__
-	* added build testing via travis-ci.org (https://travis-ci.org/wp-repository/wpmu-plugin-stats)
-	* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
-	* added uninstall function to remove settings on deactivation
-	* dropped PHP4 support + no testing on PHP version < 5.3
-* __1.5__
-	* moved development to GitHub
-	* full translation support
-	* German language support
-	* UI polished with tabs and functioning table-sorting
-* __1.3.2__
-	* minor cleanups, should work with 3.4.2, and we'll go from here with better support!
-* __1.2__
-	* updated for new network admin menu in 3.1, eliminated use of plugin on less than WP 3.0
-* __1.1__
-	* minor tweak to eliminate content shift
+## Upgrade Notice ##
 
-[4.1]: ../../issues
+**ATTENTION:**
+When you update to version 2.1 the plugin gets deactivated automatically.
+You need to reactivate by clicking "Network Activate". No data is lost.
+
+## Changelog ##
+### 2.1 ###
+ * Updated tablesort.js (to 2.5)
+ * 
+
+### 2.0.1 ###
+ * fix for sites with empty title
+
+### 2.0 ###
+ * added some hooks
+** * testing for WP 3.8+ (Trunk:** 3.9-alpha)  
+ * removal of build tests for now
+ * removed support for all external plugins for now
+ * added cleanup of settings on removal (via uninstall.php)
+
+### 1.6 ###
+* added Spanish translation by Eduardo Larequi (https://github.com/elarequi)
+
+### 1.5 ###
+* translation support
+* fixes for WP 3.5
+* fix + update of tablesort js library
+
+### 1.3.2 ###
+* minor cleanups, should work with 3.4.2, and we'll go from here with better support!
+
+### 1.2 ###
+* updated for new network admin menu in 3.1, eliminated use of plugin on less than WP 3.0
+
+### 1.1 ###
+* minor tweak to eliminate content shift
