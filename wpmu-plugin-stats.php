@@ -53,15 +53,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPMU_Plugin_Stats {
 	
 	/**
-	 * Holds a copy of the object for easy reference.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var object $instance
-	 */
-	private static $instance;
-	
-	/**
 	 * Current version of the plugin.
 	 *
 	 * @since 1.0.0
@@ -74,12 +65,8 @@ class WPMU_Plugin_Stats {
 	 * Constructor
 	 *
 	 * @since  1.0.0
-	 *
-	 * @return	void
 	 */
-	public function __construct() {
-		$this->setup_actions();
-	} // END __construct()
+	public function __construct() { /* Do nothing here */ } // END __construct()
 
 	/**
 	 * Hook in actions and filters
@@ -96,20 +83,32 @@ class WPMU_Plugin_Stats {
 		/** Filters ***********************************************************/
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
+		register_activation_hook( __FILE__, array( 'WPMU_Plugin_Stats', 'activation' ) );
+
 	} // END setup_actions()
 
 	/**
 	 * Getter method for retrieving the object instance.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 *
 	 * @return object WPMU_Plugin_Stats::$instance
 	 */
-	public static function get_instance() {
+	public static function instance() {
 
-		return self::$instance;
+		// Store the instance locally to avoid private static replication
+		static $instance = null;
 
-	} // END get_instance()
+		// Only run these methods if they haven't been ran previously
+		if ( null === $instance ) {
+			$instance = new WPMU_Plugin_Stats;
+			$instance->setup_actions();
+		}
+
+		// Always return the instance
+		return $instance;
+
+	} // END instance()
 	
 	/**
 	 * Fetch sites and the active plugins for every single site
@@ -436,13 +435,34 @@ class WPMU_Plugin_Stats {
 		
 	} // END plugin_row_meta()
 
+	/**
+	 * Pre-Activation checks
+	 *
+	 * Checks if this is a multisite installation
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param bool $network_wide
+	 */
+	public static function activation( $network_wide ) {
+
+		if ( ! is_multisite() ) {
+			wp_die( __( 'This plugin only runs on multisite installations. The functionality makes no sense for WP single sites.', 'wpmu-plugin-stats' ) );
+		}
+
+	} // END activation()
+
 } // END class WPMU_Plugin_Stats
 
 /**
  * Instantiate the main class
  *
- * @since 1.0.0
+ * @since 2.1.0
  *
  * @var object $wpmu_plugin_stats Holds the instantiated class {@uses WPMU_Plugin_Stats}
  */
-$wpmu_plugin_stats = new WPMU_Plugin_Stats;
+function WPMU_Plugin_Stats() {
+	return WPMU_Plugin_Stats::instance();
+} // END WPMU_Plugin_Stats()
+
+WPMU_Plugin_Stats();
