@@ -243,19 +243,10 @@ class WPMU_Plugin_Stats {
 		}
 		?>
 		<style type="text/css">
-			table#wpmu-active-plugins {
-				margin-top: 6px;
-			}
-			.bloglist {
-				display:none;
-			}
-			span.plugin-not-found {
-				color: red;
-			}
-			.plugins .active td.plugin-title {
-				border-left: 4px solid #2EA2CC;
-				font-weight: 700;
-			}
+			table#wpmu-active-plugins { margin-top: 6px; }
+			.bloglist { display:none; }
+			span.plugin-not-found { color: red; }
+			.plugins .active td.plugin-title { border-left: 4px solid #2EA2CC; font-weight: 700; }
 		</style>
 		<div class="wrap">
 			<h2><?php _e( 'Plugin Statistics', 'wpmu-plugin-stats' ); ?></h2>
@@ -339,7 +330,7 @@ class WPMU_Plugin_Stats {
 								<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
 									<?php
 									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-										foreach( $info['blogs'] as $blog ) {
+										foreach ( $info['blogs'] as $blog ) {
 											$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
 											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
 										}
@@ -357,7 +348,7 @@ class WPMU_Plugin_Stats {
 			<div class="tablenav bottom">
 				<div class="alignleft actions bulkactions">
 					<form name="plugininfoform" action="" method="post">
-						<input type="submit" class="button-primary" value="<?php _e( 'Regenerate', 'wpmu-plugin-stats' ); ?>">
+						<?php submit_button( __( 'Regenerate', 'wpmu-plugin-stats' ), 'primary', 'update', false ); ?>
 						<input type="hidden" name="action" value="update" />
 					</form>
 				</div>
@@ -440,7 +431,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @param bool $network_wide
 	 */
-	public static function activation( $network_wide ) {
+	public static function activation() {
 
 		if ( ! is_multisite() ) {
 			wp_die( __( 'This plugin only runs on multisite installations. The functionality makes no sense for WP single sites.', 'wpmu-plugin-stats' ) );
