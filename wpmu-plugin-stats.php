@@ -76,7 +76,7 @@ class WPMU_Plugin_Stats {
 	private function setup_actions() {
 
 		/** Actions ***********************************************************/
-		add_action( 'network_admin_menu', array( $this, 'network_admin_menu'));
+		add_action( 'network_admin_menu', array( $this, 'network_admin_menu' ) );
 		add_action( 'plugins_loaded',     array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'load-plugins_page_wpmu-plugin-stats', array( $this, 'load_admin_assets' ) );
 
@@ -92,7 +92,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return object WPMU_Plugin_Stats::$instance
+	 * @return object The instance object
 	 */
 	public static function instance() {
 
@@ -143,7 +143,7 @@ class WPMU_Plugin_Stats {
 				if ( constant( 'VHOST' ) == 'yes' ) {
 					$blogurl = $blog->domain;			
 				} else {
-					$blogurl =  trailingslashit( $blog->domain . $blog->path );
+					$blogurl = trailingslashit( $blog->domain . $blog->path );
 				}
 
 				$blog_info = array(
@@ -316,7 +316,7 @@ class WPMU_Plugin_Stats {
 						?>
 						<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
 							<td class="plugin-title">
-								<?php echo $thisName; ?>
+								<?php echo esc_html( $thisName ); ?>
 							</td>
 							<td align="center">
 								<?php
@@ -337,10 +337,10 @@ class WPMU_Plugin_Stats {
 								<?php echo $numBlogs; ?>
 							</td>
 							<td>
-								<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo $counter; ?>').toggle(400);">
+								<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
 									<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
 								</a>
-								<ul class="bloglist" id="bloglist_<?php echo $counter; ?>">
+								<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
 									<?php
 									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
 										foreach( $info['blogs'] as $blog ) {
@@ -348,7 +348,7 @@ class WPMU_Plugin_Stats {
 											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
 										}
 									} else {
-										echo '<li>' . __( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
+										echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
 									}
 									?>
 								</ul>
