@@ -424,6 +424,10 @@ class WPMU_Plugin_Stats {
 			wp_die( __( 'This plugin only runs on multisite installations. The functionality makes no sense for WP single sites.', 'wpmu-plugin-stats' ) );
 		}
 
+		// Delete legacy options
+		delete_site_option( 'cets_plugin_stats_data' );
+		delete_site_option( 'cets_plugin_stats_data_freshness' );
+
 	} // END activation()
 
 } // END class WPMU_Plugin_Stats
