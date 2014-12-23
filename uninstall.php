@@ -1,7 +1,8 @@
 <?php
 /**
- * @author WP-Cloud <code@wp-cloud.de>
- * @license GPLv2 <http://www.gnu.org/licenses/gpl-2.0.html>
+ * @author    Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @copyright Copyright (c) 2009 - 2014, Cooperative Extension Technology Services
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package WP-Repository\WPMU_Plugin_Stats
  */
 
