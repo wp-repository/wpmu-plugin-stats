@@ -34,6 +34,7 @@ module.exports = function( grunt ) {
 				src:  [
 					'**',
 					'!.tx/**',
+					'!.assets/**',
 					'!.git/**',
 					'!.gitignore',
 					'!.gitmodules',
@@ -45,7 +46,6 @@ module.exports = function( grunt ) {
 					'!package.json',
 					'!LICENSE',
 					'!README.md',
-					'!wporg_assets/**',
 					'!nbproject/**',
 					'!**/*.LCK',
 					'!**/_notes/**'
@@ -232,7 +232,7 @@ module.exports = function( grunt ) {
 				options: {
 					plugin_slug: '<%= pkg.name %>',
 					build_dir: 'build/<%= pkg.name %>',
-					assets_dir: 'wp_assets'
+					assets_dir: '.assets'
 				}
 			}
 		}
