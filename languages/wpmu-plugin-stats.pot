@@ -1,103 +1,104 @@
 # Copyright (C) 2014 Christian Foellmann & Jason Lemahieu
 # This file is distributed under the GPLv2 or later.
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: WPMU Plugin Stats\n"
-"Report-Msgid-Bugs-To: https://github.com/wp-repository/wpmu-plugin-stats/issues\n"
+"Project-Id-Version: WPMU Plugin Stats 2.1.0\n"
+"Report-Msgid-Bugs-To: "
+"https://github.com/wp-repository/wpmu-plugin-stats/issues\n"
 "POT-Creation-Date: 2014-12-23 18:32:58+00:00\n"
-"PO-Revision-Date: 2014-12-23 18:19+0000\n"
-"Last-Translator: Christian Foellmann <foellmann@foe-services.de>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/projects/p/wpmu-plugin-stats/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Christian Foellmann <foellmann@foe-services.de>\n"
+"Language-Team: Christian Foellmann <foellmann@foe-services.de>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Bookmarks: \n"
-"X-Poedit-Country: United States\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
 "X-Poedit-Language: English\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Country: United States\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_"
+"x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
 #: wpmu-plugin-stats.php:206 wpmu-plugin-stats.php:253
 msgid "Plugin Statistics"
-msgstr "Plugin Statistiken"
+msgstr ""
 
 #: wpmu-plugin-stats.php:207
 msgid "Statistics"
-msgstr "Statistiken"
+msgstr ""
 
 #: wpmu-plugin-stats.php:241
 msgid "minutes"
-msgstr "Minuten"
+msgstr ""
 
 #: wpmu-plugin-stats.php:243
 msgid "less than 1 minute"
-msgstr "weniger als 1 Minute"
+msgstr ""
 
 #: wpmu-plugin-stats.php:258 wpmu-plugin-stats.php:274
 msgid "Plugin"
-msgstr "Plugin"
+msgstr ""
 
 #: wpmu-plugin-stats.php:261 wpmu-plugin-stats.php:277
 msgid "Activated Sitewide"
-msgstr "Netzwerkweit aktiviert"
+msgstr ""
 
 #: wpmu-plugin-stats.php:264 wpmu-plugin-stats.php:280
 msgid "Total Blogs"
-msgstr "Anzahl Seiten"
+msgstr ""
 
 #: wpmu-plugin-stats.php:267 wpmu-plugin-stats.php:283
 msgid "Blog Titles"
-msgstr "Seiten"
+msgstr ""
 
 #: wpmu-plugin-stats.php:302
 msgid "Plugin File Not Found!"
-msgstr "Plugin-Datei nicht gefunden!"
+msgstr ""
 
 #: wpmu-plugin-stats.php:329
 msgid "Show/Hide Blogs"
-msgstr "Zeige/Verberge Seiten"
+msgstr ""
 
 #: wpmu-plugin-stats.php:339
 msgid "N/A"
-msgstr "N/A"
+msgstr ""
 
 #: wpmu-plugin-stats.php:350
 msgid "Regenerate"
-msgstr "Aktualisieren"
+msgstr ""
 
 #: wpmu-plugin-stats.php:356
 msgid ""
 "This data is not updated as blog users update their plugins. It was last "
 "generated %s ago."
-msgstr "Diese Daten werden nicht durch die Nutzung der Plugins aktualisiert. Sie wurden vor %s erfasst."
+msgstr ""
 
 #: wpmu-plugin-stats.php:436
 msgid ""
-"This plugin only runs on multisite installations. The functionality makes no"
-" sense for WP single sites."
-msgstr "Dieses Plugin funktioniert nur auf Multisite Installationen. Die Funktion ist WP Single Installationen nicht geeignet."
+"This plugin only runs on multisite installations. The functionality makes "
+"no sense for WP single sites."
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WPMU Plugin Stats"
-msgstr "WPMU Plugin Stats"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/wpmu-plugin-stats/"
-msgstr "https://wordpress.org/plugins/wpmu-plugin-stats/"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "Gives network admins an easy way to see what plugins are actively used the "
 "sites of a multisite installation"
-msgstr "Gibt Network Admins eine Übersicht über die Nutzung der Plugins auf den Seiten einer Multisite Installation"
+msgstr ""
 
 #. Author of the plugin/theme
 msgid "Christian Foellmann & Jason Lemahieu"
-msgstr "Christian Foellmann & Jason Lemahieu"
+msgstr ""
