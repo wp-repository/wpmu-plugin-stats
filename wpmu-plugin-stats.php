@@ -63,7 +63,9 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @since  1.0.0
 	 */
-	public function __construct() { /* Do nothing here */ } // END __construct()
+	public function __construct() {
+		/* Do nothing here */
+	} // END __construct()
 
 	/**
 	 * Hook in actions and filters
