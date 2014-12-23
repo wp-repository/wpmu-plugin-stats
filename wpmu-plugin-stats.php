@@ -1,17 +1,17 @@
 <?php
 /**
- * @author    Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @author    Christian Foellmann & Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
  * @copyright Copyright (c) 2009 - 2014, Cooperative Extension Technology Services
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package   WP-Repository\WPMU_Plugin_Stats
- * @version   2.1
+ * @version   2.1.0
  */
 /*
 Plugin Name: WPMU Plugin Stats
 Plugin URI: https://wordpress.org/plugins/wpmu-plugin-stats/
-Description: WordPress plugin for letting site admins easily see what plugins are actively used on which sites
-Version: 2.1
-Author: Kevin Graeme, Deanna Schneider & Jason Lemahieu
+Description: Gives network admins an easy way to see what plugins are actively used the sites of a multisite installation
+Version: 2.1.0
+Author: Christian Foellmann & Jason Lemahieu
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wpmu-plugin-stats
@@ -20,7 +20,8 @@ Network: true
 
 	WPMU Plugin Stats
 
-	Copyright (C) 2009 - 2014 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+	Copyright (C) 2014 Christian Foellmann (http://christian.foellmann.de)
+	Copyright (C) 2009 - 2013 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
 	Cooperative Extension Technology Services
 	University of Wisconsin-Extension
 
@@ -55,7 +56,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @var string $version
 	 */
-	public $version = '2.1';
+	public $version = '2.1.0';
 
 	/**
 	 * Constructor
