@@ -1,158 +1,147 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plugin Stats en español\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-19 11:52+0100\n"
-"PO-Revision-Date: 2013-05-19 12:27+0100\n"
-"Last-Translator: Eduardo Larequi <elarequi@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/wp-repository/wpmu-plugin-stats/"
+"issues\n"
+"POT-Creation-Date: 2014-12-23 19:43:56+00:00\n"
+"PO-Revision-Date: 2014-12-23 21:26+0100\n"
+"Last-Translator: Christian Foellmann <foellmann@foe-services.de>\n"
 "Language-Team: PNTE <blogs@educacion.navarra.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_c;esc_html__;esc_html_e;esc_attr__;esc_attr_e;_ex:1,2c\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_c;esc_html__;esc_html_e;"
+"esc_attr__;esc_attr_e;_ex:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-Language: Spanish\n"
-"X-Poedit-Country: Spain\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: cets_plugin_stats.php:130
-#: cets_plugin_stats.php:131
-#: cets_plugin_stats.php:244
-msgid "Plugin Stats"
-msgstr "Estadísticas de plugins"
+#: wpmu-plugin-stats.php:206 wpmu-plugin-stats.php:253
+msgid "Plugin Statistics"
+msgstr ""
 
-#: cets_plugin_stats.php:144
-msgid "About"
-msgstr "Acerca de"
+#: wpmu-plugin-stats.php:207
+msgid "Statistics"
+msgstr ""
 
-#: cets_plugin_stats.php:158
-msgid "Development"
-msgstr "Desarrollo"
-
-#: cets_plugin_stats.php:167
-#, php-format
-msgid "Requires at least: %s"
-msgstr "Requiere al menos la versión %s"
-
-#: cets_plugin_stats.php:168
-#, php-format
-msgid "Tested up to: %s"
-msgstr "Probado hasta la versión %s"
-
-#: cets_plugin_stats.php:171
-msgid "Languages"
-msgstr "Idiomas"
-
-#: cets_plugin_stats.php:174
-#, php-format
-msgid "Help to translate at %s"
-msgstr "Ayuda a traducirlo en %s"
-
-#: cets_plugin_stats.php:177
-msgid "License"
-msgstr "Licencia"
-
-#: cets_plugin_stats.php:251
-#: cets_plugin_stats.php:383
-msgid "Plugin Commander"
-msgstr "Plugin Commander"
-
-#: cets_plugin_stats.php:251
-#: cets_plugin_stats.php:254
-#: cets_plugin_stats.php:383
-#: cets_plugin_stats.php:387
-msgid "Settings"
-msgstr "Configuración"
-
-#: cets_plugin_stats.php:254
-#: cets_plugin_stats.php:387
-msgid "Plugin Manager"
-msgstr "Plugin Manager"
-
-#: cets_plugin_stats.php:262
-#: cets_plugin_stats.php:397
-msgid "Plugin"
-msgstr "Plugin"
-
-#: cets_plugin_stats.php:266
-#: cets_plugin_stats.php:272
-#: cets_plugin_stats.php:399
-#: cets_plugin_stats.php:404
-msgid "Auto Activate"
-msgstr "Auto activar"
-
-#: cets_plugin_stats.php:267
-#: cets_plugin_stats.php:273
-#: cets_plugin_stats.php:400
-#: cets_plugin_stats.php:405
-msgid "User Controlled"
-msgstr "Controlado por el usuario"
-
-#: cets_plugin_stats.php:274
-#: cets_plugin_stats.php:406
-msgid "Supporter Controlled"
-msgstr "Controlado por Supporter"
-
-#: cets_plugin_stats.php:278
-#: cets_plugin_stats.php:410
-msgid "Activated Sitewide"
-msgstr "Activado en todo el sitio"
-
-#: cets_plugin_stats.php:279
-#: cets_plugin_stats.php:411
-msgid "Total Blogs"
-msgstr "Total de blogs"
-
-#: cets_plugin_stats.php:280
-#: cets_plugin_stats.php:412
-msgid "Blog Titles"
-msgstr "Título del blog"
-
-#: cets_plugin_stats.php:300
-msgid "Plugin File Not Found!"
-msgstr "No se ha encontrado el fichero del plugin"
-
-#: cets_plugin_stats.php:308
-#: cets_plugin_stats.php:315
-#: cets_plugin_stats.php:326
-#: cets_plugin_stats.php:333
-#: cets_plugin_stats.php:340
-#: cets_plugin_stats.php:350
-msgid "Yes"
-msgstr "Sí"
-
-#: cets_plugin_stats.php:311
-#: cets_plugin_stats.php:318
-#: cets_plugin_stats.php:329
-#: cets_plugin_stats.php:336
-#: cets_plugin_stats.php:343
-#: cets_plugin_stats.php:353
-msgid "No"
-msgstr "No"
-
-#: cets_plugin_stats.php:364
-msgid "Show/Hide Blogs"
-msgstr "Mostrar/Ocultar blogs"
-
-#: cets_plugin_stats.php:374
-msgid "N/A"
-msgstr "N/A"
-
-#: cets_plugin_stats.php:419
+#: wpmu-plugin-stats.php:241
 msgid "minutes"
 msgstr " minutos"
 
-#: cets_plugin_stats.php:422
+#: wpmu-plugin-stats.php:243
 msgid "less than 1 minute"
 msgstr "menos de un minuto"
 
-#: cets_plugin_stats.php:424
-#, php-format
-msgid "This data is not updated as blog users update their plugins. It was last generated %s ago."
-msgstr "Estos datos no corresponden al estado actual de actualización de los plugins del sitio. Se generaron por última vez hace %s."
+#: wpmu-plugin-stats.php:258 wpmu-plugin-stats.php:274
+msgid "Plugin"
+msgstr "Plugin"
 
-#: cets_plugin_stats.php:426
+#: wpmu-plugin-stats.php:261 wpmu-plugin-stats.php:277
+msgid "Activated Sitewide"
+msgstr "Activado en todo el sitio"
+
+#: wpmu-plugin-stats.php:264 wpmu-plugin-stats.php:280
+msgid "Total Blogs"
+msgstr "Total de blogs"
+
+#: wpmu-plugin-stats.php:267 wpmu-plugin-stats.php:283
+msgid "Blog Titles"
+msgstr "Título del blog"
+
+#: wpmu-plugin-stats.php:302
+msgid "Plugin File Not Found!"
+msgstr "No se ha encontrado el fichero del plugin"
+
+#: wpmu-plugin-stats.php:329
+msgid "Show/Hide Blogs"
+msgstr "Mostrar/Ocultar blogs"
+
+#: wpmu-plugin-stats.php:339
+msgid "N/A"
+msgstr "N/A"
+
+#: wpmu-plugin-stats.php:350
 msgid "Regenerate"
 msgstr "Regenerar los datos"
 
+#: wpmu-plugin-stats.php:356
+msgid ""
+"This data is not updated as blog users update their plugins. It was last "
+"generated %s ago."
+msgstr ""
+"Estos datos no corresponden al estado actual de actualización de los plugins "
+"del sitio. Se generaron por última vez hace %s."
+
+#: wpmu-plugin-stats.php:436
+msgid ""
+"This plugin only runs on multisite installations. The functionality makes no "
+"sense for WP single sites."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WPMU Plugin Stats"
+msgstr "WPMU Plugin Stats"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/wpmu-plugin-stats/"
+msgstr "https://wordpress.org/plugins/wpmu-plugin-stats/"
+
+#. Description of the plugin/theme
+msgid ""
+"Gives network admins an easy way to see what plugins are actively used the "
+"sites of a multisite installation"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Christian Foellmann & Jason Lemahieu"
+msgstr "Christian Foellmann & Jason Lemahieu"
+
+#~ msgid "Plugin Stats"
+#~ msgstr "Estadísticas de plugins"
+
+#~ msgid "About"
+#~ msgstr "Acerca de"
+
+#~ msgid "Development"
+#~ msgstr "Desarrollo"
+
+#~ msgid "Requires at least: %s"
+#~ msgstr "Requiere al menos la versión %s"
+
+#~ msgid "Tested up to: %s"
+#~ msgstr "Probado hasta la versión %s"
+
+#~ msgid "Languages"
+#~ msgstr "Idiomas"
+
+#~ msgid "Help to translate at %s"
+#~ msgstr "Ayuda a traducirlo en %s"
+
+#~ msgid "License"
+#~ msgstr "Licencia"
+
+#~ msgid "Plugin Commander"
+#~ msgstr "Plugin Commander"
+
+#~ msgid "Settings"
+#~ msgstr "Configuración"
+
+#~ msgid "Plugin Manager"
+#~ msgstr "Plugin Manager"
+
+#~ msgid "Auto Activate"
+#~ msgstr "Auto activar"
+
+#~ msgid "User Controlled"
+#~ msgstr "Controlado por el usuario"
+
+#~ msgid "Supporter Controlled"
+#~ msgstr "Controlado por Supporter"
+
+#~ msgid "Yes"
+#~ msgstr "Sí"
+
+#~ msgid "No"
+#~ msgstr "No"
