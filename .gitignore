@@ -57,6 +57,9 @@ local.properties
 nbproject/
 .idea/
 config.codekit
+*.LCK
+_notes/
+dwsync.xml
 
 # Misc #
 #######################
@@ -72,6 +75,7 @@ temp/
 
 # Development files #
 #####################
+build/**/*
 cache/**/*
 logs/*
 .svn*
