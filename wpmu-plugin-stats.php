@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * @since 1.0.0
  */
 class WPMU_Plugin_Stats {
-	
+
 	/**
 	 * Current version of the plugin.
 	 *
@@ -56,7 +56,7 @@ class WPMU_Plugin_Stats {
 	 * @var string $version
 	 */
 	public $version = '2.1';
-	
+
 	/**
 	 * Constructor
 	 *
@@ -66,7 +66,7 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Hook in actions and filters
-	 * 
+	 *
 	 * @since 2.1.0
 	 */
 	private function setup_actions() {
@@ -96,7 +96,7 @@ class WPMU_Plugin_Stats {
 		static $instance = null;
 
 		// Only run these methods if they haven't been ran previously
-		if ( null === $instance ) {
+		if (null === $instance) {
 			$instance = new WPMU_Plugin_Stats;
 			$instance->setup_actions();
 		}
@@ -105,7 +105,7 @@ class WPMU_Plugin_Stats {
 		return $instance;
 
 	} // END instance()
-	
+
 	/**
 	 * Fetch sites and the active plugins for every single site
 	 *
@@ -131,13 +131,13 @@ class WPMU_Plugin_Stats {
 //		$processedplugins = array();
 		$plugins = get_plugins();
 
-		if ( $blogs ) {
+		if ($blogs) {
 
-			foreach ( $blogs as $blog ) {
+			foreach ($blogs as $blog) {
 				switch_to_blog( $blog->blog_id );
 
 				if ( constant( 'VHOST' ) == 'yes' ) {
-					$blogurl = $blog->domain;			
+					$blogurl = $blog->domain;
 				} else {
 					$blogurl = trailingslashit( $blog->domain . $blog->path );
 				}
@@ -149,12 +149,12 @@ class WPMU_Plugin_Stats {
 				$active_plugins = get_option( 'active_plugins' );
 
 				if ( sizeOf( $active_plugins ) > 0) {
-					foreach ( $active_plugins as $plugin ) {
+					foreach ($active_plugins as $plugin) {
 
 						//jason adding check for plugin existing on system
 						if ( isset( $plugins[ $plugin ] ) ) {
 							$this_plugin = $plugins[ $plugin ];
-							
+
 							if ( isset( $this_plugin['blogs'] ) && is_array( $this_plugin['blogs'] ) ) {
 								array_push( $this_plugin['blogs'], $blog_info );
 							} else {
@@ -171,7 +171,7 @@ class WPMU_Plugin_Stats {
 				} // foreach ($active_plugin as $plugin)
 
 				restore_current_blog();
-				
+
 			}
 
 		}
@@ -188,7 +188,7 @@ class WPMU_Plugin_Stats {
 		update_site_option( 'cets_plugin_stats_data_freshness', time() );
 
 	} // END generate_plugin_blog_list()
-	
+
 	/**
 	 * Add the menu item
 	 *
@@ -199,7 +199,7 @@ class WPMU_Plugin_Stats {
 	 * @hook   filter wpmu_plugin_stats_cap Defaults 'manage_network'
 	 */
 	public function network_admin_menu() {
-		
+
 		add_submenu_page(
 			'plugins.php',
 			__( 'Plugin Statistics', 'wpmu-plugin-stats' ),
@@ -210,7 +210,7 @@ class WPMU_Plugin_Stats {
 		);
 
 	} // END network_admin_menu()
-	
+
 	/**
 	 * Create a function to actually display stuff on plugin usage
 	 *
@@ -221,15 +221,15 @@ class WPMU_Plugin_Stats {
 	 * @uses generate_plugin_blog_list()
 	 */
 	public function plugin_stats_page() {
-		
+
 		// Get the time when the plugin list was last generated
 		$gen_time = get_site_option( 'cets_plugin_stats_data_freshness' );
 
-		if ( ( time() - $gen_time ) > 3600 || ( isset( $_POST['action'] ) && $_POST['action'] == 'update' ) )  {
+		if ( ( time() - $gen_time ) > 3600 || ( isset( $_POST['action'] ) && $_POST['action'] == 'update' ) ) {
 			// if older than an hour, regenerate, just to be safe
 			$this->generate_plugin_blog_list();
 		}
-		
+
 		$list = get_site_option( 'cets_plugin_stats_data' );
 		ksort( $list );
 
@@ -295,10 +295,10 @@ class WPMU_Plugin_Stats {
 				<tbody id="plugins">
 					<?php
 					$counter = 0;
-					foreach ( $list as $file => $info ) {
+					foreach ($list as $file => $info) {
 						$counter = $counter + 1;
 						$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
-						
+
 						// checking for non-existant plugins
 						if ( isset( $info['Name'] ) ) {
 							if ( strlen( $info['Name'] ) ) {
@@ -316,7 +316,7 @@ class WPMU_Plugin_Stats {
 							</td>
 							<td align="center">
 								<?php
-								if ( $is_activated_sitewide ) {
+								if ($is_activated_sitewide) {
 									_e( 'Yes' );
 								} else {
 									_e( 'No' );
@@ -339,7 +339,7 @@ class WPMU_Plugin_Stats {
 								<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
 									<?php
 									if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-										foreach( $info['blogs'] as $blog ) {
+										foreach ($info['blogs'] as $blog) {
 											$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
 											echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
 										}
@@ -352,7 +352,7 @@ class WPMU_Plugin_Stats {
 					<?php } ?>
 				</tbody>
 			</table>
-				
+
 			<?php // @TODO nonce? ?>
 			<div class="tablenav bottom">
 				<div class="alignleft actions bulkactions">
@@ -366,10 +366,10 @@ class WPMU_Plugin_Stats {
 				<?php printf( __( 'This data is not updated as blog users update their plugins. It was last generated %s ago.', 'wpmu-plugin-stats' ), $lastregen ); ?>
 			</p>
 		</div><!-- .wrap -->
-		
+
 	<?php
 	} // END plugin_stats_page()
-	
+
 	/**
 	 * Load assets on the page
 	 *
@@ -381,13 +381,13 @@ class WPMU_Plugin_Stats {
 	 * @hook   filter wpmu_plugin_stats_debug	Defaults {@see WP_DEBUG}
 	 */
 	public function load_admin_assets() {
-		
+
 		$dev = apply_filters( 'wpmu_plugin_stats_debug', WP_DEBUG ) ? '' : '.min';
 
 		wp_enqueue_script( 'tablesort', plugins_url( 'js/tablesort' . $dev . '.js', __FILE__ ), array(), '2.5', true );
 
 	} // END load_admin_assets()
-	
+
 	/**
 	 * Load the plugin's textdomain hooked to 'plugins_loaded'.
 	 *
@@ -398,15 +398,15 @@ class WPMU_Plugin_Stats {
 	 * @action plugins_loaded
 	 */
 	public function load_plugin_textdomain() {
-		
+
 		load_plugin_textdomain(
 			'wpmu-plugin-stats',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
-		
+
 	} // END load_plugin_textdomain()
-	
+
 	/**
 	 * Add link to the GitHub repo to the plugin listing
 	 *
@@ -428,7 +428,7 @@ class WPMU_Plugin_Stats {
 		}
 
 		return $links;
-		
+
 	} // END plugin_row_meta()
 
 	/**
