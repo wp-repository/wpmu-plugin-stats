@@ -1,10 +1,10 @@
 /*
-Table Sorter v2.4
+Table Sorter v2.5
 Adds bi-directional sorting to table columns.
 Copyright 2005 Digital Routes, Scotland
 Copyright 2007 Neil Fraser, California
 Copyright 2011 Google Inc.
-http://neil.fraser.name/software/tablesort/
+https://neil.fraser.name/software/tablesort/
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,28 +25,42 @@ Include on your page:
 // Namespace object.
 var TableSort = {};
 
-// Switch to enable or disable the TableSort.
+/**
+ * Switch to enable or disable the TableSort.
+ */
 TableSort.enabled = true;
 
-// Default text values for the arrows.  Override these with custom image tags.
-TableSort.arrowNone = ' &nbsp;';
-TableSort.arrowUp   = ' &uarr;';
-TableSort.arrowDown = ' &darr;';
+/**
+ * HTML for up indicator (sorted small to big).
+ */
+TableSort.arrowUp = ' &#x25b2;';
 
-// Tooltip to display when mousing over a sorting link.
+/**
+ * HTML for down indicator (sorted big to small).
+ */
+TableSort.arrowDown = ' &#x25bc;';
+
+/**
+ * HTML for unsorted indicator.
+ */
+TableSort.arrowNone = ' &nbsp;';
+
+/**
+ * Tooltip to display when mousing over a sorting link.
+ */
 TableSort.titleText = 'Sort by this column';
 
 /**
  * List of all the tables.
  * @private
  */
-TableSort.tables = [];
+TableSort.tables_ = [];
 
 /**
  * Upon which column was the table sorted last time.  -=up, +=down
  * @private
  */
-TableSort.lastSort = [];
+TableSort.lastSort_ = [];
 
 
 /**
@@ -88,8 +102,8 @@ TableSort.init = function(var_args) {
  * @private
  */
 TableSort.initTable_ = function(table) {
-  TableSort.tables.push(table);
-  var t = TableSort.tables.length - 1;
+  TableSort.tables_.push(table);
+  var t = TableSort.tables_.length - 1;
   if (table.tHead) {
     for (var y = 0, row; row = table.tHead.rows[y]; y++) {
       for (var x = 0, cell; cell = row.cells[x]; x++) {
@@ -104,7 +118,7 @@ TableSort.initTable_ = function(table) {
       }
     }
   }
-  TableSort.lastSort[t] = 0;
+  TableSort.lastSort_[t] = 0;
 };
 
 
@@ -123,7 +137,7 @@ TableSort.linkCell_ = function(cell, t, x) {
     if (TableSort.titleText) {
       link.title = TableSort.titleText;
     }
-    while(cell.hasChildNodes()) {
+    while (cell.hasChildNodes()) {
       link.appendChild(cell.firstChild);
     }
     cell.appendChild(link);
@@ -139,7 +153,7 @@ TableSort.linkCell_ = function(cell, t, x) {
 /**
  * Return the class name for a cell.  The name must match a sorting function.
  * @param {!Element} cell The cell element.
- * @returns {string} Class name matching a sorting function.
+ * @return {string} Class name matching a sorting function.
  * @private
  */
 TableSort.getClass_ = function(cell) {
@@ -161,7 +175,7 @@ TableSort.getClass_ = function(cell) {
  * @param {string} mode Sorting mode (e.g. 'nocase').
  */
 TableSort.click = function(t, column, mode) {
-  var table = TableSort.tables[t];
+  var table = TableSort.tables_[t];
   if (!mode.match(/^[_a-z0-9]+$/)) {
     alert('Illegal sorting mode type.');
     return;
@@ -173,11 +187,11 @@ TableSort.click = function(t, column, mode) {
   }
   // Determine and record the direction.
   var reverse = false;
-  if (Math.abs(TableSort.lastSort[t]) == column + 1) {
-    reverse = TableSort.lastSort[t] > 0;
-    TableSort.lastSort[t] *= -1;
+  if (Math.abs(TableSort.lastSort_[t]) == column + 1) {
+    reverse = TableSort.lastSort_[t] > 0;
+    TableSort.lastSort_[t] *= -1;
   } else {
-    TableSort.lastSort[t] = column + 1;
+    TableSort.lastSort_[t] = column + 1;
   }
   // Display the correct arrows on every header/footer cell.
   var spanMatchAll = new RegExp('\\bTableSort_' + t + '_\\d+\\b');
@@ -225,7 +239,7 @@ TableSort.click = function(t, column, mode) {
  * Recursively build a plain-text version of a DOM structure.
  * Bug: whitespace isn't always correct, but shouldn't matter for tablesort.
  * @param {Element} obj Element to flatten into text.
- * @returns {string} Plain-text contents of element.
+ * @return {string} Plain-text contents of element.
  * @private
  */
 TableSort.dom2txt_ = function(obj) {
@@ -246,10 +260,11 @@ TableSort.dom2txt_ = function(obj) {
 /**
  * Case-sensitive sorting.
  * Compare two dictionary structures and indicate which is larger.
- * @param {Array} a First tuple.
- * @param {Array} b Second tuple.
+ * @param {!Array} a First tuple.
+ * @param {!Array} b Second tuple.
+ * @return {number} Number indicating which param is larger (-1/0/1).
  */
-TableSort.compare_case = function(a, b) {
+TableSort['compare_case'] = function(a, b) {
   if (a[0] == b[0]) {
     return 0;
   }
@@ -261,8 +276,9 @@ TableSort.compare_case = function(a, b) {
  * Compare two dictionary structures and indicate which is larger.
  * @param {Array} a First tuple.
  * @param {Array} b Second tuple.
+ * @return {number} Number indicating which param is larger (-1/0/1).
  */
-TableSort.compare_nocase = function(a, b) {
+TableSort['compare_nocase'] = function(a, b) {
   var aLower = a[0].toLowerCase();
   var bLower = b[0].toLowerCase();
   if (aLower == bLower) {
@@ -276,8 +292,9 @@ TableSort.compare_nocase = function(a, b) {
  * Compare two dictionary structures and indicate which is larger.
  * @param {Array} a First tuple.
  * @param {Array} b Second tuple.
+ * @return {number} Number indicating which param is larger (-1/0/1).
  */
-TableSort.compare_num = function(a, b) {
+TableSort['compare_num'] = function(a, b) {
   var aNum = parseFloat(a[0]);
   if (isNaN(aNum)) {
     aNum = -Number.MAX_VALUE;
@@ -304,3 +321,7 @@ if (navigator.appName == 'Microsoft Internet Explorer' &&
   // The Mac version of MSIE is way too buggy to deal with.
   TableSort.enabled = false;
 }
+
+// Export symbols in case of agressive compilation.
+window['TableSort'] = TableSort;
+TableSort['click'] = TableSort.click;
