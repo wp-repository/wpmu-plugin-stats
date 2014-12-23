@@ -128,7 +128,6 @@ class WPMU_Plugin_Stats {
 		$plugins = get_plugins();
 
 		if ( $blogs ) {
-
 			foreach ( $blogs as $blog ) {
 				switch_to_blog( $blog->blog_id );
 
@@ -169,7 +168,6 @@ class WPMU_Plugin_Stats {
 				restore_current_blog();
 
 			}
-
 		}
 
 		ksort( $plugins );
@@ -292,12 +290,13 @@ class WPMU_Plugin_Stats {
 
 		foreach ( $plugin_stats_data as $file => $info ) {
 			$counter               = $counter + 1;
+			$plugin_title          = $this->plugin_title( $file, $info );
 			$active_count          = isset( $info['blogs'] ) ? sizeOf( $info['blogs'] ) : 0;
 			$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
 			?>
 			<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
 				<td class="plugin-title">
-					<?php echo $this->plugin_title( $file, $info ); ?>
+					<?php echo esc_html( $plugin_title ); ?>
 				</td>
 				<td align="center">
 					<?php $is_activated_sitewide ? _e( 'Yes' ) : _e( 'No' ); ?>
@@ -337,7 +336,7 @@ class WPMU_Plugin_Stats {
 			$plugin_title = $file . ' <span class="plugin-not-found">(' . __( 'Plugin File Not Found!', 'wpmu-plugin-stats' ) . ')</span>';
 		}
 
-		return esc_html( $plugin_title );
+		return $plugin_title;
 
 	} // END plugin_title()
 
