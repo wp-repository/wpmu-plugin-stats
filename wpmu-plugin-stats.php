@@ -56,16 +56,17 @@ class WPMU_Plugin_Stats {
 	 * Holds a copy of the object for easy reference.
 	 *
 	 * @since 1.0.0
-	 * @var   object $instance
+	 *
+	 * @var object $instance
 	 */
 	private static $instance;
 	
 	/**
 	 * Current version of the plugin.
 	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string	$version
+	 * @since 1.0.0
+	 *
+	 * @var string $version
 	 */
 	public $version = '2.1';
 	
@@ -83,9 +84,7 @@ class WPMU_Plugin_Stats {
 	/**
 	 * Hook in actions and filters
 	 * 
-	 * @since  2.1.0
-	 * 
-	 * @return void
+	 * @since 2.1.0
 	 */
 	private function setup_actions() {
 
@@ -97,7 +96,7 @@ class WPMU_Plugin_Stats {
 		/** Filters ***********************************************************/
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
-	}
+	} // END setup_actions()
 
 	/**
 	 * Getter method for retrieving the object instance.
