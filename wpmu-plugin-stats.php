@@ -38,12 +38,8 @@ Network: true
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//avoid direct calls to this file
-if ( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit();
-}
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
  * Main class to run the plugin
