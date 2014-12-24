@@ -7,7 +7,7 @@
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Gives network admins an easy way to see what plugins are actively used the sites of a multisite installation
+Gives network admins an easy way to see what plugins are actively used on the sites of a multisite installation
 
 ## Description ##
 
