@@ -174,7 +174,6 @@ class WPMU_Plugin_Stats {
 		set_site_transient( 'plugin_stats_data', $plugins, 24 * HOUR_IN_SECONDS );
 
 		return $plugins;
-		//}
 
 	} // END generate_plugin_blog_list()
 
@@ -203,11 +202,15 @@ class WPMU_Plugin_Stats {
 	/**
 	 * Create a function to actually display stuff on plugin usage
 	 *
+	 * @todo use WP_List_Table
+	 *
 	 * @since 1.0.0
 	 *
 	 * @see  get_site_option()
 	 * @see  maybe_unserialize()
 	 * @uses generate_plugin_blog_list()
+	 *
+	 * @return string Complete HTML render of the page
 	 */
 	public function plugin_stats_page() {
 
@@ -277,9 +280,11 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Generate the plugin table body
-	 * 
+	 *
+	 * @todo use WP_List_Table
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @param  array $plugin_stats_data
 	 * @return string
 	 */
@@ -317,9 +322,9 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Generate proper plugin title
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @param  string $file
 	 * @param  array $info
 	 * @return string
@@ -342,10 +347,9 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * List all sites the plugin is active on
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
-	 * @param  int $counter
+	 *
 	 * @param  array $info
 	 * @return string
 	 */
@@ -429,8 +433,6 @@ class WPMU_Plugin_Stats {
 	 * Checks if this is a multisite installation
 	 *
 	 * @since 2.1.0
-	 *
-	 * @param bool $network_wide
 	 */
 	public static function activation() {
 
