@@ -137,11 +137,11 @@ class WPMU_Plugin_Stats {
 					$blogurl = trailingslashit( $blog->domain . $blog->path );
 				}
 
-				$blog_info = array(
-					'name' => get_bloginfo( 'name' ),
-					'url' => $blogurl,
-				);
 				$active_plugins = get_option( 'active_plugins' );
+				$blog_info      = array(
+					'name' => get_bloginfo( 'name' ),
+					'url'  => $blogurl,
+				);
 
 				if ( sizeOf( $active_plugins ) > 0 ) {
 					foreach ( $active_plugins as $plugin ) {
@@ -162,12 +162,10 @@ class WPMU_Plugin_Stats {
 							//this 'active' plugin is no longer on the system, so do nothing here?  (or could theoretically deactivate across all sites)
 							//unset($plugins[$plugin]);
 						}
-					}
-				} // foreach ($active_plugin as $plugin)
-
+					} // END foreach [Plugins]
+				}
 				restore_current_blog();
-
-			}
+			} // END foreach [Sites]
 		}
 
 		ksort( $plugins );
