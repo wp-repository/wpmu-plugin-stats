@@ -80,8 +80,8 @@ class WPMU_Plugin_Stats {
 		add_action( 'load-plugins_page_wpmu-plugin-stats', array( $this, 'load_admin_assets' ) );
 
 		/** Filters ***********************************************************/
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
+		/** (De-)Activation ***************************************************/
 		register_activation_hook( __FILE__, array( 'WPMU_Plugin_Stats', 'activation' ) );
 
 	} // END setup_actions()
@@ -400,30 +400,6 @@ class WPMU_Plugin_Stats {
 		);
 
 	} // END load_plugin_textdomain()
-
-	/**
-	 * Add link to the GitHub repo to the plugin listing
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see plugin_basename()
-	 *
-	 * @param  array $links
-	 * @param  string $file
-	 * @return array $links
-	 */
-	public function plugin_row_meta( $links, $file ) {
-
-		if ( $file == plugin_basename( __FILE__ ) ) {
-			return array_merge(
-				$links,
-				array( '<a href="https://github.com/wp-repository/wpmu-plugin-stats" target="_blank">GitHub</a>' )
-			);
-		}
-
-		return $links;
-
-	} // END plugin_row_meta()
 
 	/**
 	 * Pre-Activation checks
