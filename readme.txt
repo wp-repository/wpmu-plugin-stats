@@ -1,7 +1,7 @@
 === WPMU Plugin Stats ===
 Contributors: cfoellmann, MadtownLems, DeannaS, kgraeme
 Tags: WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network
-Requires at least: 3.1
+Requires at least: 3.8
 Tested up to: 4.1
 Stable tag: 2.1.0
 License: GPLv2 or later
@@ -36,6 +36,9 @@ When you update to version 2.1 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 == Changelog ==
+= 2.2 (TBD) =
+ * @todo Generate table via WP_List_Table
+
 = 2.1 (2014-12-24) =
  * Updated tablesort.js (to 2.5)
  * Moved from storing data in option to transient
