@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    Christian Foellmann & Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
- * @copyright Copyright (c) 2009 - 2014, Cooperative Extension Technology Services
+ * @copyright Copyright (c) 2014 - 2015 Christian Foellmann (http://christian.foellmann.de)
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package   WP-Repository\WPMU_Plugin_Stats
  * @version   2.1.0
@@ -20,7 +20,7 @@ Network: true
 
 	WPMU Plugin Stats
 
-	Copyright (C) 2014 Christian Foellmann (http://christian.foellmann.de)
+	Copyright (C) 2014 - 2015 Christian Foellmann (http://christian.foellmann.de)
 	Copyright (C) 2009 - 2013 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
 	Cooperative Extension Technology Services
 	University of Wisconsin-Extension
@@ -75,11 +75,15 @@ class WPMU_Plugin_Stats {
 	private function setup_actions() {
 
 		/** Actions ***********************************************************/
-		add_action( 'network_admin_menu', array( $this, 'network_admin_menu' ) );
-		add_action( 'plugins_loaded',     array( $this, 'load_plugin_textdomain' ) );
-		add_action( 'load-plugins_page_wpmu-plugin-stats', array( $this, 'load_admin_assets' ) );
+		add_action( 'plugins_loaded',               array( $this, 'load_plugin_textdomain' )        );
+		add_action( 'admin_head-plugins.php',       array( $this, 'add_css'                )        );
+		add_action( 'load-plugins.php',             array( $this, 'load'                   )        );
+		add_action( 'manage_plugins_custom_column', array( $this, 'column_active'          ), 10, 3 );
+		add_action( 'activated_plugin',             array( $this, 'auto_refresh'           ), 10, 2 );
+		add_action( 'deactivated_plugin',           array( $this, 'auto_refresh'           ), 10, 2 );
 
-		/** Filters ***********************************************************/
+		/** Filters ************************************ *********************/
+		add_filter( 'manage_plugins-network_columns', array( $this, 'add_column' ) );
 
 		/** (De-)Activation ***************************************************/
 		register_activation_hook( __FILE__, array( 'WPMU_Plugin_Stats', 'activation' ) );
@@ -109,6 +113,94 @@ class WPMU_Plugin_Stats {
 
 	} // END instance()
 
+	public function load() {
+
+		$plugin_stats_data = get_site_transient( 'plugin_stats_data' );
+
+		if ( ! $plugin_stats_data || isset( $_GET['manual-stats-refresh'] ) ) {
+			$plugin_stats_data = $this->generate_plugin_blog_list();
+		}
+
+	} // END load()
+
+	public function add_css() {
+		?>
+<style type="text/css">
+	.column-active p { width: 200px; }
+	.siteslist { display:none; }
+</style>
+		<?php
+	} // END add_css()
+
+	/**
+	 * Add the 'Usage' column to WP_Plugins_List_Table (network)
+	 * 
+	 * @since 2.1.0
+	 * 
+	 * @param  array The columns array of the table
+	 * @return array
+	 */
+	public function add_column( $columns ) {
+
+		$columns['active'] = __( 'Usage', 'wpmu-plugin-stats' );
+
+		return $columns;
+
+	} // END add_columns
+
+	/**
+	 * Output the stats data for the plugins
+	 * 
+	 * @param  string $column_name
+	 * @param  string $plugin_file
+	 * @param  array  $plugin_data
+	 * @return string HTML output for the column
+	 */
+	public function column_active( $column_name, $plugin_file, $plugin_data ) {
+
+		if ( 'active' === $column_name ) {
+
+			$network_data   = get_site_transient( 'plugin_stats_data' );
+			$network_active = is_plugin_active_for_network( $plugin_file );
+
+			$id             = isset( $plugin_data['id'] )            ? $plugin_data['id']            : rand( 999999, 9999999 );
+			$data           = isset( $network_data[ $plugin_file ] ) ? $network_data[ $plugin_file ] : 0;
+			$active_count   = isset( $data['sites'] )                ? sizeOf( $data['sites'] )      : 0;
+
+			echo '<p>';
+			if ( 0 === $active_count && ! $network_active ) {
+
+				_e( 'Not Active on any site', 'wpmu-plugin-stats' );
+
+			} elseif ( $network_active ) {
+
+				echo '<b>' . __( 'Active on all sites', 'wpmu-plugin-stats' ) . '</b>';
+
+			} else {
+
+				printf(
+					_n( 'Active on %2$s %1$d site %3$s', 'Active on %2$s %1$d sites %3$s', $active_count, 'wpmu-plugin-stats' ),
+					$active_count,
+					"<a href=\"javascript:;\" onClick=\"jQuery('#siteslist_{$id}').toggle(400);\">",
+					'</a>'
+				);
+
+			}
+			echo '</p>';
+
+			if ( isset( $data['sites'] ) && is_array( $data['sites'] ) ) {
+				echo "<ul class=\"siteslist\" id=\"siteslist_{$id}\">";
+				foreach ( $data['sites'] as $site ) {
+					$link_title = empty( $site['name'] ) ? $site['url'] : $site['name'];
+					echo '<li><a href="http://' . $site['url'] . '" target="new">' . $link_title . '</a></li>';
+				}
+				echo '</ul>';
+			}
+
+		} // END if 'active' column
+
+	} // END column_active()
+
 	/**
 	 * Fetch sites and the active plugins for every single site
 	 *
@@ -124,263 +216,76 @@ class WPMU_Plugin_Stats {
 		global $wpdb, $current_site;
 
 		$select  = $wpdb->prepare( "SELECT blog_id, domain, path FROM $wpdb->blogs WHERE site_id = %d ORDER BY domain ASC", $current_site->id );
-		$blogs   = $wpdb->get_results( $select );
+		$sites   = $wpdb->get_results( $select );
 		$plugins = get_plugins();
 
-		if ( $blogs ) {
-			foreach ( $blogs as $blog ) {
-				switch_to_blog( $blog->blog_id );
+		foreach ( $sites as $site ) {
+			switch_to_blog( $site->blog_id );
 
-				if ( constant( 'VHOST' ) == 'yes' ) {
-					$blogurl = $blog->domain;
-				} else {
-					$blogurl = trailingslashit( $blog->domain . $blog->path );
-				}
+			if ( constant( 'VHOST' ) == 'yes' ) {
+				$siteurl = $site->domain;
+			} else {
+				$siteurl = trailingslashit( $site->domain . $site->path );
+			}
 
-				$active_plugins = get_option( 'active_plugins' );
-				$blog_info      = array(
-					'name' => get_bloginfo( 'name' ),
-					'url'  => $blogurl,
-				);
+			$active_plugins = get_option( 'active_plugins' );
+			$site_info      = array(
+				'name' => get_bloginfo( 'name' ),
+				'url'  => $siteurl,
+			);
 
-				if ( sizeOf( $active_plugins ) > 0 ) {
-					foreach ( $active_plugins as $plugin ) {
+			if ( sizeOf( $active_plugins ) > 0 ) {
+				foreach ( $active_plugins as $plugin ) {
 
-						//jason adding check for plugin existing on system
-						if ( isset( $plugins[ $plugin ] ) ) {
-							$this_plugin = $plugins[ $plugin ];
+					//jason adding check for plugin existing on system
+					if ( isset( $plugins[ $plugin ] ) ) {
+						$this_plugin = $plugins[ $plugin ];
 
-							if ( isset( $this_plugin['blogs'] ) && is_array( $this_plugin['blogs'] ) ) {
-								array_push( $this_plugin['blogs'], $blog_info );
-							} else {
-								$this_plugin['blogs'] = array();
-								array_push( $this_plugin['blogs'], $blog_info );
-							}
-							unset( $plugins[ $plugin ] );
-							$plugins[ $plugin ] = $this_plugin;
+						if ( isset( $this_plugin['sites'] ) && is_array( $this_plugin['sites'] ) ) {
+							array_push( $this_plugin['sites'], $site_info );
 						} else {
-							//this 'active' plugin is no longer on the system, so do nothing here?  (or could theoretically deactivate across all sites)
-							//unset($plugins[$plugin]);
+							$this_plugin['sites'] = array();
+							array_push( $this_plugin['sites'], $site_info );
 						}
-					} // END foreach [Plugins]
-				}
-				restore_current_blog();
-			} // END foreach [Sites]
-		}
+						unset( $plugins[ $plugin ] );
+						$plugins[ $plugin ] = $this_plugin;
+					} else {
+						//this 'active' plugin is no longer on the system, so do nothing here?  (or could theoretically deactivate across all sites)
+						//unset($plugins[$plugin]);
+					}
+				} // END foreach [Plugins]
+			}
+			restore_current_blog();
+		} // END foreach 'sites'
 
 		ksort( $plugins );
-		set_site_transient( 'plugin_stats_data', $plugins, 24 * HOUR_IN_SECONDS );
+
+		$hours   = wp_is_large_network() ? 24 : 2;
+		$refresh = apply_filters( 'wpmu_plugin_stats_refresh' , $hours * HOUR_IN_SECONDS );
+
+		set_site_transient( 'plugin_stats_data', $plugins, $refresh );
 
 		return $plugins;
 
 	} // END generate_plugin_blog_list()
 
 	/**
-	 * Add the menu item
+	 * Regenerate the statistics on every theme switch network-wide
 	 *
 	 * @since 1.0.0
 	 *
-	 * @see    add_submenu_page()
-	 * @action network_admin_menu
-	 * @hook   filter wpmu_plugin_stats_cap Defaults 'manage_network'
-	 */
-	public function network_admin_menu() {
-
-		add_submenu_page(
-			'plugins.php',
-			__( 'Plugin Statistics', 'wpmu-plugin-stats' ),
-			__( 'Statistics', 'wpmu-plugin-stats' ),
-			apply_filters( 'wpmu_plugin_stats_cap', 'manage_network' ),
-			'wpmu-plugin-stats',
-			array( $this, 'plugin_stats_page' )
-		);
-
-	} // END network_admin_menu()
-
-	/**
-	 * Create a function to actually display stuff on plugin usage
-	 *
-	 * @todo use WP_List_Table
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see  get_site_option()
-	 * @see  maybe_unserialize()
 	 * @uses generate_plugin_blog_list()
-	 *
-	 * @return string Complete HTML render of the page
+	 * @action switch_theme
 	 */
-	public function plugin_stats_page() {
+	public function auto_refresh() {
 
-		// Get the time when the plugin list was last generated
-		$plugin_stats_data = get_site_transient( 'plugin_stats_data' );
-
-		if ( ! $plugin_stats_data || ( isset( $_POST['action'] ) && $_POST['action'] === 'update' ) )  {
-			$plugin_stats_data = $this->generate_plugin_blog_list();
-		}
-		?>
-		<style type="text/css">
-			table#wpmu-active-plugins { margin-top: 6px; }
-			.bloglist { display:none; }
-			span.plugin-not-found { color: red; }
-			.plugins .active td.plugin-title { border-left: 4px solid #2EA2CC; font-weight: 700; }
-		</style>
-		<div class="wrap">
-			<h2><?php _e( 'Plugin Statistics', 'wpmu-plugin-stats' ); ?></h2>
-			<table class="wp-list-table widefat plugins" id="wpmu-active-plugins">
-				<thead>
-					<tr>
-						<th class="nocase">
-							<?php _e( 'Plugin', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th class="case" style="text-align: center !important">
-							<?php _e( 'Activated Sitewide', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th class="num">
-							<?php _e( 'Total Blogs', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th width="200px">
-							<?php _e( 'Blog Titles', 'wpmu-plugin-stats' ); ?>
-						</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th class="nocase">
-							<?php _e( 'Plugin', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th class="case" style="text-align: center !important">
-							<?php _e( 'Activated Sitewide', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th class="num">
-							<?php _e( 'Total Blogs', 'wpmu-plugin-stats' ); ?>
-						</th>
-						<th width="200px">
-							<?php _e( 'Blog Titles', 'wpmu-plugin-stats' ); ?>
-						</th>
-					</tr>
-				</tfoot>
-				<tbody id="plugins">
-					<?php $this->data_table( $plugin_stats_data ); ?>
-				</tbody>
-			</table>
-			<div class="tablenav bottom">
-				<div class="alignleft actions bulkactions">
-					<form name="plugininfoform" action="" method="post">
-						<?php submit_button( __( 'Regenerate', 'wpmu-plugin-stats' ) ); ?>
-						<input type="hidden" name="action" value="update" />
-					</form>
-				</div>
-			</div>
-		</div><!-- .wrap -->
-	<?php
-	} // END plugin_stats_page()
-
-	/**
-	 * Generate the plugin table body
-	 *
-	 * @todo use WP_List_Table
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param  array $plugin_stats_data
-	 * @return string
-	 */
-	private function data_table( $plugin_stats_data ) {
-
-		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins' );
-		$counter                 = 0;
-
-		foreach ( $plugin_stats_data as $file => $info ) {
-			$counter               = $counter + 1;
-			$plugin_title          = $this->plugin_title( $file, $info );
-			$active_count          = isset( $info['blogs'] ) ? sizeOf( $info['blogs'] ) : 0;
-			$is_activated_sitewide = ( is_array( $active_sitewide_plugins ) && array_key_exists( $file, $active_sitewide_plugins ) ) ? true : false;
-			?>
-			<tr valign="top" class="<?php echo $is_activated_sitewide ? 'active' : 'inactive'; ?>">
-				<td class="plugin-title">
-					<?php echo esc_html( $plugin_title ); ?>
-				</td>
-				<td align="center">
-					<?php $is_activated_sitewide ? _e( 'Yes' ) : _e( 'No' ); ?>
-				</td>
-				<td align="center">
-					<?php echo esc_html( $active_count ); ?>
-				</td>
-				<td width="200px">
-					<a href="javascript:void(0)" onClick="jQuery('#bloglist_<?php echo esc_attr( $counter ); ?>').toggle(400);">
-						<?php _e( 'Show/Hide Blogs', 'wpmu-plugin-stats' ); ?>
-					</a>
-					<ul class="bloglist" id="bloglist_<?php echo esc_attr( $counter ); ?>">
-						<?php $this->active_blogs_list( $info ); ?>
-					</ul>
-				</td>
-		<?php }
-	} // END data_table()
-
-	/**
-	 * Generate proper plugin title
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param  string $file
-	 * @param  array $info
-	 * @return string
-	 */
-	private function plugin_title( $file, $info ) {
-
-		if ( isset( $info['Name'] ) ) {
-			if ( strlen( $info['Name'] ) ) {
-				$plugin_title = $info['Name'];
-			} else {
-				$plugin_title = $file;
-			}
+		if ( wp_is_large_network() ) {
+			$this->load();
 		} else {
-			$plugin_title = $file . ' <span class="plugin-not-found">(' . __( 'Plugin File Not Found!', 'wpmu-plugin-stats' ) . ')</span>';
+			$this->generate_plugin_blog_list();
 		}
 
-		return $plugin_title;
-
-	} // END plugin_title()
-
-	/**
-	 * List all sites the plugin is active on
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param  array $info
-	 * @return string
-	 */
-	private function active_blogs_list( $info ) {
-
-		if ( isset( $info['blogs'] ) && is_array( $info['blogs'] ) ) {
-			foreach ( $info['blogs'] as $blog ) {
-				$link_title = empty( $blog['name'] ) ? $blog['url'] : $blog['name'];
-				echo '<li><a href="http://' . $blog['url'] . '" target="new">' . $link_title . '</a></li>';
-			}
-		} else {
-			echo '<li>' . esc_html__( 'N/A', 'wpmu-plugin-stats' ) . '</li>';
-		}
-
-	} // END active_blogs_list()
-
-	/**
-	 * Load assets on the page
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see p_enqueue_script()
-	 * @see plugins_url()
-	 * @action load-plugins_page_wpmu-plugin-stats
-	 * @hook   filter wpmu_plugin_stats_debug	Defaults {@see WP_DEBUG}
-	 */
-	public function load_admin_assets() {
-
-		$dev = apply_filters( 'wpmu_plugin_stats_debug', WP_DEBUG ) ? '' : '.min';
-
-		wp_enqueue_script( 'tablesort', plugins_url( 'assets/js/tablesort' . $dev . '.js', __FILE__ ), array(), '2.5', true );
-
-	} // END load_admin_assets()
+	} // END auto_refresh()
 
 	/**
 	 * Load the plugin's textdomain hooked to 'plugins_loaded'.
