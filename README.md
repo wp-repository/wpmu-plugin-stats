@@ -1,7 +1,7 @@
 # WPMU Plugin Stats #
 **Contributors:** cfoellmann, MadtownLems, DeannaS, kgraeme  
-**Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network  
-**Requires at least:** 3.1  
+**Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage  
+**Requires at least:** 3.8  
 **Tested up to:** 4.1  
 **Stable tag:** 2.1.0  
 **License:** GPLv2 or later  
@@ -11,8 +11,13 @@ Gives network admins an easy way to see what plugins are actively used on the si
 
 ## Description ##
 
-This plugin provides a snapshot view of which blogs are using any particular plugin. 
-Because the time to generate stats can be quite large, network plugin useage is cached and can be regenerated anytime via the "Regenerate" button.
+This plugin give you a count and the listing of sites using your installed plugins.
+
+Usage data is cached in a Transient (non-autoloading) but the data collection process can be a very expensive operation depending on plugin and (especially) site count.
+Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently Asked Questions") for more details on caching.
+
+** Requires a WordPress Multisite Installation **
+* JavaScript needs to be enabled to see the list of sites using a plugin *
 
 ### Development ###
 
@@ -24,6 +29,23 @@ Because the time to generate stats can be quite large, network plugin useage is 
 
 1. Install by searching "WPMU Plugin Stats" on Plugins > Add New > Search
 2. Activate by clicking "Network Activate"
+
+## Frequently Asked Questions ##
+
+### When is the stats data refreshed? ###
+
+ - Auto refresh on every plugin activation and deactivation
+ - Auto refresh on `network/plugins.php` if Transient is expired (2h/24h on large networks)
+ - Manual refresh if you visit `network/plugins.php?manual-stats-refresh=1`
+
+### What happens on large installations ###
+
+ - Auto refresh is not running on plugin (de)activation
+ - Stats data is being regenerated every 24h (see action `wpmu_plugin_stats_refresh`)
+
+### Hooks ###
+
+[Filter] `wpmu_plugin_stats_refresh` - Manually set the expiration time of the data (Transient)
 
 ## Screenshots ##
 
@@ -38,8 +60,9 @@ When you update to version 2.1 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 ## Changelog ##
-### 2.1 (2014-12-24) ###
- * Updated tablesort.js (to 2.5)
+
+### 2.1 (2015-01-15) ###
+ * Integrated data into 'plugins.php' table
  * Moved from storing data in option to transient
  * Changed main filename resulting in a deactivation after update
 
