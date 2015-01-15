@@ -78,6 +78,7 @@ class WPMU_Plugin_Stats {
 		add_action( 'plugins_loaded',               array( $this, 'load_plugin_textdomain' )        );
 		add_action( 'admin_head-plugins.php',       array( $this, 'add_css'                )        );
 		add_action( 'load-plugins.php',             array( $this, 'load'                   )        );
+		add_action( 'admin_head-plugins.php',       array( $this, 'add_help_tab'           )        );
 		add_action( 'manage_plugins_custom_column', array( $this, 'column_active'          ), 10, 3 );
 		add_action( 'activated_plugin',             array( $this, 'auto_refresh'           ), 10, 2 );
 		add_action( 'deactivated_plugin',           array( $this, 'auto_refresh'           ), 10, 2 );
@@ -122,6 +123,23 @@ class WPMU_Plugin_Stats {
 		}
 
 	} // END load()
+
+	public function add_help_tab() {
+
+		$screen = get_current_screen();
+
+		if ( is_network_admin() ) {
+			$screen->add_help_tab(
+				array(
+					'id'       => 'wpmu-plugin-stats',
+					'title'    => __( 'Usage Stats', 'wpmu-plugin-stats' ), //unique visible title for the tab
+					'content'  => '<p>Sometext</p>', //actual help text
+					'callback' => __return_empty_string() //optional function to callback
+				)
+			);
+		}
+
+	} // END add_help_tab()
 
 	public function add_css() {
 		?>
