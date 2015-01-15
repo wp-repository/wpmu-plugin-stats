@@ -1,5 +1,5 @@
 # WPMU Plugin Stats #
-**Contributors:** cfoellmann, MadtownLems, DeannaS, kgraeme  
+**Contributors:** cfoellmann, MadtownLems  
 **Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage  
 **Requires at least:** 3.8  
 **Tested up to:** 4.1  
@@ -50,7 +50,7 @@ Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently
 
 ### Hooks ###
 
-[Filter] `wpmu_plugin_stats_refresh` - Manually set the expiration time of the data (Transient)
+ - [Filter] `wpmu_plugin_stats_refresh` - Manually set the expiration time of the data (Transient)
 
 ## Screenshots ##
 
