@@ -106,7 +106,7 @@ module.exports = function( grunt ) {
 						// Exclude string without textdomain and plugin's meta data
 						var translation, delete_translation,
 							excluded_strings = [ 'Yes', 'No' ],
-							excluded_meta = [ 'Plugin Name of the plugin/theme', 'Plugin URI of the plugin/theme', 'Author of the plugin/theme', 'Author URI of the plugin/theme' ];
+							excluded_meta = [ 'Plugin Name of the plugin/theme', 'Author of the plugin/theme', 'Author URI of the plugin/theme' ];
 						for ( translation in pot.translations[''] ) {
 							delete_translation = false;
 							if ( excluded_strings.indexOf( translation ) >= 0 ) {

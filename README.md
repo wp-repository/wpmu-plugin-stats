@@ -3,7 +3,7 @@
 **Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage  
 **Requires at least:** 3.8  
 **Tested up to:** 4.1  
-**Stable tag:** 2.1.0  
+**Stable tag:** 2.2.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -56,7 +56,7 @@ Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently
 ## Upgrade Notice ##
 
 **ATTENTION:**
-When you update to version 2.1 the plugin gets deactivated automatically.
+When you update to version >2.0 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 ## Changelog ##
