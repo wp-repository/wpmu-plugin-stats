@@ -49,7 +49,7 @@ Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently
 
 == Screenshots ==
 
-1. Adminstrator view of list of plugins installed.
+1. Extended Plugin Table on network/plugins.php
 
 == Upgrade Notice ==
 

@@ -49,8 +49,8 @@ Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently
 
 ## Screenshots ##
 
-### 1. Adminstrator view of list of plugins installed. ###
-![Adminstrator view of list of plugins installed.](https://raw.githubusercontent.com/wp-repository/wpmu-plugin-stats/develop/.assets/screenshot-1.png)
+### 1. Extended Plugin Table on network/plugins.php ###
+![Extended Plugin Table on network/plugins.php](https://raw.githubusercontent.com/wp-repository/wpmu-plugin-stats/develop/.assets/screenshot-1.png)
 
 
 ## Upgrade Notice ##
