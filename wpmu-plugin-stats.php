@@ -192,11 +192,10 @@ class WPMU_Plugin_Stats {
 				echo "<ul class=\"siteslist\" id=\"siteslist_{$id}\">";
 				foreach ( $data['sites'] as $site ) {
 					$link_title = empty( $site['name'] ) ? $site['url'] : $site['name'];
-					echo '<li><a href="http://' . $site['url'] . '" target="new">' . $link_title . '</a></li>';
+					echo '<li><a href="http://' . esc_html( $site['url'] ) . '" target="new">' .  esc_html( $link_title ) . '</a></li>';
 				}
 				echo '</ul>';
 			}
-
 		} // END if 'active' column
 
 	} // END column_active()
