@@ -1,7 +1,7 @@
 {
   "name": "wpmu-plugin-stats",
   "title": "WPMU Plugin Stats",
-  "version": "2.2.0",
+  "version": "2.3.0-dev",
   "private": true,
   "repository": {
     "type": "git",
