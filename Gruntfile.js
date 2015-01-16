@@ -7,11 +7,6 @@ module.exports = function( grunt ) {
 		// Load package data
 		pkg: grunt.file.readJSON('package.json'),
 
-		// Set folder vars
-		dirs: {
-			languages: 'languages'
-		},
-
 		// Watch changes for assets
 		watch: {
 			readme: {
@@ -171,9 +166,9 @@ module.exports = function( grunt ) {
 				},
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.languages %>',
+					cwd: 'languages',
 					src: ['*.po'],
-					dest: '<%= dirs.languages %>',
+					dest: 'languages',
 					ext: '.mo',
 					nonull: true
 				}]
