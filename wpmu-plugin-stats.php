@@ -134,9 +134,9 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Add the 'Usage' column to WP_Plugins_List_Table (network)
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @param  array The columns array of the table
 	 * @return array
 	 */
@@ -150,7 +150,7 @@ class WPMU_Plugin_Stats {
 
 	/**
 	 * Output the stats data for the plugins
-	 * 
+	 *
 	 * @param  string $column_name
 	 * @param  string $plugin_file
 	 * @param  array  $plugin_data
@@ -181,7 +181,7 @@ class WPMU_Plugin_Stats {
 				printf(
 					_n( 'Active on %2$s %1$d site %3$s', 'Active on %2$s %1$d sites %3$s', $active_count, 'wpmu-plugin-stats' ),
 					$active_count,
-					"<a href=\"javascript:;\" onClick=\"jQuery('#siteslist_{$id}').toggle(400);\">",
+					"<a href=\"javascript:;\" onClick=\"jQuery('ul[id*=\'siteslist_{$id}\']').toggle(400);\">",
 					'</a>'
 				);
 
