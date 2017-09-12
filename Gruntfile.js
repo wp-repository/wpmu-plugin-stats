@@ -39,6 +39,7 @@ module.exports = function( grunt ) {
 					'!build/**',
 					'!Gruntfile.js',
 					'!package.json',
+					'!package-lock.json',
 					'!LICENSE',
 					'!README.md',
 					'!nbproject/**',
@@ -86,10 +87,10 @@ module.exports = function( grunt ) {
 					exclude: ['build/.*'],
 					potFilename: 'wpmu-plugin-stats.pot',
 					processPot: function( pot ) {
-						pot.headers['report-msgid-bugs-to'] = 'https://github.com/wp-repository/wpmu-plugin-stats/issues\n';
+						pot.headers['report-msgid-bugs-to'] = 'https://github.com/WPStore/wpmu-plugin-stats/issues\n';
 						pot.headers['plural-forms'] = 'nplurals=2; plural=n != 1;';
-						pot.headers['last-translator'] = 'Christian Foellmann <foellmann@foe-services.de>\n';
-						pot.headers['language-team'] = 'Christian Foellmann <foellmann@foe-services.de>\n';
+						pot.headers['last-translator'] = 'WPStore.io <code@wpstore.io>\n';
+						pot.headers['language-team'] = 'WPStore.io <code@wpstore.io>\n';
 						pot.headers['x-poedit-basepath'] = '.\n';
 						pot.headers['x-poedit-language'] = 'English\n';
 						pot.headers['x-poedit-country'] = 'United States\n';
@@ -182,7 +183,7 @@ module.exports = function( grunt ) {
 					'README.md': 'readme.txt'
 				},
 				options: {
-					screenshot_url: 'https://raw.githubusercontent.com/wp-repository/{plugin}/develop/.assets/{screenshot}.png'
+					screenshot_url: 'https://raw.githubusercontent.com/wpstore/{plugin}/develop/.assets/{screenshot}.png'
 				}
 			}
 		},
