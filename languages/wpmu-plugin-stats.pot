@@ -1,17 +1,16 @@
-# Copyright (C) 2015 Christian Foellmann & Jason Lemahieu
+# Copyright (C) 2017 WPStore.io
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPMU Plugin Stats 2.1.0\n"
-"Report-Msgid-Bugs-To: "
-"https://github.com/wp-repository/wpmu-plugin-stats/issues\n"
-"POT-Creation-Date: 2015-01-15 15:45:18+00:00\n"
+"Project-Id-Version: WPMU Plugin Stats 2.3.0\n"
+"Report-Msgid-Bugs-To: https://github.com/WPStore/wpmu-plugin-stats/issues\n"
+"POT-Creation-Date: 2017-09-12 19:30:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Christian Foellmann <foellmann@foe-services.de>\n"
-"Language-Team: Christian Foellmann <foellmann@foe-services.de>\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: WPStore.io <code@wpstore.io>\n"
+"Language-Team: WPStore.io <code@wpstore.io>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Basepath: .\n"
@@ -25,25 +24,25 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
-#: wpmu-plugin-stats.php:145
+#: wpmu-plugin-stats.php:151
 msgid "Usage"
 msgstr ""
 
-#: wpmu-plugin-stats.php:173
+#: wpmu-plugin-stats.php:178
 msgid "Not Active on any site"
 msgstr ""
 
-#: wpmu-plugin-stats.php:177
+#: wpmu-plugin-stats.php:182
 msgid "Active on all sites"
 msgstr ""
 
-#: wpmu-plugin-stats.php:182
+#: wpmu-plugin-stats.php:187
 msgid "Active on %2$s %1$d site %3$s"
 msgid_plural "Active on %2$s %1$d sites %3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: wpmu-plugin-stats.php:319
+#: wpmu-plugin-stats.php:323
 msgid ""
 "This plugin only runs on multisite installations. The functionality makes "
 "no sense for WP single sites."
