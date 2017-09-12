@@ -4,13 +4,13 @@
  * @copyright Copyright (c) 2017 WPStore.io (http://www.wpstore.io)
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package   WPStore\Plugins\WPMU_Plugin_Stats
- * @version   2.3.0
+ * @version   2.4.0-dev
  */
 /*
 Plugin Name: WPMU Plugin Stats
 Plugin URI:  https://wordpress.org/plugins/wpmu-plugin-stats/
 Description: Gives network admins an easy way to see what plugins are actively used on the sites of a multisite installation
-Version:     2.3.0
+Version:     2.4.0-dev
 Author:      WPStore.io
 Author URI:  https://www.wpstore.io
 Donate link: https://www.wpstore.io/donate
@@ -62,7 +62,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @var string $version
 	 */
-	public $version = '2.3.0';
+	public $version = '2.4.0-dev';
 
 	/**
 	 * Constructor
