@@ -158,8 +158,6 @@ class WPMU_Plugin_Stats {
 	 */
 	public function column_active( $column_name, $plugin_file, $plugin_data ) {
 
-		if ( 'active' === $column_name ) {
-
 			$network_data   = get_site_transient( 'plugin_stats_data' );
 			$network_active = is_plugin_active_for_network( $plugin_file );
 
@@ -196,7 +194,6 @@ class WPMU_Plugin_Stats {
 				}
 				echo '</ul>';
 			}
-		} // END if 'active' column
 
 	} // END column_active()
 
