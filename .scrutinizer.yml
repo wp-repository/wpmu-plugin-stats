@@ -1,9 +1,20 @@
 # Scrutinizer Configuration
-# Profile: WP-Repository\WPMU_Plugin_Stats
+# Profile: WPStore/wpmu-plugin-stats
 
-filter:
-    excluded_paths: [js/*]
-
+checks:
+    php:
+        prefer_unix_line_ending: true
+        avoid_closing_tag: true
+        no_trailing_whitespace: true
+build:
+    nodes:
+        tests: true
+        analysis:
+            tests:
+                override:
+                    -
+                        command: phpcs-run
+                        use_website_config: true
 tools:
     php_mess_detector:
         config:
