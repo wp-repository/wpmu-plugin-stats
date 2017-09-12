@@ -153,8 +153,9 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @param  string $column_name
 	 * @param  string $plugin_file
-	 * @param  array  $plugin_data
-	 * @return string HTML output for the column
+	 * @param  array $plugin_data
+	 *
+	 * @return string|null HTML output for the column
 	 */
 	public function column_active( $column_name, $plugin_file, $plugin_data ) {
 
@@ -201,6 +202,7 @@ class WPMU_Plugin_Stats {
 	 * Fetch sites and the active plugins for every single site
 	 *
 	 * @todo If wp_is_large_network() this function could time out
+     * @todo Maybe use 'WP Object Cache' https://codex.wordpress.org/Class_Reference/WP_Object_Cache
 	 * @since 1.0.0
 	 *
 	 * @global object $wpdb
@@ -328,7 +330,7 @@ class WPMU_Plugin_Stats {
  *
  * @since 2.1.0
  *
- * @var object $wpmu_plugin_stats Holds the instantiated class {@uses WPMU_Plugin_Stats}
+ * @return null|WPMU_Plugin_Stats
  */
 function WPMU_Plugin_Stats() {
 	return WPMU_Plugin_Stats::instance();
