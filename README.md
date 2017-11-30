@@ -1,10 +1,10 @@
 # WPMU Plugin Stats #
-**Contributors:** wpstoreio, cfoellmann, MadtownLems  
+**Contributors:** [wpstoreio](https://profiles.wordpress.org/wpstoreio), [cfoellmann](https://profiles.wordpress.org/cfoellmann), [MadtownLems](https://profiles.wordpress.org/MadtownLems)  
 **Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage  
 **Requires at least:** 3.8  
-**Tested up to:** 4.8.1  
+**Tested up to:** 4.9.1  
 **Requires PHP:** 5.3  
-**Stable tag:** 2.4.0-dev  
+**Stable tag:** 2.4.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -12,24 +12,26 @@ Gives network admins an easy way to see what plugins are actively used on the si
 
 ## Description ##
 
+> The plugin is deprecated and reaches a hard end-of-life date on 31. January 2018!
+
+### Alternative ###
+You should switch to [Multisite Enhancements](https://wordpress.org/plugins/multisite-enhancements/). It provides the same functionality and is actively maintained.
+
+---------------
+
 This plugin gives you a count and the listing of sites using your installed plugins.
 
 Usage data is cached in a Transient (non-autoloading) but the data collection process can be a very expensive operation depending on plugin and (especially) site count.
 Check the [FAQ](https://wordpress.org/plugins/wpmu-plugin-stats/faq/ "Frequently Asked Questions") for more details on caching.
 
-### Requirements ###
 * __Requires a WordPress Multisite Installation__
-* JavaScript needs to be enabled to see the list of sites using a plugin
+* JavaScript is required to toggle the list of sites using a plugin
 
-### Other Multisite Plugins ###
-* [WPMU Theme Usage Info](https://wordpress.org/plugins/wpmu-theme-usage-info/)
-* [WPMU Plugin Manager](https://wordpress.org/plugins/wpmu-plugin-manager/)
 
 ### Development ###
+> The plugin has reached its end-of-life. No updates and/or support after 2018-01-31
 
-* GitHub Repository: [wpmu-plugin-stats](https://github.com/WPStore/wpmu-plugin-stats)
-* Issue-Tracker: [GitHub Issue Tracker](https://github.com/WPStore/wpmu-plugin-stats/issues) **Please use the Issue-Tracker at GitHub!!**
-* Translation: [https://translate.wordpress.org/projects/wp-plugins/wpmu-plugin-stats](https://translate.wordpress.org/projects/wp-plugins/wpmu-plugin-stats)
+* GitHub Repository: [wpmu-plugin-stats](https://github.com/wp-repository/wpmu-plugin-stats)
 
 ## Installation ##
 
@@ -66,6 +68,12 @@ When you update to version >2.0 the plugin gets deactivated automatically.
 You need to reactivate by clicking "Network Activate". No data is lost.
 
 ## Changelog ##
+### 3.0 (2018-01-31) ###
+ * END of LIFE
+
+### 2.4 (2017-11-30) ###
+ * Display deprecation notice
+ * Set end-of-life to 2018-01-31
 
 ### 2.3 (2017-09-12) ###
  * FIX javascript error causing UI issues (props @LafColITS)
@@ -81,7 +89,7 @@ You need to reactivate by clicking "Network Activate". No data is lost.
 
 ### 2.0 ###
  * added some hooks
-** * testing for WP 3.8+ (Trunk:** 3.9-alpha)  
+ * testing for WP 3.8+ (Trunk: 3.9-alpha)
  * removal of build tests for now
  * removed support for all external plugins for now
  * added cleanup of settings on removal (via uninstall.php)

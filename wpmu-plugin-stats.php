@@ -4,13 +4,13 @@
  * @copyright Copyright (c) 2017 WPStore.io (http://www.wpstore.io)
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package   WPStore\Plugins\WPMU_Plugin_Stats
- * @version   2.4.0-dev
+ * @version   2.4.0
  */
 /*
 Plugin Name: WPMU Plugin Stats
 Plugin URI:  https://wordpress.org/plugins/wpmu-plugin-stats/
 Description: Gives network admins an easy way to see what plugins are actively used on the sites of a multisite installation
-Version:     2.4.0-dev
+Version:     2.4.0
 Author:      WPStore.io
 Author URI:  https://www.wpstore.io
 Donate link: https://www.wpstore.io/donate
@@ -62,7 +62,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @var string $version
 	 */
-	public $version = '2.4.0-dev';
+	public $version = '2.4.0';
 
 	/**
 	 * Constructor
@@ -112,6 +112,7 @@ class WPMU_Plugin_Stats {
 		if ( null === $instance ) {
 			$instance = new WPMU_Plugin_Stats;
 			$instance->setup_actions();
+			$instance->replacement();
 		}
 
 		// Always return the instance
@@ -328,6 +329,54 @@ class WPMU_Plugin_Stats {
 		delete_site_option( 'cets_plugin_stats_data_freshness' );
 
 	} // END activation()
+
+	public function replacement() {
+		add_action( 'network_admin_notices', array( $this, 'notice' ) );
+	}
+
+	public function notice() {
+		if ( self::replacement_active() ) {
+			$plugin_link = self_admin_url( 'plugins.php?s=WPMU+Plugin+Stats&plugin_status=all' );
+			?>
+            <div class="notice notice-info">
+                <p>
+                    <code>Multisite Enhancements</code> is active. You can now remove <b>WPMU Plugin Stats</b>. <a href="<?php echo $plugin_link; ?>">Goto Plugins</a>
+                </p>
+            </div>
+			<?php
+			return;
+		}
+		global $pagenow;
+		if ( 'plugins.php' == $pagenow ) {
+			$plugin_name  = 'Multisite Enhancements';
+			$details_link = self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=multisite-enhancements&amp;TB_iframe=true&amp;width=600&amp;height=600' );
+			$link         = '<a href="' . esc_url( $details_link ) . '" class="thickbox open-plugin-details-modal" aria-label="' . esc_attr( sprintf( __( 'More information about %s' ), $plugin_name ) ) . '" data-title="' . esc_attr( $plugin_name ) . '">' . $plugin_name . '</a>';
+			?>
+            <div class="notice notice-info">
+                <p><b>WPMU Plugin Stats</b> is deprecated and will remove all functionality with version 3.0 (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.01.2018' ) ); ?>)!</p>
+                <p>You should switch to <?php echo $link; ?>. Version 3 of <b>WPMU Plugin Stats</b> will be this notice only.</p>
+            </div>
+			<?php
+			return;
+		}
+		$themes_page = network_admin_url( 'plugins.php' );
+		?>
+        <div class="notice notice-info">
+            <p><b>WPMU Plugin Stats</b> is deprecated and will remove all functionality with version 3.0 (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.01.2018' ) ); ?>)! Go to <a href="<?php echo $themes_page; ?>"><?php _e( 'Installed Plugins' ); ?></a> for
+                more details.</p>
+        </div>
+		<?php
+	}
+
+	public static function replacement_active() {
+
+		if ( class_exists( 'Multisite_Add_Plugin_List' ) ) {
+			return true;
+		}
+
+		return false;
+
+	}
 
 } // END class WPMU_Plugin_Stats
 
