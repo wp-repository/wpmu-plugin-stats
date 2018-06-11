@@ -22,7 +22,7 @@ module.exports = function( grunt ) {
 		clean: {
 			main: ['build/<%= pkg.name %>']
 		},
-		
+
 		// Copy the plugin to a versioned release directory
 		copy: {
 			main: {
@@ -64,7 +64,7 @@ module.exports = function( grunt ) {
 				}]
 			}
 		},
-		
+
 		// Create zip package
 		compress: {
 			main: {
