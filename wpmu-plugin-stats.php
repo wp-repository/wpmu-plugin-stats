@@ -4,13 +4,13 @@
  * @copyright Copyright (c) 2014 - 2018 Christian Foellmann (http://christian.foellmann.de)
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package   WP-Repository\WPMU_Theme_Usage_Info
- * @version   3.0.0
+ * @version   3.0.1
  */
 /*
 Plugin Name: WPMU Plugin Stats
 Plugin URI:  https://wordpress.org/plugins/wpmu-plugin-stats/
 Description: Gives network admins an easy way to see what plugins are actively used on the sites of a multisite installation
-Version:     3.0.0
+Version:     3.0.1
 Author:      Christian Foellmann & Jason Lemahieu
 License:     GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -57,7 +57,7 @@ class WPMU_Plugin_Stats {
 	 *
 	 * @var string $version
 	 */
-	public $version = '3.0.0';
+	public $version = '3.0.1';
 
 	/**
 	 * Constructor
@@ -91,16 +91,16 @@ class WPMU_Plugin_Stats {
 			$link         = '<a href="' . esc_url( $details_link ) . '" class="thickbox open-plugin-details-modal" aria-label="' . esc_attr( sprintf( __( 'More information about %s' ), $plugin_name ) ) . '" data-title="' . esc_attr( $plugin_name ) . '">' . $plugin_name . '</a>';
 			?>
             <div class="notice notice-info">
-                <p><b>WPMU Plugin Stats</b> has reached its end-of-life date (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.01.2018' ) ); ?>)! No updates and/or support is available.</p>
+                <p><b>WPMU Plugin Stats</b> has reached its end-of-life date (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.07.2018' ) ); ?>)! No updates and/or support is available.</p>
                 <p>You should switch to <?php echo $link; ?>. Version 3 of <b>WPMU Plugin Stats</b> will be this notice only.</p>
             </div>
 			<?php
 			return;
 		}
-		$themes_page = network_admin_url( 'plugins.php' );
+		$plugin_page = network_admin_url( 'plugins.php' );
 		?>
         <div class="notice notice-info">
-            <p><b>WPMU Plugin Stats</b> has reached its end-of-life date (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.01.2018' ) ); ?>)! Go to <a href="<?php echo $themes_page; ?>"><?php _e( 'Installed Themes' ); ?></a> for
+            <p><b>WPMU Plugin Stats</b> has reached its end-of-life date (<?php echo date_i18n( get_option( 'date_format' ), strtotime( '31.01.2018' ) ); ?>)! Go to <a href="<?php echo $plugin_page; ?>"><?php _e( 'Installed Themes' ); ?></a> for
                 more details.</p>
         </div>
 		<?php

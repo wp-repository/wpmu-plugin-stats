@@ -1,12 +1,12 @@
 # WPMU Plugin Stats #
-**Contributors:** [cfoellmann](https://profiles.wordpress.org/cfoellmann), [MadtownLems](https://profiles.wordpress.org/MadtownLems)  
-**Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage  
-**Requires at least:** 3.8  
-**Tested up to:** 4.9.6  
-**Requires PHP:** 5.3  
-**Stable tag:** 3.0.0  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
+**Contributors:** [cfoellmann](https://profiles.wordpress.org/cfoellmann), [MadtownLems](https://profiles.wordpress.org/MadtownLems)
+**Tags:** WPMU, Wordpress Mu, Wordpress Multiuser, Plugin Stats , multisite, network, stats, usage
+**Requires at least:** 3.8
+**Tested up to:** 4.9.6
+**Requires PHP:** 5.3
+**Stable tag:** 3.0.1
+**License:** GPLv2 or later
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 Gives network admins an easy way to see what plugins are actively used on the sites of a multisite installation
 
